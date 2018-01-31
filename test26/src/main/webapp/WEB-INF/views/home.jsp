@@ -7,11 +7,11 @@
 </head>
 <body>
 <ul>
-	<li><a href="/idol/idolList">아이돌 목록</a></li>
-	<li><a href="/idol/idolList">아이돌 목록</a></li>
-	<li><a href="/idol/idolList">아이돌 목록</a></li>
-	<li><a href="/idol/idolList">아이돌 목록</a></li>
-	<li><a href="/idol/idolList">아이돌 목록</a></li>
+	<li><a href="./bookList">bookList</a></li>
+	<li><a href="./cityList">cityList</a></li>
+	<li><a href="./idolList">idolList</a></li>
+	<li><a href="./countryList">countryList</a></li>
+	<li><a href="./movieList">movieList</a></li>
 </ul>
 
 <P>  The time on the server is ${serverTime}. </P>
