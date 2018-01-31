@@ -14,10 +14,10 @@ import ksmart.project.test26.service.BookDao;
 public class BookController{
 	@Autowired
 	private BookDao bookdao;
-	@RequestMapping(value="bookList.do")
+	@RequestMapping(value="/book/bookList")
 	public String bookList(Model model) {
 		List<Book> list = bookdao.selectBookList();
 		model.addAttribute("list",list);
-		return "bookList";
+		return "book/bookList";
 	}
 }

@@ -14,10 +14,10 @@ import ksmart.project.test26.service.CityDao;
 public class CityController{
 	@Autowired
 	private CityDao citydao;
-	@RequestMapping(value="cityList.do")
+	@RequestMapping(value="/city/cityList")
 	public String cityList(Model model) {
 		List<City> list = citydao.selectCityList();
 		model.addAttribute("list",list);
-		return "cityList";
+		return "city/cityList";
 	}
 }

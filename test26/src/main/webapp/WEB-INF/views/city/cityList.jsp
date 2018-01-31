@@ -8,26 +8,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>book list</h2>
+<h2>city list</h2>
 	목록 크기 : ${list.size()}
 <table border=1>
 	<thead>
 		<tr>
-			<th>book_id</th>
-			<th>book_name</th>
+			<th>city_id</th>
+			<th>city_name</th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="book" items="${list}">
+		<c:forEach var="city" items="${list}">
 		<tr>
-			<td>${book.book_id }</td>
-			<td>${book.book_name }</td>
+			<td>${city.city_id }</td>
+			<td>${city.city_name }</td>
 		</tr>
 		</c:forEach>
 	</tbody>
 </table>
 
-
+<a href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
 
 
 </body>
