@@ -14,10 +14,10 @@ import ksmart.project.test26.service.MovieDao;
 public class MovieController {
 	@Autowired
 	private MovieDao movieDao;
-	@RequestMapping
+	@RequestMapping(value="/movie/movieList")
 	public String movieList(Model model) {
 		List<Movie> list = movieDao.selectMovieList();
 		model.addAttribute("list", list);
-		return "movieList";
+		return "movie/movieList";
 	}
 }
