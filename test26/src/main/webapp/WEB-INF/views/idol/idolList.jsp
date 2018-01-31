@@ -9,11 +9,26 @@
 <body>
 	<h2>아이돌 리스트</h2>
 	top : ${list.size()}
-	<div>
+<table border=1>
+	<thead>
+		<tr>
+			<th>idolId</th>
+			<th>idolName</th>
+		</tr>
+	</thead>
+	<tbody>
 		<c:forEach var="I" items="${list}">
-			<div>${I.idolId}</div>
-			<div>${I.idolName}</div>
+		<tr>
+			<td>${I.idolId }</td>
+			<td>${I.idolName }</td>
+		</tr>
 		</c:forEach>
-	</div>
-</body>
-</html>
+	</tbody>
+</table>
+
+
+
+
+
+
+
