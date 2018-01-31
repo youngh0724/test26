@@ -14,11 +14,11 @@ import ksmart.project.test26.service.CountryDao;
 public class CountryController {
 	@Autowired
 	private CountryDao countryDao;
-	@RequestMapping(value="countryList")
+	@RequestMapping(value="/country/countryList")
 	public String countryList(Model model) {
 		
 		List<Country> list = countryDao.selectCountryList();
 		model.addAttribute("list", list);
-		return "countryList";
+		return "country/countryList";
 	}
 }
