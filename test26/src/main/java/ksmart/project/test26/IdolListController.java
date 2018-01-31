@@ -14,11 +14,11 @@ import ksmart.project.test26.service.IdolDao;
 public class IdolListController {
 	@Autowired
 	private IdolDao idolDao;
-	@RequestMapping(value="idolList")
+	@RequestMapping(value="/idol/idolList")
 	public String idolList(Model model) {
 		List<Idol> list = idolDao.selectIdolList();
 		model.addAttribute("list",list);
-		return "idolList";
+		return "idol/idolList";
 		
 	}
 	
