@@ -15,13 +15,17 @@
 		<tr>
 			<th>city_id</th>
 			<th>city_name</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="city" items="${list}">
 		<tr>
-			<td>${city.city_id }</td>
-			<td>${city.city_name }</td>
+			<td>${city.cityId }</td>
+			<td>${city.cityName }</td>
+			<td><a href="${pageContext.request.contextPath}/city/updateCity?cityId=${city.cityId}">수정</a>
+			<td><a href="${pageContext.request.contextPath}/city/deleteCity?cityId=${city.cityId}">삭제</a>
 		</tr>
 		</c:forEach>
 	</tbody>
