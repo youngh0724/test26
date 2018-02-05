@@ -49,4 +49,11 @@ public class MovieController {
 		model.addAttribute("movie",movie);
 		return "movie/updateMovie";
 	}
+	//영화 삭제 요청
+	@RequestMapping(value="movie/deleteMovie", method = RequestMethod.GET)
+	   public String bookDelete(@RequestParam(value="movieId", required=true) int movieId) {
+	      movieDao.deleteMovie(movieId);
+	      return "redirect:/movie/movieList";
+	}
+
 }
