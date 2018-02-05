@@ -38,10 +38,19 @@ public class IdolController {
 	// 아이돌 수정화면 요청
 	@RequestMapping(value="/idol/idolModify", method = RequestMethod.GET)
 	public String idolModify(Model model, @RequestParam(value="idolId", required=true) int idolId) {
-		System.out.println(idolId +"<--IdoController idolModify 아이돌No");
+		System.out.println(idolId +"<--IdoController idolModify 아이돌아이디값 가져오기");
 		Idol idol = idolDao.getIdol(idolId);
 		model.addAttribute("Idol", idol);
 		return "/idol/idolModify";
 	}
+	// 아이돌 수정처리 요청
+	@RequestMapping(value="/idol/idolModify", method = RequestMethod.POST)
+	public String idolModify(Idol idol) {
+		System.out.println(idol.getIdolId() +"<-- IdolController idolModify 아이돌아이디처리");
+		
+		idolDao.updateIdol(idol);
+		return "redirect:/idol/idolList";
+	}
+	
 	
 }

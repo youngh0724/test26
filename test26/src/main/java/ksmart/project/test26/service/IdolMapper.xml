@@ -24,10 +24,11 @@
 	<select id="selectListId" resultType="ksmart.project.test26.service.Idol">
 		SELECT
 		idol_name as idolName
+		,idol_id as idolId
 		 FROM idol WHERE idol_id=#{idolId}
 	</select>
 	<!-- 아이돌 수정하기 -->
-	<update id="updateIdol" parameterType="ksmart.project.test26.service.Idol">
+	<update id="IdolUpdate" parameterType="ksmart.project.test26.service.Idol">
 		UPDATE idol
 		SET idol_name = #{idolName}
 		WHERE idol_id = #{idolId}

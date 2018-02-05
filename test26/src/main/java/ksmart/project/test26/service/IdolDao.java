@@ -26,6 +26,7 @@ public class IdolDao {
 	}
 	//아이돌 업데이트
 	public int updateIdol(Idol idol) {
-		return sqlSessionTemplate.insert(nameSpace + "updateIdol", idol);
+		System.out.println(idol +"<-- idolDao 아이돌업데이트 ");
+		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
 }
