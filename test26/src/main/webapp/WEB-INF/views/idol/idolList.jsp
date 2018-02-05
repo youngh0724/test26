@@ -25,6 +25,8 @@
 		</c:forEach>
 	</tbody>
 </table>
+	<a href="${pageContext.request.contextPath}/idol/idolInsert">등록</a>
+	<a href="#">삭제</a>
 
 
 

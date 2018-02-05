@@ -3,6 +3,7 @@ package ksmart.project.test26.service;
 public class Idol {
 	private int idolId;
 	private String idolName;
+	
 	public int getIdolId() {
 		return idolId;
 	}

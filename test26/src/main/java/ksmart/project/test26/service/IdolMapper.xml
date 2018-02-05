@@ -11,4 +11,13 @@
 			,idol_name as idolName
 		FROM idol;
 	</select>
+	
+	<insert id="insertIdol" parameterType="ksmart.project.test26.service.Idol">
+		INSERT INTO idol(
+			idol_name
+			)
+			VALUES(
+			#{idolName}
+		)
+	</insert>
 </mapper>

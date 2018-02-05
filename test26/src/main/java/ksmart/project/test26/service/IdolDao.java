@@ -8,9 +8,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class IdolDao {
+	private final String nameSpace = "ksmart.project.test26.service.IdolMapper.";
 	@Autowired
-	private SqlSessionTemplate sst;
+	private SqlSessionTemplate sqlSessionTemplate;
 	public List<Idol> selectIdolList(){
-		return sst.selectList("ksmart.project.test26.service.IdolMapper.selectIdolList");
+		return sqlSessionTemplate.selectList(nameSpace +"selectIdolList");
+	}
+	public int insertIdol(Idol idol) {
+		return sqlSessionTemplate.insert(nameSpace + "insertIdol", idol );
 	}
 }
