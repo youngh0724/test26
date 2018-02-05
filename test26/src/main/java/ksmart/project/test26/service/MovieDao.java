@@ -9,10 +9,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MovieDao {
 	@Autowired
-	private SqlSessionTemplate sst;
+	private SqlSessionTemplate sqlSessionTemplate;
+	private final String mapperRoot = "ksmart.project.test26.service.MovieMapper.";
 	public List<Movie> selectMovieList(){
-		return sst.selectList("ksmart.project.test26.service.MovieMapper.selectMovieList");
+		return sqlSessionTemplate.selectList(mapperRoot+"selectMovieList");
 	}
 	
+	public int insertMovie(Movie movie) {
+		return sqlSessionTemplate.insert(mapperRoot+"insertMovie", movie);
+	}
+	public Movie getMovie(int movieId) {
+		return sqlSessionTemplate.selectOne(mapperRoot+"selectMovie", movieId);
+	}
 
+	public int updateMovie(Movie movie) {
+		return sqlSessionTemplate.update(mapperRoot+"updateMovie", movie);
+	}
 }

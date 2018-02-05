@@ -17,6 +17,7 @@
 			<th>movie_id</th>
 			<th>movie_name</th>
 			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,7 +25,8 @@
 		<tr>
 			<td>${movie.movieId}</td>
 			<td>${movie.movieName}</td>
-			<td><a href="${pageContext.request.contextPath}/movie/updateMovie">수정</a>
+			<td><a href="${pageContext.request.contextPath}/movie/updateMovie?movieId=${movie.movieId}">수정</a>
+			<td><a href="${pageContext.request.contextPath}/movie/deleteMovie?movieId=${movie.movieId}">삭제</a>
 		</tr>
 		</c:forEach>
 	</tbody>

@@ -23,6 +23,16 @@
 		#{movieName}
 		)			
 	</insert>
+<!-- 영화 한개 선택하기 -->
+	<select id="selectMovie"
+			parameterType="int"
+			resultType="ksmart.project.test26.service.Movie">
+		SELECT
+			movie_id as movieId
+			,movie_name as movieName
+		FROM movie
+		WHERE movie_id = #{movieId}			
+	</select>
 <!-- 영화 수정 하기 -->
 	<update id="updateMovie"
 			parameterType="ksmart.project.test26.service.Movie">
