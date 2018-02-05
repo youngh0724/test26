@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="ksmart.project.test26.service.MovieMapper">
-
+<!-- 영화 전체 list 출력 -->
 	<select id="selectMovieList"
 			resultType="ksmart.project.test26.service.Movie">
 		SELECT 
@@ -13,4 +13,27 @@
 			,movie_name as name
 		FROM movie;
 	</select>
+<!-- 영화 목록 추가 하기 -->	
+	<insert id="insertMovie"
+			parameterType="ksmart.project.test26.service.Movie">
+		INSERT INTO movie(
+		movie_name
+		)
+		VALUES(
+		#{movieName}
+		)			
+	</insert>
+<!-- 영화 수정 하기 -->
+	<update id="updateMovie"
+			parameterType="ksmart.project.test26.service.Movie">
+		UPDATE movie
+			SET movie_name = #{movieName}
+		WHERE movie_id = #{movieId}		
+	</update>
+<!-- 영화 삭제 하기 -->
+	<delete id="deleteMovie"
+			parameterType="ksmart.project.test26.service.Movie">
+		DELETE FROM movie
+		WHERE movie_id = #{movieId}				
+	</delete>
 </mapper>
