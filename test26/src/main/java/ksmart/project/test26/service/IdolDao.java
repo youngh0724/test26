@@ -29,4 +29,10 @@ public class IdolDao {
 		System.out.println(idol +"<-- idolDao 아이돌업데이트 ");
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
+	//아이돌 삭제
+	public int deleteIdol(int idolId) {
+		return sqlSessionTemplate.delete(nameSpace+ "deleteIdol", idolId);
+	}
+	
+	
 }
