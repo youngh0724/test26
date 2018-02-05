@@ -1,23 +1,24 @@
 package ksmart.project.test26.service;
 
 public class Movie {
-	private int movie_id;
-	private String movie_name;
-	public int getMovie_id() {
-		return movie_id;
+	private int movieId;
+	private String movieName;
+	
+	public int getMovieId() {
+		return movieId;
 	}
-	public void setMovie_id(int movie_id) {
-		this.movie_id = movie_id;
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
 	}
-	public String getMovie_name() {
-		return movie_name;
+	public String getMovieName() {
+		return movieName;
 	}
-	public void setMovie_name(String movie_name) {
-		this.movie_name = movie_name;
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
 	}
 	@Override
 	public String toString() {
-		return "Movie [movie_id=" + movie_id + ", movie_name=" + movie_name + "]";
-	}	
-
+		return "Movie [movieId=" + movieId + ", movieName=" + movieName + "]";
+	}
+	
 }

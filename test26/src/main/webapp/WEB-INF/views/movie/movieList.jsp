@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,12 +10,28 @@
 
 	<h2>Movie list</h2>
 	목록 크기 : ${list.size()}
-	<div>
-		<c:forEach var="m" items="${list}">
-			<div>${m.id}</div>
-			<div>${m.name}</div>
+
+	<table border=1>
+	<thead>
+		<tr>
+			<th>movie_id</th>
+			<th>movie_name</th>
+			<th>수정</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="movie" items="${list}">
+		<tr>
+			<td>${movie.movieId}</td>
+			<td>${movie.movieName}</td>
+			<td><a href="${pageContext.request.contextPath}/movie/updateMovie">수정</a>
+		</tr>
 		</c:forEach>
-	</div>
+	</tbody>
+</table>
+
+<a href="${pageContext.request.contextPath}/movie/insertMovie">영화 추가</a>
+
 
 </body>
 </html>

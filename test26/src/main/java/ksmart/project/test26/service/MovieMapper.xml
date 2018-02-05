@@ -9,8 +9,8 @@
 	<select id="selectMovieList"
 			resultType="ksmart.project.test26.service.Movie">
 		SELECT 
-			movie_id as id
-			,movie_name as name
+			movie_id as movieId
+			,movie_name as movieName
 		FROM movie;
 	</select>
 <!-- 영화 목록 추가 하기 -->	
