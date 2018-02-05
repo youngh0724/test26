@@ -11,8 +11,10 @@
 <h3>아이돌 등록</h3>
 <form action="${pageContext.request.contextPath}/idol/idolInsert" method="post">
 	<table border="1">
+		<tr>
 		<td>아이돌 이름</td>
 		<td><input type="text" name="idolName"></td>
+		</tr>
 	</table>
 	<input Type="submit" value="등록">
 </form>

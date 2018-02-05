@@ -14,6 +14,8 @@
 		<tr>
 			<th>idolId</th>
 			<th>idolName</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,12 +23,13 @@
 		<tr>
 			<td>${I.idolId }</td>
 			<td>${I.idolName }</td>
+		<td><a href="${pageContext.request.contextPath}/idol/idolModify?idolId=${I.idolId}">수정</a></td>
+		<td><a href="${pageContext.request.contextPath}/idol/idolModify?idolId=${I.idolId}">삭제</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>
 </table>
 	<a href="${pageContext.request.contextPath}/idol/idolInsert">등록</a>
-	<a href="#">삭제</a>
 
 
 
