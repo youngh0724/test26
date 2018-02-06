@@ -22,7 +22,7 @@
 		<td><input type="text" name="idolName"></td>
 		</tr>
 	</table>
-	<input Type="submit" value="등록">
+	<input Type="submit" value="추가">
 </form>
 </div>
 </div>

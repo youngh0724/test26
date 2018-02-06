@@ -21,7 +21,7 @@
          <td><input name="city_name" type="text"/></td>
       </tr>
    </table>
-   <input type="submit" value="추가버튼">
+   <input type="submit" value="추가">
 </form>
 </div>
 </div>

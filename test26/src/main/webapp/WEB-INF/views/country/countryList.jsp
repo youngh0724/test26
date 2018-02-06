@@ -43,7 +43,7 @@
 		</div>
 
 		<a class="btn btn-default"
-			href="${pageContext.request.contextPath}/country/countryInsert">국가명
+			href="${pageContext.request.contextPath}/country/countryInsert">국가
 			추가</a> <a class="btn btn-default"
 			href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
 	</div>

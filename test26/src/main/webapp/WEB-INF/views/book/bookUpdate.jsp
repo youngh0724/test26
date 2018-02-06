@@ -24,7 +24,7 @@
             <td><input type="text" name="book_name" value="${book.book_name }"></td>
          </tr>
       </table>
-      <input type="submit" value="수정버튼">
+      <input type="submit" value="수정">
    </form>
      
  </div>

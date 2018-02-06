@@ -24,7 +24,7 @@
             <td><input type="text" name="city_name" value="${city.city_name }"></td>
          </tr>
       </table>
-      <input type="submit" value="수정버튼">
+      <input type="submit" value="수정">
    </form>
      
  </div>

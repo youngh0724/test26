@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- Bootstrap css -->
   <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
@@ -48,10 +48,25 @@
                   
                 </ul>
                 <!-- 로그인버튼 시작 -->
+                <c:set var="login" value="${loginMember}"></c:set>
+              <c:if test="${empty login}">
                 <form class="navbar-form navbar-right">
                  <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/login">login</a>
                 </form>
+                </c:if>
                 <!-- 로그인버튼 끝 -->
+                
+                <!-- 로그아웃 버튼 시작 -->
+              <c:set var="login" value="${loginMember}"></c:set>
+              <c:if test="${!empty login}">
+              <form class="navbar-form navbar-right">
+               <span class="username">${loginMember.memberId }</span> 
+              
+               <a class="btn btn-primary" href="">logout</a>
+               </form> 
+        	 </c:if>
+        	 <!-- 로그아웃 버튼 끝 -->
+                
               </div>
               <!-- /.navbar-collapse -->
             </nav>

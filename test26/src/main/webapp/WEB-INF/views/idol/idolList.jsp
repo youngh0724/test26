@@ -40,7 +40,7 @@
 				</table>
 			</div>
 		</div>
-		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 이름 추가</a> 
+		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 추가</a> 
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/">메인홈 리스트</a>
 	</div>
 	<!-- Main Scripts-->

@@ -24,7 +24,7 @@
 				<td><input id="countryName" name="countryName" type="text"/></td>
 			</tr>
 		</table>
-		<input id="update" type="button" value="입력">
+		<input id="update" type="button" value="추가">
 	</form>
 	<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
 	
