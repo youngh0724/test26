@@ -9,10 +9,15 @@
 
 </head>
 <body>
-<h1>movie add</h1>
 
+<div class="container">
+<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
+
+<h1>movie add</h1>
+<div class="row">
+          <div class="col-sm-6 col-lg-6">
 	<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/insertMovie" method="post">
-		<table border=1>
+		<table class="table table-striped" data-effect="fade">
 			<thead>
 				<tr>
 					<th>movie_name</th>
@@ -34,5 +39,16 @@
 	    
 	});
 	</script>
+	</div>
+	</div>
 </body>
+<!-- Main Scripts-->
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap 3 has typeahead optionally -->
+  <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
+
+<jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
+
 </html>

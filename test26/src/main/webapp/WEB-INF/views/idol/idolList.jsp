@@ -4,13 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Bootstrap css -->
-<link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css"
-	rel="stylesheet">
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -46,7 +40,7 @@
 				</table>
 			</div>
 		</div>
-		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">등록</a> 
+		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 이름 추가</a> 
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/">메인홈 리스트</a>
 	</div>
 	<!-- Main Scripts-->

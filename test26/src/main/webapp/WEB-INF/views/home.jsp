@@ -4,10 +4,6 @@
 
 <html>
 <head>
- <!-- Bootstrap css -->
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
-
 	<title>Home</title>
 	
 </head>
@@ -35,7 +31,7 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/심쿵고양이.jpg">
+                  <img alt="avator" src="resources/image/heartcat.jpg">
                   <div class="caption">
                     <h3>박범진</h3>
                     <p>나이 : 29살</p>
@@ -48,7 +44,7 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/유민상.jpg">
+                  <img alt="avator" src="resources/image/minsang.jpg">
                   <div class="caption">
                     <h3>안준철</h3>
                     <p>나이 : 35살</p>
@@ -61,7 +57,7 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/라이언.png">
+                  <img alt="avator" src="resources/image/Ryan.jpg">
                   <div class="caption">
                     <h3>이영현</h3>
                     <p>나이 : 29</p>

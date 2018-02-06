@@ -5,10 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <!-- Bootstrap css -->
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
-
 <title>Insert title here</title>
 </head>
 <body>
@@ -46,7 +42,7 @@
           </div>
          
       <a class="btn btn-default"
-         href="${pageContext.request.contextPath}/movie/insertMovie">책 추가</a> 
+         href="${pageContext.request.contextPath}/movie/insertMovie">영화 추가</a> 
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
     </div>

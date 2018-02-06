@@ -6,10 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<h2>book Update</h2>
 
+<div class="container">
+<jsp:include page ="/WEB-INF/views/module/top.jsp"/>
+
+<h2>book Update</h2>
+<div class="row">
+          <div class="col-sm-6 col-lg-6">
       <form action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
-      <table border=1>
+      <table class="table table-striped" data-effect="fade">
          <tr>
             <td>book_id</td>
             <td><input type="text" name="book_id" value="${book.book_id }" readonly="readonly"></td>
@@ -21,10 +26,20 @@
       </table>
       <input type="submit" value="수정버튼">
    </form>
-      <div>
-         <a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">메인 홈 리스트</button></a>
-      </div>
- 
+     
+ </div>
+ </div>
 
 </body>
+
+<!-- Main Scripts-->
+  <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+  <!-- Bootstrap 3 has typeahead optionally -->
+  <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
+
+</html>
+<jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
+
 </html>
