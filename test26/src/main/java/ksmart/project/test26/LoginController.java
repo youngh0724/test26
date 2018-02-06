@@ -26,7 +26,7 @@ public class LoginController {
 		
 		member = loginDao.loginCheck(member);
 		if (member == null) {
-			System.out.println("로그인실패");
+			
 		} else {
 			session.setAttribute("loginMember", member);
 			flag = "redirect:/";
@@ -34,5 +34,9 @@ public class LoginController {
 		
 		return flag;
 	}
-	
+	@RequestMapping(value="/login/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 }

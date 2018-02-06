@@ -62,7 +62,7 @@
               <form class="navbar-form navbar-right">
                <span class="username">${loginMember.memberId }</span> 
               
-               <a class="btn btn-primary" href="">logout</a>
+               <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/logout">logout</a>
                </form> 
         	 </c:if>
         	 <!-- 로그아웃 버튼 끝 -->
