@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <!-- Bootstrap css -->
+  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
+  
 <div class="row">
 <div class="col-sm-12 col-lg-12">
 
@@ -21,6 +26,7 @@
                 <ul class="nav navbar-nav">
                  <!-- <li><a href="#">Link</a></li> 메뉴 생성 -->
                  
+                 <!-- top 메뉴 리스트 시작 -->
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">리스트 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -32,17 +38,18 @@
                       <li class="divider"></li>
                       <li><a href="${pageContext.request.contextPath}/idol/idolList">아이돌 리스트</a></li>
                       <li class="divider"></li>
-                      <li><a href="${pageContext.request.contextPath}/movie/movieList">영화 리스트</a></li>
-                      
-                      <li></li>
+                      <li><a href="${pageContext.request.contextPath}/movie/movieList">영화 리스트</a></li>                      
                     </ul>
                   </li>
+                  <!-- top 메뉴 리스트 끝 -->
+                  
+                  
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                  </div>
+                <!-- 로그인버튼 시작 -->
+                <form class="navbar-form navbar-right">
+                 <a class="btn btn-primary" href="#">login</a>
                 </form>
+                <!-- 로그인버튼 끝 -->
               </div>
               <!-- /.navbar-collapse -->
             </nav>
