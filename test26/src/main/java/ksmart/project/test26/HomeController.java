@@ -27,4 +27,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/contact/contactwork", method = RequestMethod.GET)
+	public String contact() {
+		return "contact";
+	}
+	
 }

@@ -27,7 +27,7 @@
                  
                  <!-- top 메뉴 리스트 시작 -->
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">리스트 <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">List <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><a href="${pageContext.request.contextPath}/book/bookList">북 리스트</a></li>
                       <li class="divider"></li>
@@ -42,11 +42,14 @@
                   </li>
                   <!-- top 메뉴 리스트 끝 -->
                   
+                  <!-- contact 메뉴 시작 -->
+                  <li><a class="navbar-brand" href="${pageContext.request.contextPath}/contact/contactwork">Contact</a></li>
+                  <!-- contact 메뉴 끝 -->
                   
                 </ul>
                 <!-- 로그인버튼 시작 -->
                 <form class="navbar-form navbar-right">
-                 <a class="btn btn-primary" href="#">login</a>
+                 <a class="btn btn-primary" href="">login</a>
                 </form>
                 <!-- 로그인버튼 끝 -->
               </div>

@@ -81,7 +81,7 @@
             <!-- /Thumbnails container -->
           </div>
         </div>
-      </div>
+      
     
 
 
