@@ -50,7 +50,7 @@
                 <div class="thumbnail">
                   <img alt="avator" src="resources/image/유민상.jpg">
                   <div class="caption">
-                    <h3>이름</h3>
+                    <h3>안준철</h3>
                     <p>나이 : 35살</p>
                     <p>소속 : 2조</p>
                     <p>역할 : 나이 많은 형</p>
@@ -61,13 +61,13 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/RoJin.png">
+                  <img alt="avator" src="resources/image/라이언.png">
                   <div class="caption">
-                    <h3>이름</h3>
-                    <p>나이 : </p>
+                    <h3>이영현</h3>
+                    <p>나이 : 29</p>
                     <p>소속 : 2조</p>
-                    <p>역할 : </p>
-                    <p>소갯말 : </p>
+                    <p>역할 : 팀장</p>
+                    <p>소갯말 : 팀장 하기 싫었는데</p>
                     
                   </div>
                 </div>
