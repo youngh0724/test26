@@ -4,7 +4,6 @@
     <!-- Bootstrap css -->
   <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
-  
 <div class="row">
 <div class="col-sm-12 col-lg-12">
 
