@@ -13,23 +13,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
               </div>
 
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse navbar-ex2-collapse">
                 <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Link</a></li>
-                  <li><a href="#">Link</a></li>
+                 <!-- <li><a href="#">Link</a></li> 메뉴 생성 -->
+                 
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">리스트 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                      <li><a href="${pageContext.request.contextPath}/book/bookList">북 리스트</a><br></li>
-                      <li><a href="#">Another action</a></li>
+                      <li><a href="${pageContext.request.contextPath}/book/bookList">북 리스트</a></li>
                       <li class="divider"></li>
-                      <li class="dropdown-header">Dropdown header</li>
-                      <li><a href="#">Separated link</a></li>
-                      <li><a href="#">One more separated link</a></li>
+                      <li><a href="${pageContext.request.contextPath}/city/cityList">도시 리스트</a></li>
+                      <li class="divider"></li>
+                      <li><a href="${pageContext.request.contextPath}/country/countryList">국가 리스트</a></li>
+                      <li class="divider"></li>
+                      <li><a href="${pageContext.request.contextPath}/idol/idolList">아이돌 리스트</a></li>
+                      <li class="divider"></li>
+                      <li><a href="${pageContext.request.contextPath}/movie/movieList">영화 리스트</a></li>
+                      
+                      <li></li>
                     </ul>
                   </li>
                 </ul>

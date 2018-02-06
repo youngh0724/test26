@@ -4,47 +4,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.CityMapper">
-<!-- 도시 전체 list 출력 -->
-	<select id="selectCityList"
-			resultType="ksmart.project.test26.service.City">
-		SELECT 
-			city_id as cityId
-			,city_name as cityName
+<mapper namespace="ksmart.project.test26.service.CityMapper">
+	<select id="selectCityList" resultType="ksmart.project.test26.service.City">
+		SELECT
+		city_id as city_id
+		,city_name as city_name
 		FROM city;
 	</select>
-<!-- 도시 목록 추가 하기 -->	
-	<insert id="insertCity"
-			parameterType="ksmart.project.test26.service.City">
-		INSERT INTO city(
-		city_name
-		)
-		VALUES(
-		#{cityName}
-		)			
-	</insert>
-<!-- 도시 한개 선택하기 -->
-	<select id="selectCity"
-			parameterType="int"
-			resultType="ksmart.project.test26.service.City">
-		SELECT
-			city_id as cityId
-			,city_name as cityName
+
+	<!-- city selectone -->
+	<select id="selectCityOne" resultType="ksmart.project.test26.service.City"
+		parameterType="int">
+		SELECT city_id as city_id
+		,city_name as city_name
 		FROM city
-		WHERE city_id = #{cityId}			
+		where city_id = #{city_id}
 	</select>
-<!-- 도시 수정 하기 -->
-	<update id="updateCity"
-			parameterType="ksmart.project.test26.service.City">
+
+	<!-- city insert -->
+	<insert id="insertCityName" parameterType="ksmart.project.test26.service.City">
+		INSERT INTO
+		city(city_name)
+		VALUES (#{city_name})
+	</insert>
+
+	<!-- city update -->
+	<update id="updateCityName" parameterType="ksmart.project.test26.service.City">
 		UPDATE city
-			SET city_name = #{cityName}
-		WHERE city_id = #{cityId}		
+		SET
+		city_name = #{city_name}
+		WHERE city_id = #{city_id}
 	</update>
-<!-- 도시 삭제 하기 -->
-	<delete id="deleteCity"
-			parameterType="ksmart.project.test26.service.City">
+
+	<!-- city delete -->
+	<delete id="deleteCityName" parameterType="ksmart.project.test26.service.City">
 		DELETE FROM city
-		WHERE city_id = #{cityId}				
+		WHERE
+		city_id = #{city_id}
 	</delete>
-	
 </mapper>

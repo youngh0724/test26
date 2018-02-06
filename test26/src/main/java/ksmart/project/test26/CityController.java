@@ -13,47 +13,48 @@ import ksmart.project.test26.service.City;
 import ksmart.project.test26.service.CityDao;
 
 @Controller
-public class CityController {
-	@Autowired
-	private CityDao cityDao;
-	//도시 리스트 
-	@RequestMapping(value="/city/cityList")
-	public String cityList(Model model) {
-		List<City> list = cityDao.selectCityList();
-		model.addAttribute("list", list);
-		return "city/cityList";
-	}
-	//도시 추가 처리 요청
-	@RequestMapping(value="/city/insertCity", method = RequestMethod.POST)
-	public String insertCity(City city) {
-		System.out.println(city);
-		cityDao.insertCity(city);		
-		return "redirect:/city/cityList";		
-	}
-	//도시 추가 폼 요청
-	@RequestMapping(value="/city/insertCity", method = RequestMethod.GET)
-	public String insertCity() {
-		System.out.println("CityController.java insertCity() insertCity.jsp 폼으로 이동 GET 방식");
-		return "city/insertCity";
-	}
-	//도시 수정 처리 요청
-	@RequestMapping(value="/city/updateCity", method = RequestMethod.POST)
-	public String updateCity(City city) {
-		cityDao.updateCity(city);
-		return "redirect:/city/cityList";		
-	}
-	//도시 수정 폼 요청
-	@RequestMapping(value="/city/updateCity", method = RequestMethod.GET)
-	public String updateCity(Model model, @RequestParam(value="cityId", required=true) int cityId) {
-		City city = cityDao.getCity(cityId);
-		model.addAttribute("city",city);
-		return "city/updateCity";
-	}
-	//도시 삭제 요청
-	@RequestMapping(value="city/deleteCity", method = RequestMethod.GET)
-	   public String bookDelete(@RequestParam(value="cityId", required=true) int cityId) {
-	      cityDao.deleteCity(cityId);
-	      return "redirect:/city/cityList";
-	}
-
+public class CityController{
+   @Autowired
+   private CityDao citydao;
+   @RequestMapping(value="/city/cityList")
+   public String cityList(Model model) {
+      List<City> list = citydao.selectCityList();
+      model.addAttribute("list",list);
+      return "/city/cityList";
+   }
+   
+   // city/cityUpdate에서  get 방식으로 호출하여 한명 리스트 출력
+   @RequestMapping(value="/city/cityUpdate", method = RequestMethod.GET)
+   public String citySelectOne(Model model, @RequestParam(value="city_id", required=true) int city_id) {
+	   City city = citydao.getCity(city_id);
+      model.addAttribute("city", city);
+      return "/city/cityUpdate";
+   }
+   
+   // city/cityUpdate에서 post 방식으로 호출 
+   @RequestMapping(value="/city/cityUpdate", method = RequestMethod.POST)
+   public String cityUpdate(City city) {
+      citydao.updateCity(city);
+      return "redirect:/city/cityList";
+   }
+   
+   // city INSERT 입력부분
+   @RequestMapping(value="city/cityInsert", method = RequestMethod.GET)
+   public String cityInsert() {
+      return "/city/cityInsert";
+   }
+   
+   // city INSERT
+   @RequestMapping(value="/city/cityInsert", method = RequestMethod.POST)
+   public String cityInsert(City city) {
+      citydao.insertCity(city);
+      return "redirect:/city/cityList";
+   }
+   
+   // city DELETE
+   @RequestMapping(value="/city/cityDelete", method = RequestMethod.GET)
+      public String cityDelete(@RequestParam(value="city_id", required=true) int city_id) {
+         citydao.deleteCity(city_id);
+         return "redirect:/city/cityList";
+   }
 }

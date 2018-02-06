@@ -4,43 +4,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.BookMapper">
-  <select id="selectBookList"
-         resultType="ksmart.project.test26.service.Book">
-      SELECT 
-         book_id as book_id
-         ,book_name as book_name
-      FROM book;
-   </select>
-   
-   <!-- book selectone -->
-   <select id="selectBookOne" resultType="ksmart.project.test26.service.Book"
-      parameterType="int">
-      SELECT book_id as book_id
-      ,book_name as book_name
-      FROM book
-      where book_id = #{book_id}
-   </select>
+<mapper namespace="ksmart.project.test26.service.BookMapper">
+	<select id="selectBookList" resultType="ksmart.project.test26.service.Book">
+		SELECT
+		book_id as book_id
+		,book_name as book_name
+		FROM book;
+	</select>
 
-   <!-- book insert -->
-   <insert id="insertBookName" parameterType="ksmart.project.test26.service.Book">
-      INSERT INTO
-      book(book_name)
-      VALUES (#{book_name})
-   </insert>
+	<!-- book selectone -->
+	<select id="selectBookOne" resultType="ksmart.project.test26.service.Book"
+		parameterType="int">
+		SELECT book_id as book_id
+		,book_name as book_name
+		FROM book
+		where book_id = #{book_id}
+	</select>
 
-   <!-- book update -->
-   <update id="updateBookName" parameterType="ksmart.project.test26.service.Book">
-      UPDATE book
-      SET
-      book_name = #{book_name}
-      WHERE book_id = #{book_id}
-   </update>
+	<!-- book insert -->
+	<insert id="insertBookName" parameterType="ksmart.project.test26.service.Book">
+		INSERT INTO
+		book(book_name)
+		VALUES (#{book_name})
+	</insert>
 
-   <!-- book delete -->
-   <delete id="deleteBookName" parameterType="ksmart.project.test26.service.Book">
-      DELETE FROM book
-      WHERE
-      book_id = #{book_id}
-   </delete>
+	<!-- book update -->
+	<update id="updateBookName" parameterType="ksmart.project.test26.service.Book">
+		UPDATE book
+		SET
+		book_name = #{book_name}
+		WHERE book_id = #{book_id}
+	</update>
+
+	<!-- book delete -->
+	<delete id="deleteBookName" parameterType="ksmart.project.test26.service.Book">
+		DELETE FROM book
+		WHERE
+		book_id = #{book_id}
+	</delete>
 </mapper>
