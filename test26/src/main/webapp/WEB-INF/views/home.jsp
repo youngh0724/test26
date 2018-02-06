@@ -35,13 +35,13 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/RoJin.png">
+                  <img alt="avator" src="resources/image/심쿵고양이.jpg">
                   <div class="caption">
-                    <h3>이름</h3>
-                    <p>나이 : </p>
+                    <h3>박범진</h3>
+                    <p>나이 : 29살</p>
                     <p>소속 : 2조</p>
-                    <p>역할 : </p>
-                    <p>소갯말 : </p>
+                    <p>역할 : 눈팅</p>
+                    <p>소갯말 : 가즈아ㅏㅏㅏㅏ</p>
                     
                   </div>
                 </div>
