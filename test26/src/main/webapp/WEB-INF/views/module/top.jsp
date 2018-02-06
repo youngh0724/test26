@@ -49,7 +49,7 @@
                 </ul>
                 <!-- 로그인버튼 시작 -->
                 <form class="navbar-form navbar-right">
-                 <a class="btn btn-primary" href="">login</a>
+                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/login">login</a>
                 </form>
                 <!-- 로그인버튼 끝 -->
               </div>
