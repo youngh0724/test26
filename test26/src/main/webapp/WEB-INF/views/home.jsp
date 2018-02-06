@@ -48,13 +48,13 @@
               </div>
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
-                  <img alt="avator" src="resources/image/RoJin.png">
+                  <img alt="avator" src="resources/image/유민상.jpg">
                   <div class="caption">
                     <h3>이름</h3>
-                    <p>나이 : </p>
+                    <p>나이 : 35살</p>
                     <p>소속 : 2조</p>
-                    <p>역할 : </p>
-                    <p>소갯말 : </p>
+                    <p>역할 : 나이 많은 형</p>
+                    <p>소갯말 : 열심히는 핡게요 열심히만...</p>
                     
                   </div>
                 </div>
