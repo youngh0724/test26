@@ -22,7 +22,7 @@
 				<td><input type="text" name="idolName" value="${Idol.idolName}"></td>
 			</tr>
 		</table>
-		<input id="update" Type="submit" value="수정">
+		<input id="update" Type="button" value="수정">
 	</form>
 		<script>
 		$('#update').click(function(){
