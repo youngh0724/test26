@@ -60,3 +60,4 @@
 	</script>
 </body>
 </html>
+<jsp:include page ="/WEB-INF/views/module/footer.jsp"/>

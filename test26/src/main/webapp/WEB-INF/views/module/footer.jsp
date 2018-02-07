@@ -10,9 +10,10 @@
 <body>
 
 <footer>
-<div class ="navbar-fixex-bottom" style="height:100px; margin:auto">
+<div class ="navbar-fixed-bottom" style="height:30px; margin:auto; text-align:center">
 <div>CopyRight by ET</div>
 </div>
+
 </div>
 </footer>
 

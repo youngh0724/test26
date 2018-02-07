@@ -11,7 +11,7 @@
 <div class="container">
 <jsp:include page ="/WEB-INF/views/module/top.jsp"/>
 
-<div class="row">
+<div class="row" style="height:100px">
 <div class="col-sm-12 col-lg-12 " data-effect="slide-bottom">
             <p class="lead text-muted">팀원 소개</p>
             <!-- Thumbnails container -->
@@ -77,7 +77,7 @@
             <!-- /Thumbnails container -->
           </div>
         </div>
-      
+     
     
 
 
@@ -94,4 +94,5 @@
   <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
 
 </html>
+
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>

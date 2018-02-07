@@ -64,12 +64,18 @@
 				<c:set var="login" value="${loginMember}"></c:set>
 				<c:if test="${empty login}">
 				<form class="navbar-form navbar-right">
-						<a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/member/memberInsert">회원가입</a>
-					</form>
-					<form class="navbar-form navbar-right">
-						<a class="btn btn-primary"
-							href="${pageContext.request.contextPath}/login/login">로그인</a>
+						<div class="btn-group">
+							<button class="btn btn-primary  dropdown-toggle"
+								data-toggle="dropdown"> 로그인<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
+								
+								<li class="divider"></li>
+								<li><a href="">회원가입</a></li>
+							</ul>
+						</div>
+		
 					</form>
 				
 				</c:if>
