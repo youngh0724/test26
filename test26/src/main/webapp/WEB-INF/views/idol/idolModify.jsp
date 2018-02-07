@@ -22,8 +22,19 @@
 				<td><input type="text" name="idolName" value="${Idol.idolName}"></td>
 			</tr>
 		</table>
-		<input Type="submit" value="수정">
+		<input id="update" Type="submit" value="수정">
 	</form>
+		<script>
+		$('#update').click(function(){
+			if($('#idolName').val() == ''){
+				alert('아이돌 이름을 입력하세요');
+				$('#IdolName').focus();
+			}else{
+				$('form').submit();
+			}
+		})
+		
+	</script>
 	</div>
 	</div>
 </body>
