@@ -19,7 +19,7 @@
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
                   <img alt="avator" src="resources/image/RoJin.png">
-                  <div class="caption">
+                  <div class="caption" style="height:300px">
                     <h3>박로진</h3>
                     <p>나이 : 27살</p>
                     <p>소속 : 2조</p>
@@ -32,7 +32,7 @@
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
                   <img alt="avator" src="resources/image/heartcat.jpg">
-                  <div class="caption">
+                  <div class="caption" style="height:300px">
                     <h3>박범진</h3>
                     <p>나이 : 29살</p>
                     <p>소속 : 2조</p>
@@ -45,7 +45,7 @@
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
                   <img alt="avator" src="resources/image/minsang.jpg">
-                  <div class="caption">
+                  <div class="caption" style="height:300px">
                     <h3>안준철</h3>
                     <p>나이 : 35살</p>
                     <p>소속 : 2조</p>
@@ -58,7 +58,7 @@
               <div class="col-lg-3 col-sm-3 ">
                 <div class="thumbnail">
                   <img alt="avator" src="resources/image/Ryan.jpg">
-                  <div class="caption">
+                  <div class="caption" style="height:300px">
                     <h3>이영현</h3>
                     <p>나이 : 29</p>
                     <p>소속 : 2조</p>
