@@ -1,5 +1,7 @@
 package ksmart.project.test26;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,5 +27,23 @@ public class MemberController {
 	public String memberUpdate(Member member) {
 		memberDao.memberUpdate(member);
 		return "redirect:/member/memberList";
+	}
+	
+	@RequestMapping(value="/member/memberInsert", method = RequestMethod.GET)
+	public String memberInsert() {
+		return "member/memberInsertForm";
+	}
+	
+	@RequestMapping(value="/member/memberInsert", method = RequestMethod.POST)
+	public String memberInsert(Member member) {		
+		memberDao.insertMember(member);		
+		return "redirect:/login/login";
+	}
+	
+	@RequestMapping(value="/member/memberDelete", method = RequestMethod.GET)
+	public String memberDelete(@RequestParam(value="memberId", required=true) String memberId, HttpSession session) {
+		memberDao.deleteMember(memberId);
+		session.invalidate();
+		return "redirect:/";
 	}
 }

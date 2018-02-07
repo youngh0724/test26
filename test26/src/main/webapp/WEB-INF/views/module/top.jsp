@@ -65,7 +65,7 @@
 				<c:if test="${empty login}">
 				<form class="navbar-form navbar-right">
 						<a class="btn btn-primary"
-							href="">회원가입</a>
+							href="${pageContext.request.contextPath}/member/memberInsert">회원가입</a>
 					</form>
 					<form class="navbar-form navbar-right">
 						<a class="btn btn-primary"
@@ -88,7 +88,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="#">내 정보</a></li>
 								<li><a href="${pageContext.request.contextPath}/member/memberUpdate?memberNo=${loginMember.memberNo }">정보 수정</a></li>
-								<li><a href="#">기능2</a></li>
+								<li><a href="${pageContext.request.contextPath}/member/memberDelete?memberId=${loginMember.memberId }">회원탈퇴</a></li>
 								<li class="divider"></li>
 								<li><a href="${pageContext.request.contextPath}/login/logout">로그아웃</a></li>
 							</ul>
