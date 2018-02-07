@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.service.Country;
 import ksmart.project.test26.service.Idol;
 import ksmart.project.test26.service.IdolDao;
+import ksmart.project.test26.service.IdolService;
 
 @Controller
 public class IdolController {
 	@Autowired
-	private IdolDao idolDao;
+	private IdolService idolService;
 
 	// idolList
 	@RequestMapping(value = "/idol/idolList")
 	public String idolList(Model model) {
-		List<Idol> list = idolDao.selectIdolList();
+		List<Idol> list = idolService.selectIdolList();
 		model.addAttribute("list", list);
 		return "idol/idolList";
 	}
@@ -34,16 +36,16 @@ public class IdolController {
 	// idolInsert
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
 	public String idolInsrtPost(Idol idol) {
+		idolService.insertIdol(idol);
 		System.out.println(idol + "<-- idolController idolInsertPost ");
-		idolDao.insertIdol(idol);
 		return "redirect:/idol/idolList";
 	}
 
 	// idolUpdate page
 	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.GET)
 	public String idolModify(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
+		Idol idol = idolService.getIdol(idolId);
 		System.out.println(idolId + "<--IdoController idolModify ");
-		Idol idol = idolDao.getIdol(idolId);
 		model.addAttribute("Idol", idol);
 		return "/idol/idolModify";
 	}
@@ -52,15 +54,14 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.POST)
 	public String idolModify(Idol idol) {
 		System.out.println(idol.getIdolId() + "<-- IdolController idolModify ");
-
-		idolDao.updateIdol(idol);
+		idolService.IdolModify(idol);
 		return "redirect:/idol/idolList";
 	}
 
 	// idol delete
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
-		idolDao.deleteIdol(idolId);
+		idolService.deleteIdol(idolId);
 		return "redirect:/idol/idolList";
 	}
 
