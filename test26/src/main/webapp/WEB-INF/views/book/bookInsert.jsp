@@ -34,7 +34,6 @@
   <!-- Bootstrap 3 has typeahead optionally -->
   <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
 
-</html>
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
 
 </html>
