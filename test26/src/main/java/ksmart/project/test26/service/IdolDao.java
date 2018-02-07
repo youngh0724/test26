@@ -8,33 +8,34 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class IdolDao {
+	//final을 적용시킴으로써 상수화시켜 선언
 	private final String nameSpace = "ksmart.project.test26.service.IdolMapper.";
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	// idolList
+	// select 쿼리문을 실행시키고 리턴
 	public List<Idol> selectIdolList() {
 		return sqlSessionTemplate.selectList(nameSpace + "selectIdolList");
 	}
 
-	// idolInsert
+	// insert 쿼리문을 실행시키고 리턴
 	public int insertIdol(Idol idol) {
 		return sqlSessionTemplate.insert(nameSpace + "insertIdol", idol);
 	}
 
-	// idolselectOne
+	// 수정처리시 한명의 아이돌 select 쿼리문 실행시키고 리턴
 	public Idol getIdol(int idolId) {
 		System.out.println(idolId + "<-- idolDao getIdol idolNo");
 		return sqlSessionTemplate.selectOne(nameSpace + "selectListId", idolId);
 	}
 
-	// idolUpdate
+	// update 쿼리를 실행시키고 리턴
 	public int updateIdol(Idol idol) {
 		System.out.println(idol + "<-- idolDao");
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
 
-	// idoldelete
+	// delete 쿼리를 실행시키고 리턴
 	public int deleteIdol(int idolId) {
 		return sqlSessionTemplate.delete(nameSpace + "deleteIdol", idolId);
 	}

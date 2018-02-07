@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Country;
 import ksmart.project.test26.service.Idol;
-import ksmart.project.test26.service.IdolDao;
 import ksmart.project.test26.service.IdolService;
 
 @Controller
@@ -19,7 +17,7 @@ public class IdolController {
 	@Autowired
 	private IdolService idolService;
 
-	// idolList
+	// idolList.jsp 요청
 	@RequestMapping(value = "/idol/idolList")
 	public String idolList(Model model) {
 		List<Idol> list = idolService.selectIdolList();
@@ -27,13 +25,13 @@ public class IdolController {
 		return "idol/idolList";
 	}
 
-	// idol selectone
+	// 아이돌 등록화면 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.GET)
 	public String idolGet(Idol idol) {
 		return "/idol/idolInsert";
 	}
 
-	// idolInsert
+	// 아이돌 등록처리 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
 	public String idolInsrtPost(Idol idol) {
 		idolService.insertIdol(idol);
@@ -41,7 +39,7 @@ public class IdolController {
 		return "redirect:/idol/idolList";
 	}
 
-	// idolUpdate page
+	// 아이돌 수정페이지 요청
 	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.GET)
 	public String idolModify(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
 		Idol idol = idolService.getIdol(idolId);
@@ -50,7 +48,7 @@ public class IdolController {
 		return "/idol/idolModify";
 	}
 
-	// idolUpdate action
+	// 아이돌 수정처리 요청
 	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.POST)
 	public String idolModify(Idol idol) {
 		System.out.println(idol.getIdolId() + "<-- IdolController idolModify ");
@@ -58,7 +56,7 @@ public class IdolController {
 		return "redirect:/idol/idolList";
 	}
 
-	// idol delete
+	// 아이돌 삭제요청
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
 		idolService.deleteIdol(idolId);
