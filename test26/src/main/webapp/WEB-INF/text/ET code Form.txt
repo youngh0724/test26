@@ -1,0 +1,66 @@
+  E.T �ڵ� ���� ����
+
+DAO ���� -> SampleDao.java
+DAO �ڵ� -> SampleDao sampleDao = new SampleDao();
+-----------------------------------------
+�޼ҵ��(controller)
+bookSelectList
+bookUpdate
+bookDelete
+
+SampleSelectList
+SampleInsert
+SampleDelete
+SampleUpdate
+SampleSelectOneForUpdate
+
+�޼ҵ��(service)
+bookUpdateService
+----------------------------------------
+mapper id/jsp���ϸ�/(domain�� �տ� ����� �ڿ�) 
+bookInsert.jsp
+bookUpdate.jsp
+------------------
+Mapper.xml
+
+<select id=""
+	parameter=""
+	resultType="">
+SELECT 
+ movie_id AS movieId
+,movie_name AS movieName
+FROM movie
+
+INSERT INTO movie(
+ movie_name
+,movie_Id
+)
+VALUES(
+ #{movieName}
+,#{movieId}
+)		
+--------------------------
+UPDATE movie 
+SET 
+ movie_name = #{movieName}
+WHERE 
+ movie_id = #{movieId}		
+-------------------------
+DELETE FROM movie
+WHERE 
+ movie_id = #{movieId}	
+------------------------
+
+github Commit Message
+이영현
+2018-02-07
+
+* footer.jsp 생성
+	- 하단 메뉴
+
+* top.jsp 수정
+	- button 추가
+ 
+
+
+
