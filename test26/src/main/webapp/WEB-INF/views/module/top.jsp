@@ -33,21 +33,25 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown">List <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/book/bookList">북리스트</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/book/bookList">북리스트</a></li>
 							<li class="divider"></li>
-							
-							<li><a href="${pageContext.request.contextPath}/city/cityList">도시리스트</a></li>
+
+							<li><a
+								href="${pageContext.request.contextPath}/city/cityList">도시리스트</a></li>
 							<li class="divider"></li>
-							
-							<li><a href="${pageContext.request.contextPath}/country/countryList">국가리스트</a></li>
+
+							<li><a
+								href="${pageContext.request.contextPath}/country/countryList">국가리스트</a></li>
 							<li class="divider"></li>
-							
-							<li><a href="${pageContext.request.contextPath}/idol/idolList">아이돌리스트</a></li>
+
+							<li><a
+								href="${pageContext.request.contextPath}/idol/idolList">아이돌리스트</a></li>
 							<li class="divider"></li>
-							
-							<li><a href="${pageContext.request.contextPath}/movie/movieList">영화리스트</a></li>
-						</ul>
-					</li>
+
+							<li><a
+								href="${pageContext.request.contextPath}/movie/movieList">영화리스트</a></li>
+						</ul></li>
 					<!-- top 메뉴 리스트 끝 -->
 
 					<!-- contact 메뉴 시작 -->
@@ -59,9 +63,15 @@
 				<!-- 로그인버튼 시작 -->
 				<c:set var="login" value="${loginMember}"></c:set>
 				<c:if test="${empty login}">
-					<form class="navbar-form navbar-right">
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/login/login">login</a>
+				<form class="navbar-form navbar-right">
+						<a class="btn btn-primary"
+							href="">회원가입</a>
 					</form>
+					<form class="navbar-form navbar-right">
+						<a class="btn btn-primary"
+							href="${pageContext.request.contextPath}/login/login">로그인</a>
+					</form>
+				
 				</c:if>
 				<!-- 로그인버튼 끝 -->
 
@@ -69,9 +79,21 @@
 				<c:set var="login" value="${loginMember}"></c:set>
 				<c:if test="${!empty login}">
 					<form class="navbar-form navbar-right">
-						<span class="username">${loginMember.memberId }</span>
-						
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/login/logout">logout</a>
+
+						<div class="btn-group">
+							<button class="btn btn-success  dropdown-toggle username"
+								data-toggle="dropdown">${loginMember.memberId }
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">내 정보</a></li>
+								<li><a href="#">기능1</a></li>
+								<li><a href="#">기능2</a></li>
+								<li class="divider"></li>
+								<li><a href="${pageContext.request.contextPath}/login/logout">로그아웃</a></li>
+							</ul>
+						</div>
+
 					</form>
 				</c:if>
 				<!-- 로그아웃 버튼 끝 -->
