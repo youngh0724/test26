@@ -12,27 +12,27 @@ import org.springframework.ui.Model;
 public class MovieService {
 	@Autowired
 	private MovieDao movieDao;
-	//¿µÈ­ ¸®½ºÆ®
+	//ì˜í™” ë¦¬ìŠ¤íŠ¸
 	public List<Movie> movieList() {
 		List<Movie> list = movieDao.selectMovieList();		
 		return list;
 	}
-	//¿µÈ­ Ãß°¡ Ã³¸® ¿äÃ»
+	//ì˜í™” ëª©ë¡ ì¶”ê°€
 	public int insertMovie(Movie movie) {		
 		int row = movieDao.insertMovie(movie);		
 		return row;		
 	}
-	//¿µÈ­ ¼öÁ¤ Ã³¸® ¿äÃ»	
+	//ì˜í™” ëª©ë¡ í•œê°œ ì„ íƒ	
 	public Movie selectOneForUpdateMovie(int movieId) {
 		Movie movie = movieDao.getMovie(movieId);
 		return movie;		
 	}
-	//¿µÈ­ ¼öÁ¤ Æû ¿äÃ»	
+	//ì˜í™” ìˆ˜ì •	
 	public int updateMovie(Movie movie) {
 		int row = movieDao.updateMovie(movie);
 		return row;
 	}
-	//¿µÈ­ »èÁ¦ ¿äÃ»	
+	//ì˜í™” ì‚­ì œ	
 	   public int deleteMovie(int movieId) {
 	      int row = movieDao.deleteMovie(movieId);
 	      return row;

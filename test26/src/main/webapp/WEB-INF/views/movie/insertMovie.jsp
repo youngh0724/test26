@@ -32,8 +32,8 @@
 		</table>	
 		<button type="button" id="insert-btn">추가</button>
 	</form>
-	</div>
-	</div>
+		  </div>
+</div>
 	<script>
 
 	$("#insert-btn").click(function(){

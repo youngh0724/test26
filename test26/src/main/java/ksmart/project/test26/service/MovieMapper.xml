@@ -8,28 +8,26 @@
 <!-- 영화 전체 list 출력 -->
 	<select id="selectMovieList"
 			resultType="ksmart.project.test26.service.Movie">
-		SELECT 
-			movie_id as movieId
-			,movie_name as movieName
+		SELECT movie_id as movieId
+			  ,movie_name as movieName
 		FROM movie;
 	</select>
 <!-- 영화 목록 추가 하기 -->	
 	<insert id="insertMovie"
 			parameterType="ksmart.project.test26.service.Movie">
 		INSERT INTO movie(
-		movie_name
+			movie_name
 		)
 		VALUES(
-		#{movieName}
+			#{movieName}
 		)			
 	</insert>
 <!-- 영화 한개 선택하기 -->
 	<select id="selectMovie"
 			parameterType="int"
 			resultType="ksmart.project.test26.service.Movie">
-		SELECT
-			movie_id as movieId
-			,movie_name as movieName
+		SELECT movie_id as movieId
+			  ,movie_name as movieName
 		FROM movie
 		WHERE movie_id = #{movieId}			
 	</select>
@@ -37,7 +35,7 @@
 	<update id="updateMovie"
 			parameterType="ksmart.project.test26.service.Movie">
 		UPDATE movie
-			SET movie_name = #{movieName}
+		SET movie_name = #{movieName}
 		WHERE movie_id = #{movieId}		
 	</update>
 <!-- 영화 삭제 하기 -->

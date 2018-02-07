@@ -16,40 +16,40 @@ import ksmart.project.test26.service.MovieService;
 public class MovieController {
 	@Autowired
 	private MovieService movieService;
-	//¿µÈ­ ¸®½ºÆ® 
+	//ì˜í™” ë¦¬ìŠ¤íŠ¸
 	@RequestMapping(value="/movie/movieList")
 	public String movieList(Model model) {
 		List<Movie> list = movieService.movieList();
 		model.addAttribute("list", list);
 		return "movie/movieList";
 	}
-	//¿µÈ­ Ãß°¡ Ã³¸® ¿äÃ»
+	//ì˜í™” ì¶”ê°€
 	@RequestMapping(value="/movie/insertMovie", method = RequestMethod.POST)
 	public String insertMovie(Movie movie) {
 		System.out.println(movie);
 		movieService.insertMovie(movie);		
 		return "redirect:/movie/movieList";		
 	}
-	//¿µÈ­ Ãß°¡ Æû ¿äÃ»
+	//ì˜í™” ì¶”ê°€ í¼ ìš”ì²­
 	@RequestMapping(value="/movie/insertMovie", method = RequestMethod.GET)
 	public String insertMovie() {
-		System.out.println("MovieController.java insertMovie() insertMovie.jsp ÆûÀ¸·Î ÀÌµ¿ GET ¹æ½Ä");
+		System.out.println("MovieController.java insertMovie() insertMovie.jsp ì˜í™” ì¶”ê°€ í¼ ìš”ì²­ GET");
 		return "movie/insertMovie";
 	}
-	//¿µÈ­ ¼öÁ¤ Ã³¸® ¿äÃ»
+	//ì˜í™” ìˆ˜ì • ì²˜ë¦¬ ìš”ì²­
 	@RequestMapping(value="/movie/updateMovie", method = RequestMethod.POST)
 	public String updateMovie(Movie movie) {
 		movieService.updateMovie(movie);
 		return "redirect:/movie/movieList";		
 	}
-	//¿µÈ­ ¼öÁ¤ Æû ¿äÃ»
+	//ì˜í™” ìˆ˜ì • ì²˜ë¦¬ í¼ 
 	@RequestMapping(value="/movie/updateMovie", method = RequestMethod.GET)
 	public String updateMovie(Model model, @RequestParam(value="movieId", required=true) int movieId) {
 		Movie movie = movieService.selectOneForUpdateMovie(movieId);
 		model.addAttribute("movie",movie);
 		return "movie/updateMovie";
 	}
-	//¿µÈ­ »èÁ¦ ¿äÃ»
+	//ì˜í™” ì‚­ì œ ì²˜ë¦¬ ìš”ì²­
 	@RequestMapping(value="movie/deleteMovie", method = RequestMethod.GET)
 	   public String deleteMovie(@RequestParam(value="movieId", required=true) int movieId) {
 	      movieService.deleteMovie(movieId);
