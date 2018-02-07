@@ -28,6 +28,10 @@ public class MemberController {
 		memberDao.memberUpdate(member);
 		return "redirect:/member/memberList";
 	}
+	@RequestMapping(value="/member/memberList", method = RequestMethod.GET)
+	public String memberList() {
+		return "member/memberList";
+	}
 	
 	@RequestMapping(value="/member/memberInsert", method = RequestMethod.GET)
 	public String memberInsert() {

@@ -92,7 +92,7 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="#">내 정보</a></li>
+								<li><a href="${pageContext.request.contextPath}/member/memberList?memberNo=${loginMember.memberNo }">내 정보</a></li>
 								<li><a href="${pageContext.request.contextPath}/member/memberUpdate?memberNo=${loginMember.memberNo }">정보 수정</a></li>
 								<li><a href="${pageContext.request.contextPath}/member/memberDelete?memberId=${loginMember.memberId }">회원탈퇴</a></li>
 								<li class="divider"></li>
