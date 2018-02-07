@@ -87,7 +87,7 @@
 							</button>
 							<ul class="dropdown-menu">
 								<li><a href="#">내 정보</a></li>
-								<li><a href="#">기능1</a></li>
+								<li><a href="${pageContext.request.contextPath}/member/memberUpdate?memberNo=${loginMember.memberNo }">정보 수정</a></li>
 								<li><a href="#">기능2</a></li>
 								<li class="divider"></li>
 								<li><a href="${pageContext.request.contextPath}/login/logout">로그아웃</a></li>
