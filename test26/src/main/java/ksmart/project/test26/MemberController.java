@@ -11,21 +11,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Member;
 import ksmart.project.test26.service.MemberDao;
+import ksmart.project.test26.service.MemberService;
 
 @Controller
 public class MemberController {
 	@Autowired
-	private MemberDao memberDao;
+	private MemberService memberService;
 	
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.GET)
 	public String memberUpdate(Model model, @RequestParam(value="memberNo", required=true) int memberNo) {
-		Member member = memberDao.getMember(memberNo);
+		Member member = memberService.memberUpdateService(memberNo);
 		model.addAttribute("member", member);
 		return "member/memberUpdate";
 	}
+	
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.POST)
 	public String memberUpdate(Member member) {
-		memberDao.memberUpdate(member);
+		memberService.memberUpdateService(member);
 		return "redirect:/member/memberList";
 	}
 	@RequestMapping(value="/member/memberList", method = RequestMethod.GET)
@@ -40,13 +42,13 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/memberInsert", method = RequestMethod.POST)
 	public String memberInsert(Member member) {		
-		memberDao.insertMember(member);		
+		memberService.memberInsertService(member);
 		return "redirect:/login/login";
 	}
 	
 	@RequestMapping(value="/member/memberDelete", method = RequestMethod.GET)
 	public String memberDelete(@RequestParam(value="memberId", required=true) String memberId, HttpSession session) {
-		memberDao.deleteMember(memberId);
+		memberService.memberDeleteService(memberId);
 		session.invalidate();
 		return "redirect:/";
 	}

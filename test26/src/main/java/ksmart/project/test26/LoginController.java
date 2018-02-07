@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ksmart.project.test26.service.LoginDao;
+import ksmart.project.test26.service.LoginService;
 import ksmart.project.test26.service.Member;
 
 @Controller
 public class LoginController {
 	@Autowired
-	private LoginDao loginDao;
+	private LoginService loginService;
 	
 	@RequestMapping(value="/login/login", method = RequestMethod.GET)
 	public String loginCheck() {		
@@ -24,7 +25,7 @@ public class LoginController {
 	public String loginCheck(HttpSession session, Member member) {
 		String flag = "login/loginForm";
 		
-		member = loginDao.loginCheck(member);
+		member = loginService.loginCheckService(member);
 		if (member == null) {
 			
 		} else {
