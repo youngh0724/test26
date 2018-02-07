@@ -11,28 +11,32 @@ public class IdolDao {
 	private final String nameSpace = "ksmart.project.test26.service.IdolMapper.";
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	//아이돌 목록보기
-	public List<Idol> selectIdolList(){
-		return sqlSessionTemplate.selectList(nameSpace +"selectIdolList");
+
+	// idolList
+	public List<Idol> selectIdolList() {
+		return sqlSessionTemplate.selectList(nameSpace + "selectIdolList");
 	}
-	//아이돌 등록
+
+	// idolInsert
 	public int insertIdol(Idol idol) {
 		return sqlSessionTemplate.insert(nameSpace + "insertIdol", idol);
 	}
-	//업데이트 할 한명의 정보 가져오기
+
+	// idolselectOne
 	public Idol getIdol(int idolId) {
-		System.out.println(idolId +"<-- idolDao getIdol idolNo");
+		System.out.println(idolId + "<-- idolDao getIdol idolNo");
 		return sqlSessionTemplate.selectOne(nameSpace + "selectListId", idolId);
 	}
-	//아이돌 업데이트
+
+	// idolUpdate
 	public int updateIdol(Idol idol) {
-		System.out.println(idol +"<-- idolDao 아이돌업데이트 ");
+		System.out.println(idol + "<-- idolDao");
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
-	//아이돌 삭제
+
+	// idoldelete
 	public int deleteIdol(int idolId) {
-		return sqlSessionTemplate.delete(nameSpace+ "deleteIdol", idolId);
+		return sqlSessionTemplate.delete(nameSpace + "deleteIdol", idolId);
 	}
-	
-	
+
 }
