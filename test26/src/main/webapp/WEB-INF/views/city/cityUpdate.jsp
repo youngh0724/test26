@@ -16,12 +16,12 @@
       <form action="${pageContext.request.contextPath}/city/cityUpdate" method="post">
       <table class="table table-striped" data-effect="fade">
          <tr>
-            <td>city_id</td>
-            <td><input type="text" name="city_id" value="${city.city_id }" readonly="readonly"></td>
+            <td>cityId</td>
+            <td><input type="text" name="cityId" value="${city.cityId }" readonly="readonly"></td>
          </tr>
          <tr>
-            <td>city_name</td>
-            <td><input type="text" name="city_name" value="${city.city_name }"></td>
+            <td>cityName</td>
+            <td><input type="text" name="cityName" value="${city.cityName }"></td>
          </tr>
       </table>
       <input type="submit" value="수정">
@@ -32,7 +32,5 @@
 
 </body>
 
-
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
 
-</html>

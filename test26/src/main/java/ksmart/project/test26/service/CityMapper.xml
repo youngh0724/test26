@@ -4,42 +4,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ksmart.project.test26.service.CityMapper">
-	<select id="selectCityList" resultType="ksmart.project.test26.service.City">
-		SELECT
-		city_id as city_id
-		,city_name as city_name
-		FROM city;
-	</select>
-
-	<!-- city selectone -->
-	<select id="selectCityOne" resultType="ksmart.project.test26.service.City"
-		parameterType="int">
-		SELECT city_id as city_id
-		,city_name as city_name
-		FROM city
-		where city_id = #{city_id}
-	</select>
-
-	<!-- city insert -->
-	<insert id="insertCityName" parameterType="ksmart.project.test26.service.City">
-		INSERT INTO
-		city(city_name)
-		VALUES (#{city_name})
-	</insert>
-
-	<!-- city update -->
-	<update id="updateCityName" parameterType="ksmart.project.test26.service.City">
-		UPDATE city
-		SET
-		city_name = #{city_name}
-		WHERE city_id = #{city_id}
-	</update>
-
-	<!-- city delete -->
-	<delete id="deleteCityName" parameterType="ksmart.project.test26.service.City">
-		DELETE FROM city
-		WHERE
-		city_id = #{city_id}
-	</delete>
-</mapper>
+  <mapper namespace="ksmart.project.test26.service.CityMapper">
+  		<!-- cityList view에서 사용하는 select쿼리문 -->  	
+ 		<select id="citySelectList"
+			resultType="ksmart.project.test26.service.City">
+			SELECT 
+				city_id as cityId
+				,city_name as cityName
+			FROM city
+		</select>
+		
+		<!-- updateCityForm으로 요청때 하나의 city객체만을 select할때 사용하는 쿼리문 -->
+		<select id="citySelectOne" 
+				parameterType="int"
+				resultType="ksmart.project.test26.service.City">
+			SELECT 
+				city_id as cityId
+				,city_name as cityName
+			FROM city
+			WHERE city_id = #{city_id}
+		</select>
+		
+		<!-- cityInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
+		<insert id="cityInsert" 
+				parameterType="ksmart.project.test26.service.City">
+			INSERT INTO city(city_name)
+				VALUES (#{cityName})		
+		</insert>
+		
+		<!-- cityUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
+		<update id="cityUpdate" 
+				parameterType="ksmart.project.test26.service.City">
+	        UPDATE city 
+	            SET city_name = #{cityName} 
+	        WHERE city_id = #{cityId}     
+	    </update>
+	    
+	    <!-- cityList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="cityDelete" 
+	    		parameterType="ksmart.project.test26.service.City">
+	        DELETE FROM city 
+	        WHERE city_id = #{cityId} 
+	    </delete>
+		
+  </mapper>

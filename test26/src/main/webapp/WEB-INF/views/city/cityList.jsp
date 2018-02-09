@@ -5,9 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <!-- Bootstrap css -->
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
+  
 
 <title>Insert title here</title>
 </head>
@@ -15,15 +13,15 @@
    <div class="container">
      <jsp:include page ="/WEB-INF/views/module/top.jsp"/>
       
-      <h2>city List</h2>
+      <h2>City List</h2>
         <div class="row">
           <div class="col-sm-6 col-lg-6">
             <p class="lead text-muted"> 목록 크기 : ${list.size()}</p>
             <table class="table table-striped" data-effect="fade">
               <thead>
                 <tr>
-               <th>city_id</th>
-               <th>city_name</th>
+               <th>cityId</th>
+               <th>cityName</th>
                <th>수정</th>
                <th>삭제</th>
             </tr>
@@ -31,12 +29,12 @@
               <tbody>
                 <c:forEach var="city" items="${list}">
                <tr>
-                  <td>${city.city_id }</td>
-                  <td>${city.city_name }</td>
+                  <td>${city.cityId }</td>
+                  <td>${city.cityName }</td>
                   <td><a
-                     href="${pageContext.request.contextPath}/city/cityUpdate?city_id=${city.city_id}">수정</a></td>
+                     href="${pageContext.request.contextPath}/city/cityUpdate?cityId=${city.cityId}">수정</a></td>
                   <td><a
-                     href="${pageContext.request.contextPath}/city/cityDelete?city_id=${city.city_id}">삭제</a></td>
+                     href="${pageContext.request.contextPath}/city/cityDelete?cityId=${city.cityId}">삭제</a></td>
 
                </tr>
             </c:forEach>
@@ -46,10 +44,8 @@
           </div>
          
       <a class="btn btn-default"
-         href="${pageContext.request.contextPath}/city/cityInsert">도시 추가</a> 
+         href="${pageContext.request.contextPath}/city/cityInsert">책 추가</a> 
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
-    
    
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
-
