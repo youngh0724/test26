@@ -26,8 +26,7 @@ public class IdolController {
 	public String idolSelectList(Model model) {
 		List<Idol> list = idolService.idolSelectList();
 		model.addAttribute("list", list);
-		logger.debug("idolInsrt idol = {}", list.get(1).getIdolId());
-		logger.debug("idolInsrt idol = {}", list.get(2).getIdolName());
+		logger.debug("idolSelectList idol = {}", list);
 		return "idol/idolList";
 	}
 
@@ -39,11 +38,10 @@ public class IdolController {
 
 	// 아이돌 등록처리 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
-	public String idolInsrt(Idol idol) {
-		idolService.idolInsrt(idol);
+	public String idolInsert(Idol idol) {
+		idolService.idolInsert(idol);
 		// System.out.println(idol + "<-- idolController idolInsertPost ");
-		logger.debug("idolInsrt idol = {}", idol.getIdolId());
-		logger.debug("idolInsrt idol = {}", idol.getIdolName());
+		logger.debug("idolInsert idol = {}", idol.getIdolName());
 		return "redirect:/idol/idolList";
 	}
 
@@ -53,8 +51,8 @@ public class IdolController {
 		Idol idol = idolService.idolSelectOneForUpdate(idolId);
 		//System.out.println(idolId + "<--IdoController idolSelectOneForUpdate ");
 		model.addAttribute("Idol", idol);
-		logger.debug("idolInsrt idol = {}", idol.getIdolId());
-		logger.debug("idolInsrt idolId = {}", idol.getIdolName());
+		logger.debug("idolSelectOneForUpdate idol = {}", idol.getIdolId());
+		logger.debug("idolSelectOneForUpdate idolId = {}", idol.getIdolName());
 		return "/idol/idolUpdate";
 	}
 
@@ -63,8 +61,8 @@ public class IdolController {
 	public String idolUpdate(Idol idol) {
 		System.out.println(idol.getIdolId() + "<-- IdolController idolUpdate ");
 		idolService.idolUpdate(idol);
-		logger.debug("idolInsrt idol = {}", idol.getIdolId());
-		logger.debug("idolInsrt idol = {}", idol.getIdolName());
+		logger.debug("idolUpdate idol = {}", idol.getIdolId());
+		logger.debug("idolUpdate idol = {}", idol.getIdolName());
 		return "redirect:/idol/idolList";
 	}
 
@@ -72,7 +70,7 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
 		idolService.idolDelete(idolId);
-		logger.debug("idolInsrt idolId = {}", idolId);
+		logger.debug("idolDelete idolId = {}", idolId);
 		return "redirect:/idol/idolList";
 	}
 

@@ -22,30 +22,29 @@ public class IdolDao {
 	}
 
 	// insert 쿼리문을 실행시키고 리턴
-	public int idolInsrt(Idol idol) {
-		logger.debug("idolInsrt idol = {}", idol.getIdolId());
-		logger.debug("idolInsrt idol = {}", idol.getIdolName());
+	public int idolInsert(Idol idol) {
+		logger.debug("idolInsert idol = {}", idol.getIdolName());
 		return sqlSessionTemplate.insert(nameSpace + "idolInsrt", idol);
 	}
 
 	// 수정처리시 한명의 아이돌 select 쿼리문 실행시키고 리턴
 	public Idol idolSelectOneForUpdate(int idolId) {
 		//System.out.println(idolId + "<-- idolDao idolSelectOneForUpdate idolNo");
-		logger.debug("idolInsrt idol = {}", idolId);
+		logger.debug("idolSelectOneForUpdate idol = {}", idolId);
 		return sqlSessionTemplate.selectOne(nameSpace + "idolSelectOneForUpdate", idolId);
 	}
 
 	// update 쿼리를 실행시키고 리턴
 	public int idolUpdate(Idol idol) {
 		//System.out.println(idol + "<-- idolDao");
-		logger.debug("idolInsrt idol = {}", idol.getIdolId());
-		logger.debug("idolInsrt idol = {}", idol.getIdolName());
+		logger.debug("idolUpdate idol = {}", idol.getIdolId());
+		logger.debug("idolUpdate idol = {}", idol.getIdolName());
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
 
 	// delete 쿼리를 실행시키고 리턴
 	public int idolDelete(int idolId) {
-		logger.debug("idolInsrt idol = {}", idolId);
+		logger.debug("idolDelete idol = {}", idolId);
 		return sqlSessionTemplate.delete(nameSpace + "idolDelete", idolId);
 	}
 
