@@ -39,6 +39,8 @@ public class IdolController {
 	// 아이돌 등록처리 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
 	public String idolInsert(Idol idol) {
+		logger.debug("idolInsert idolId = {}", idol.getIdolId());
+		logger.debug("idolInsert idolName = {}", idol.getIdolName());
 		idolService.idolInsert(idol);
 		// System.out.println(idol + "<-- idolController idolInsertPost ");
 		logger.debug("idolInsert idol = {}", idol.getIdolName());
@@ -48,29 +50,30 @@ public class IdolController {
 	// 아이돌 수정페이지 요청
 	@RequestMapping(value = "/idol/idolUpdate", method = RequestMethod.GET)
 	public String idolSelectOneForUpdate(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
+		logger.debug("idolSelectOneForUpdate idolId = {}", idolId);
 		Idol idol = idolService.idolSelectOneForUpdate(idolId);
 		//System.out.println(idolId + "<--IdoController idolSelectOneForUpdate ");
 		model.addAttribute("Idol", idol);
-		logger.debug("idolSelectOneForUpdate idol = {}", idol.getIdolId());
-		logger.debug("idolSelectOneForUpdate idolId = {}", idol.getIdolName());
+		logger.debug("idolSelectOneForUpdate idolId = {}", idol.getIdolId());
+		logger.debug("idolSelectOneForUpdate idolName = {}", idol.getIdolName());
 		return "/idol/idolUpdate";
 	}
 
 	// 아이돌 수정처리 요청
 	@RequestMapping(value = "/idol/idolUpdate", method = RequestMethod.POST)
 	public String idolUpdate(Idol idol) {
-		System.out.println(idol.getIdolId() + "<-- IdolController idolUpdate ");
+		logger.debug("idolUpdate idolId = {}", idol.getIdolId());
+		logger.debug("idolUpdate idolName = {}", idol.getIdolName());
+		//System.out.println(idol.getIdolId() + "<-- IdolController idolUpdate ");
 		idolService.idolUpdate(idol);
-		logger.debug("idolUpdate idol = {}", idol.getIdolId());
-		logger.debug("idolUpdate idol = {}", idol.getIdolName());
 		return "redirect:/idol/idolList";
 	}
 
 	// 아이돌 삭제요청
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
-		idolService.idolDelete(idolId);
 		logger.debug("idolDelete idolId = {}", idolId);
+		idolService.idolDelete(idolId);
 		return "redirect:/idol/idolList";
 	}
 

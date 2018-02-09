@@ -30,21 +30,21 @@ public class IdolDao {
 	// 수정처리시 한명의 아이돌 select 쿼리문 실행시키고 리턴
 	public Idol idolSelectOneForUpdate(int idolId) {
 		//System.out.println(idolId + "<-- idolDao idolSelectOneForUpdate idolNo");
-		logger.debug("idolSelectOneForUpdate idol = {}", idolId);
+		logger.debug("idolSelectOneForUpdate idolId = {}", idolId);
 		return sqlSessionTemplate.selectOne(nameSpace + "idolSelectOneForUpdate", idolId);
 	}
 
 	// update 쿼리를 실행시키고 리턴
 	public int idolUpdate(Idol idol) {
 		//System.out.println(idol + "<-- idolDao");
-		logger.debug("idolUpdate idol = {}", idol.getIdolId());
-		logger.debug("idolUpdate idol = {}", idol.getIdolName());
+		logger.debug("idolUpdate idolId = {}", idol.getIdolId());
+		logger.debug("idolUpdate idolName = {}", idol.getIdolName());
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
 
 	// delete 쿼리를 실행시키고 리턴
 	public int idolDelete(int idolId) {
-		logger.debug("idolDelete idol = {}", idolId);
+		logger.debug("idolDelete idolId = {}", idolId);
 		return sqlSessionTemplate.delete(nameSpace + "idolDelete", idolId);
 	}
 
