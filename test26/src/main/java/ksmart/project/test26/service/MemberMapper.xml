@@ -23,7 +23,10 @@
 <!-- 회원 한개 선택하기 -->
 	<select id="memberSelectOne"
 			resultType="ksmart.project.test26.service.Member">
-		SELECT *
+		SELECT 
+			member_no as memberNo
+			,member_id as memberId
+			,member_pw as memberPw
 		FROM member
 		WHERE member_no = #{memberNo}			
 	</select>

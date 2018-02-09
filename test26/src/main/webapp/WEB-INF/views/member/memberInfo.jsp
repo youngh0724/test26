@@ -28,8 +28,8 @@
 				<td>${loginMember.memberId }</td>
 				<td>${loginMember.memberLevel }</td>				
 		</table>				
-	
-	</div>
+		<a class="btn btn-default" href="${pageContext.request.contextPath}/">홈으로</a>
+	</div>	
 </div>
 </div>	
 	<script type="text/javascript" src="../resources/js/bootstrap.js"></script>

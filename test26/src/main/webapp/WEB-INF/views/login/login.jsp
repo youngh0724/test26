@@ -22,11 +22,11 @@
 					<table class="table table-striped" data-effect="fade">
 						<tr>
 							<td>ID</td>
-							<td><input id="memberId" name="memberId" type="text" /></td>
+							<td><input id="memberId" name="memberId" type="text" value="guest"/></td>
 						</tr>
 						<tr>
 							<td>PW</td>
-							<td><input id="memberPw" name="memberPw" type="text" /></td>
+							<td><input id="memberPw" name="memberPw" type="text" value="1234"/></td>
 						</tr>
 					</table>
 					<input class="btn btn-default" id="login" type="button" value="login">
