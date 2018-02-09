@@ -28,7 +28,7 @@ public class BookController{
  	
  	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
      public String bookNameAdd() {
-         return "book/bookInsertForm";
+         return "book/bookInsert";
      }
  	
  	
@@ -45,7 +45,7 @@ public class BookController{
  		
  		model.addAttribute("book", book);
  		
- 		return "book/bookUpdateForm";
+ 		return "book/bookUpdate";
  	}
  	
  
