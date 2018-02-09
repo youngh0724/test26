@@ -5,6 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Repository
 public class BookDao {
@@ -12,23 +14,31 @@ public class BookDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String mapperRoot = "ksmart.project.test26.service.BookMapper.";
 	
-	public List<Book> selectBookList(){
-		return sqlSessionTemplate.selectList(mapperRoot+"selectBookList");
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+		private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
+	
+	public List<Book> bookSelectList(){
+		logger.debug("bookSelectList() 실행확인");
+		return sqlSessionTemplate.selectList(mapperRoot+"bookSelectList");
 	}
 	
-	public Book selectBookOne(int book_id) {	
-		return sqlSessionTemplate.selectOne(mapperRoot+"selectBookOne", book_id);
+	public Book bookSelectOneForUpdate(int bookId) {
+		logger.debug("bookSelectOneForUpdate() bookId = {}", bookId);
+		return sqlSessionTemplate.selectOne(mapperRoot+"bookSelectOne", bookId);
 	}
 	
-	public int insertBook(Book book) {
-		return sqlSessionTemplate.insert(mapperRoot+"insertBookName", book);
+	public int bookInsert(Book book) {
+		logger.debug("bookInsert() book = {}", book);
+		return sqlSessionTemplate.insert(mapperRoot+"bookInsert", book);
 	}
 	
-	public int updateBook(Book book) {
-		return sqlSessionTemplate.update(mapperRoot+"updateBookName", book);
+	public int bookUpdate(Book book) {
+		logger.debug("bookUpdate() book = {}", book);
+		return sqlSessionTemplate.update(mapperRoot+"bookUpdate", book);
 	}
 	
-	public int deleteBook(int book_id) {
-		return sqlSessionTemplate.delete(mapperRoot+"deleteBookName", book_id);
+	public int bookDelete(int bookId) {
+		logger.debug("bookDelete() = {}", bookId);
+		return sqlSessionTemplate.delete(mapperRoot+"bookDelete", bookId);
 	}
 }

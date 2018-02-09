@@ -6,7 +6,7 @@
 
   <mapper namespace="ksmart.project.test26.service.BookMapper">
   		<!-- bookList view에서 사용하는 select쿼리문 -->  	
- 		<select id="selectBookList"
+ 		<select id="bookSelectList"
 			resultType="ksmart.project.test26.service.Book">
 			SELECT 
 				book_id as bookId
@@ -15,8 +15,9 @@
 		</select>
 		
 		<!-- updateBookForm으로 요청때 하나의 book객체만을 select할때 사용하는 쿼리문 -->
-		<select id="selectBookOne" parameterType="int"
-			resultType="ksmart.project.test26.service.Book">
+		<select id="bookSelectOne" 
+				parameterType="int"
+				resultType="ksmart.project.test26.service.Book">
 			SELECT 
 				book_id as bookId
 				,book_name as bookName
@@ -25,20 +26,23 @@
 		</select>
 		
 		<!-- bookInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
-		<insert id="insertBookName" parameterType="ksmart.project.test26.service.Book">
+		<insert id="bookInsert" 
+				parameterType="ksmart.project.test26.service.Book">
 			INSERT INTO book(book_name)
 				VALUES (#{bookName})		
 		</insert>
 		
 		<!-- bookUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
-		<update id="updateBookName" parameterType="ksmart.project.test26.service.Book">
+		<update id="bookUpdate" 
+				parameterType="ksmart.project.test26.service.Book">
 	        UPDATE book 
 	            SET book_name = #{bookName} 
 	        WHERE book_id = #{bookId}     
 	    </update>
 	    
 	    <!-- bookList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
-	    <delete id="deleteBookName" parameterType="ksmart.project.test26.service.Book">
+	    <delete id="bookDelete" 
+	    		parameterType="ksmart.project.test26.service.Book">
 	        DELETE FROM book 
 	        WHERE book_id = #{bookId} 
 	    </delete>
