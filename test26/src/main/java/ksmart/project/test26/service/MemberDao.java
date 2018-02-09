@@ -14,13 +14,13 @@ public class MemberDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String mapperRoot = "ksmart.project.test26.service.MemberMapper.";
 	//movie list
-	public List<Member> selectMemberList(){
-		return sqlSessionTemplate.selectList(mapperRoot+"selectMemberList");
+	public List<Member> memberSelectList(){
+		return sqlSessionTemplate.selectList(mapperRoot+"memberSelectList");
 	}
 	
 	//select one movie
-	public Member getMember(int memberNo) {
-		return sqlSessionTemplate.selectOne(mapperRoot+"memberSelect", memberNo);
+	public Member memberSelectOneForUpdate(int memberNo) {
+		return sqlSessionTemplate.selectOne(mapperRoot+"memberSelectOne", memberNo);
 	}
 	//update movie
 	public int memberUpdate(Member member) {
@@ -28,12 +28,12 @@ public class MemberDao {
 	}
 	
 	
-	public int insertMember(Member member) {
-		return sqlSessionTemplate.insert(mapperRoot+"insertMember", member);
+	public int memberInsert(Member member) {
+		return sqlSessionTemplate.insert(mapperRoot+"memberInsert", member);
 	}
 	
-	public int deleteMember(String memberId) {
-		return sqlSessionTemplate.delete(mapperRoot+"deleteMember", memberId);
+	public int memberDelete(String memberId) {
+		return sqlSessionTemplate.delete(mapperRoot+"memberDelete", memberId);
 	}
 	
 }

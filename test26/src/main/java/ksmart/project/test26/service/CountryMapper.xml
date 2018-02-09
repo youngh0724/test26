@@ -6,8 +6,8 @@
 
   <mapper namespace="ksmart.project.test26.service.CountryMapper">
   		<!-- countryList view에서 사용하는 select쿼리문 -->  	
- 		<select id="selectCountryList"
-			resultType="ksmart.project.test26.service.Country">
+ 		<select id="countrySelcetList"
+				resultType="ksmart.project.test26.service.Country">
 			SELECT 
 				country_id as countryId
 				,country_name as countryName
@@ -15,8 +15,9 @@
 		</select>
 		
 		<!-- updateCountryForm으로 요청때 하나의 country객체만을 select할때 사용하는 쿼리문 -->
-		<select id="selectCountryOne" parameterType="int"
-			resultType="ksmart.project.test26.service.Country">
+		<select id="countrySelectOne"
+				parameterType="int"
+				resultType="ksmart.project.test26.service.Country">
 			SELECT 
 				country_id as countryId
 				,country_name as countryName
@@ -25,20 +26,23 @@
 		</select>
 		
 		<!-- countryInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
-		<insert id="insertConuntryName" parameterType="ksmart.project.test26.service.Country">
+		<insert id="countryInsert" 
+				parameterType="ksmart.project.test26.service.Country">
 			INSERT INTO country(country_name)
 				VALUES (#{countryName})		
 		</insert>
 		
 		<!-- countryUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
-		<update id="updateConuntryName" parameterType="ksmart.project.test26.service.Country">
+		<update id="countryUpdate" 
+				parameterType="ksmart.project.test26.service.Country">
 	        UPDATE country 
 	            SET country_name = #{countryName} 
 	        WHERE country_id = #{countryId}     
 	    </update>
 	    
 	    <!-- countryList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
-	    <delete id="deleteConuntryName" parameterType="ksmart.project.test26.service.Country">
+	    <delete id="countryDelete" 
+	    		parameterType="ksmart.project.test26.service.Country">
 	        DELETE FROM country 
 	        WHERE country_id = #{countryId} 
 	    </delete>

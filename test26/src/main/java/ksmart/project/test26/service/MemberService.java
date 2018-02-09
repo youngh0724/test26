@@ -10,23 +10,23 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
-	public Member memberUpdateService(int memberNo) {
-		Member member = memberDao.getMember(memberNo);
+	public Member memberSelectOneForUpdate(int memberNo) {
+		Member member = memberDao.memberSelectOneForUpdate(memberNo);
 		return member;
 	}
 	
-	public int memberUpdateService(Member member) {
+	public int memberUpdate(Member member) {
 		int row = memberDao.memberUpdate(member);
 		return row;
 	}
 	
-	public int memberInsertService(Member member) {
-		int row = memberDao.insertMember(member);
+	public int memberInsert(Member member) {
+		int row = memberDao.memberInsert(member);
 		return row;
 	}
 	
-	public int memberDeleteService(String memberId) {
-		int row = memberDao.deleteMember(memberId);
+	public int memberDelete(String memberId) {
+		int row = memberDao.memberDelete(memberId);
 		return row;
 	}
 

@@ -7,12 +7,12 @@
  <mapper namespace="ksmart.project.test26.service.LoginMapper">
  
  	<!-- 로그인 체크하는 쿼리문 -->
- 	<select id="loginCheck" 
+ 	<select id="loginSelectOne" 
  			parameterType="ksmart.project.test26.service.Member"
 			resultType="ksmart.project.test26.service.Member">
 		SELECT
-			member_no as memberNo
-			,member_id as memberId
+			member_no as memberNo,
+			member_id as memberId
 			,member_level as memberLevel
 		FROM test.member
 		WHERE member_id = #{memberId} AND member_pw = #{memberPw}	

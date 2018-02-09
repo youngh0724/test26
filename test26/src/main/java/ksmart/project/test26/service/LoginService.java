@@ -10,8 +10,8 @@ public class LoginService {
 	@Autowired
 	private LoginDao loginDao;
 	
-	public Member loginCheckService(Member member) {
-		member = loginDao.loginCheck(member);
+	public Member loginSelectOne(Member member) {
+		member = loginDao.loginSelectOne(member);
 		return member;
 	}
 	

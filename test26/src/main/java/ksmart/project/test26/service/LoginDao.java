@@ -11,8 +11,8 @@ public class LoginDao {
 	
 	private final String mapperRoot = "ksmart.project.test26.service.LoginMapper.";
 	
-	public Member loginCheck(Member member) {	
-		return sqlSessionTemplate.selectOne(mapperRoot+"loginCheck", member);
+	public Member loginSelectOne(Member member) {	
+		return sqlSessionTemplate.selectOne(mapperRoot+"loginSelectOne", member);
 	}
 
 }

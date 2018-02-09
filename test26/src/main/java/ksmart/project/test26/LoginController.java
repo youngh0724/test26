@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ksmart.project.test26.service.LoginDao;
 import ksmart.project.test26.service.LoginService;
 import ksmart.project.test26.service.Member;
 
@@ -18,14 +17,14 @@ public class LoginController {
 	
 	@RequestMapping(value="/login/login", method = RequestMethod.GET)
 	public String loginCheck() {		
-		return "login/loginForm";
+		return "login/login";
 	}
 	
 	@RequestMapping(value="/login/login", method = RequestMethod.POST)
-	public String loginCheck(HttpSession session, Member member) {
-		String flag = "login/loginForm";
+	public String loginSelectOne(HttpSession session, Member member) {
+		String flag = "login/login";
 		
-		member = loginService.loginCheckService(member);
+		member = loginService.loginSelectOne(member);
 		if (member == null) {
 			
 		} else {

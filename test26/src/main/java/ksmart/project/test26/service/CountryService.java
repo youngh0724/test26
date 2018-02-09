@@ -13,28 +13,28 @@ public class CountryService {
 	@Autowired
 	private CountryDao countryDao;
 	
-	public List<Country> selectCountryListService(){
-		List<Country> list = countryDao.selectCountryList();
+	public List<Country> countrySelcetList(){
+		List<Country> list = countryDao.countrySelectList();
 		return list;
 	}
 	
-	public int countryNameAddService(Country country) {
-		int row = countryDao.insertCountry(country);
+	public int countryInsert(Country country) {
+		int row = countryDao.countryInsert(country);
 		return row;
 	}
 	
-	public Country countryNameUpdateService(int countryId) {
-		Country country = countryDao.selectCountryOne(countryId);
+	public Country countrySelectOne(int countryId) {
+		Country country = countryDao.countrySelectOneForUpdate(countryId);
 		return country;
 	}
 	
-	public int countryNameUpdateService(Country country) {
-		int row = countryDao.updateCountry(country); 
+	public int countryUpdate(Country country) {
+		int row = countryDao.countryUpdate(country); 
 		return row;
 	}
 	
-	public int countryNameDeleteService(int countryId) {
-		int row = countryDao.deleteCountry(countryId);
+	public int countryDelete(int countryId) {
+		int row = countryDao.countryDelete(countryId);
 		return row;
 	}
 	
