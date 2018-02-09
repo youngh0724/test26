@@ -36,8 +36,7 @@
 	</div>
 	<!-- Main Scripts-->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	
 
 	<!-- Bootstrap 3 has typeahead optionally -->
 	<script
