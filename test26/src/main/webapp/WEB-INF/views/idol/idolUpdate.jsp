@@ -38,7 +38,6 @@
 				</script>
 			</div>
 		</div>
-	</div>
 </body>
 <!-- Main Scripts-->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
