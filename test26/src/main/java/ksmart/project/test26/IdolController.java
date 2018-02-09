@@ -2,6 +2,8 @@ package ksmart.project.test26;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import ksmart.project.test26.service.IdolService;
 
 @Controller
 public class IdolController {
+	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
+	
 	@Autowired
 	private IdolService idolService;
 
@@ -22,6 +26,8 @@ public class IdolController {
 	public String idolSelectList(Model model) {
 		List<Idol> list = idolService.idolSelectList();
 		model.addAttribute("list", list);
+		logger.debug("idolInsrt idol = {}", list.get(1).getIdolId());
+		logger.debug("idolInsrt idol = {}", list.get(2).getIdolName());
 		return "idol/idolList";
 	}
 
@@ -35,7 +41,9 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
 	public String idolInsrt(Idol idol) {
 		idolService.idolInsrt(idol);
-		System.out.println(idol + "<-- idolController idolInsertPost ");
+		// System.out.println(idol + "<-- idolController idolInsertPost ");
+		logger.debug("idolInsrt idol = {}", idol.getIdolId());
+		logger.debug("idolInsrt idol = {}", idol.getIdolName());
 		return "redirect:/idol/idolList";
 	}
 
@@ -43,8 +51,10 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolUpdate", method = RequestMethod.GET)
 	public String idolSelectOneForUpdate(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
 		Idol idol = idolService.idolSelectOneForUpdate(idolId);
-		System.out.println(idolId + "<--IdoController idolSelectOneForUpdate ");
+		//System.out.println(idolId + "<--IdoController idolSelectOneForUpdate ");
 		model.addAttribute("Idol", idol);
+		logger.debug("idolInsrt idol = {}", idol.getIdolId());
+		logger.debug("idolInsrt idolId = {}", idol.getIdolName());
 		return "/idol/idolUpdate";
 	}
 
@@ -53,6 +63,8 @@ public class IdolController {
 	public String idolUpdate(Idol idol) {
 		System.out.println(idol.getIdolId() + "<-- IdolController idolUpdate ");
 		idolService.idolUpdate(idol);
+		logger.debug("idolInsrt idol = {}", idol.getIdolId());
+		logger.debug("idolInsrt idol = {}", idol.getIdolName());
 		return "redirect:/idol/idolList";
 	}
 
@@ -60,6 +72,7 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
 		idolService.idolDelete(idolId);
+		logger.debug("idolInsrt idolId = {}", idolId);
 		return "redirect:/idol/idolList";
 	}
 
