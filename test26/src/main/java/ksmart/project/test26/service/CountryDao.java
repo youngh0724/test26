@@ -3,10 +3,10 @@ package ksmart.project.test26.service;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-
 
 @Repository
 public class CountryDao {
@@ -15,27 +15,35 @@ public class CountryDao {
 	//Mapper경로 문자열을 상수화(final로)시켜 선언하여 중복적으로 적지 않도록했다.
 	private final String mapperRoot = "ksmart.project.test26.service.CountryMapper.";
 	
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
+	
 	public List<Country> countrySelectList(){
-		//mapper에 id가 selectCountryList인 쿼리문을 실행시키고 결과값을 리턴한다.
+		logger.debug("countrySelectList() 실행확인");
+		//mapper에 id가 selectCountryList인 쿼리문을 실행시키고 결과값을 리턴한다.		
 		return sqlSessionTemplate.selectList(mapperRoot+"countrySelcetList");
 	}
 	
 	public Country countrySelectOneForUpdate(int countryId) {
+		logger.debug("countrySelectOneForUpdate() countryId = {}", countryId);
 		//맵퍼에 매개변수와 일치하는 하나의 행을 찾아 country객체타입으로 리턴한다.		
 		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectOne", countryId);
 	}
 	
 	public int countryInsert(Country country) {
+		logger.debug("countryInsert() country = {}", country);
 		//country객체를 매개변수로 받아 db에 정보를 입력한다.
 		return sqlSessionTemplate.insert(mapperRoot+"countryInsert", country);
 	}
 	
 	public int countryUpdate(Country country) {
+		logger.debug("countryUpdate() country = {}", country);
 		//country객체를 매개변수로 받아 db에 정보를 업데이트(수정)한다.
 		return sqlSessionTemplate.update(mapperRoot+"countryUpdate", country);
 	}
 	
 	public int countryDelete(int countryId) {
+		logger.debug("countryDelete() countryId = {}", countryId);
 		//아이디를 입력받아 db에서 일치하는 정보를 삭제한다. 
 		return sqlSessionTemplate.delete(mapperRoot+"countryDelete", countryId);
 	}
