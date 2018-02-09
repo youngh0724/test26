@@ -38,6 +38,7 @@
 				</script>
 			</div>
 		</div>
+	</div>
 </body>
 
 <jsp:include page="/WEB-INF/views/module/footer.jsp" />

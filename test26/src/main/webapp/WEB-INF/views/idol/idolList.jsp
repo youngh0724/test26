@@ -31,7 +31,7 @@
 								<td>${I.idolId }</td>
 								<td>${I.idolName }</td>
 								<td><a
-									href="${pageContext.request.contextPath}/idol/idolModify?idolId=${I.idolId}">수정</a></td>
+									href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${I.idolId}">수정</a></td>
 								<td><a
 									href="${pageContext.request.contextPath}/idol/idolDelete?idolId=${I.idolId}">삭제</a></td>
 							</tr>
@@ -40,6 +40,7 @@
 				</table>
 			</div>
 		</div>
+	</div>
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 추가</a> 
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/">메인홈 리스트</a>
 	

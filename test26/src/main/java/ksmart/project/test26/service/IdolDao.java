@@ -14,30 +14,30 @@ public class IdolDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	// select 쿼리문을 실행시키고 리턴
-	public List<Idol> selectIdolList() {
-		return sqlSessionTemplate.selectList(nameSpace + "selectIdolList");
+	public List<Idol> idolSelectList() {
+		return sqlSessionTemplate.selectList(nameSpace + "idolSelectList");
 	}
 
 	// insert 쿼리문을 실행시키고 리턴
-	public int insertIdol(Idol idol) {
-		return sqlSessionTemplate.insert(nameSpace + "insertIdol", idol);
+	public int idolInsrt(Idol idol) {
+		return sqlSessionTemplate.insert(nameSpace + "idolInsrt", idol);
 	}
 
 	// 수정처리시 한명의 아이돌 select 쿼리문 실행시키고 리턴
-	public Idol getIdol(int idolId) {
-		System.out.println(idolId + "<-- idolDao getIdol idolNo");
-		return sqlSessionTemplate.selectOne(nameSpace + "selectListId", idolId);
+	public Idol idolSelectOneForUpdate(int idolId) {
+		System.out.println(idolId + "<-- idolDao idolSelectOneForUpdate idolNo");
+		return sqlSessionTemplate.selectOne(nameSpace + "idolSelectOneForUpdate", idolId);
 	}
 
 	// update 쿼리를 실행시키고 리턴
-	public int updateIdol(Idol idol) {
+	public int idolUpdate(Idol idol) {
 		System.out.println(idol + "<-- idolDao");
 		return sqlSessionTemplate.update(nameSpace + "IdolUpdate", idol);
 	}
 
 	// delete 쿼리를 실행시키고 리턴
-	public int deleteIdol(int idolId) {
-		return sqlSessionTemplate.delete(nameSpace + "deleteIdol", idolId);
+	public int idolDelete(int idolId) {
+		return sqlSessionTemplate.delete(nameSpace + "idolDelete", idolId);
 	}
 
 }

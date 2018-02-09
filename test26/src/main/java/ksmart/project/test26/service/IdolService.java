@@ -13,25 +13,25 @@ public class IdolService {
 	private IdolDao idolDao;
 	
 	//Controller
-	public List<Idol> selectIdolList(){
-		List<Idol> list = idolDao.selectIdolList();
+	public List<Idol> idolSelectList(){
+		List<Idol> list = idolDao.idolSelectList();
 		return list;
 	}
 	//Controller에서 매개변수를 입력받을 값을 통해 idoDao.insertIdol을 호출
-	public void insertIdol(Idol idol) {
-		idolDao.insertIdol(idol);
+	public void idolInsrt(Idol idol) {
+		idolDao.idolInsrt(idol);
 	}
 	//Controller에서 매개변수를 입력받을 값을 통해 idoDao.getIdol을 호출
-	public Idol getIdol(int idolId) {
-		Idol idol = idolDao.getIdol(idolId);
+	public Idol idolSelectOneForUpdate(int idolId) {
+		Idol idol = idolDao.idolSelectOneForUpdate(idolId);
 		return idol;
 	} 
 	//Controller에서 입력받을 값을 통해 idoDao.updateIdol을 호출
-	public void IdolModify(Idol idol) {
-		idolDao.updateIdol(idol);
+	public void idolUpdate(Idol idol) {
+		idolDao.idolUpdate(idol);
 	}
 	//Controller에서 입력받을 값을 통해 idoDao.deleteIdol을 호출
-	public void deleteIdol(int idolId) {
-		idolDao.deleteIdol(idolId);
+	public void idolDelete(int idolId) {
+		idolDao.idolDelete(idolId);
 	}
 }

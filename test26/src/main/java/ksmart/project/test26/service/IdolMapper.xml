@@ -5,38 +5,43 @@
 
 <mapper namespace="ksmart.project.test26.service.IdolMapper">
 	<!-- 아이돌 리스트 보기 -->
-	<select id="selectIdolList" resultType="ksmart.project.test26.service.Idol">
-		SELECT
-		idol_id as idolId
-		,idol_name as idolName
+	<select id="idolSelectList" 
+		resultType="ksmart.project.test26.service.Idol">
+		SELECT idol_id AS idolId
+			  ,idol_name AS idolName
 		FROM idol;
 	</select>
 	<!-- 아이돌 등록하기 -->
-	<insert id="insertIdol" parameterType="ksmart.project.test26.service.Idol">
+	<insert id="idolInsrt" 
+		parameterType="ksmart.project.test26.service.Idol">
 		INSERT INTO idol(
-		idol_name
+		 idol_name
 		)
 		VALUES(
-		#{idolName}
+		 #{idolName}
 		)
 	</insert>
 	<!-- 수정할 아이돌 한명 불러오기 -->
-	<select id="selectListId" resultType="ksmart.project.test26.service.Idol">
-		SELECT
-		idol_name as idolName
-		,idol_id as idolId
-		 FROM idol WHERE idol_id=#{idolId}
+	<select id="idolSelectOneForUpdate" 
+		resultType="ksmart.project.test26.service.Idol">
+		SELECT idol_name AS idolName
+		      ,idol_id AS idolId
+		 FROM idol
+		 WHERE 
+		  idol_id=#{idolId}
 	</select>
 	<!-- 아이돌 수정하기 -->
-	<update id="IdolUpdate" parameterType="ksmart.project.test26.service.Idol">
+	<update id="IdolUpdate" 
+		parameterType="ksmart.project.test26.service.Idol">
 		UPDATE idol
 		SET idol_name = #{idolName}
 		WHERE idol_id = #{idolId}
 	</update>
 	<!-- 아이돌 삭제하기 -->
-	<delete id="deleteIdol" parameterType="ksmart.project.test26.service.Idol">
+	<delete id="idolDelete" 
+		parameterType="ksmart.project.test26.service.Idol">
 		DELETE FROM idol
-		WHERE
-		idol_id = #{idolId}
+		WHERE idol_id = #{idolId}
 	</delete>
 </mapper>
+

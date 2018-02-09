@@ -19,47 +19,47 @@ public class IdolController {
 
 	// idolList.jsp 요청
 	@RequestMapping(value = "/idol/idolList")
-	public String idolList(Model model) {
-		List<Idol> list = idolService.selectIdolList();
+	public String idolSelectList(Model model) {
+		List<Idol> list = idolService.idolSelectList();
 		model.addAttribute("list", list);
 		return "idol/idolList";
 	}
 
 	// 아이돌 등록화면 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.GET)
-	public String idolGet(Idol idol) {
+	public String idolInsert() {
 		return "/idol/idolInsert";
 	}
 
 	// 아이돌 등록처리 요청
 	@RequestMapping(value = "/idol/idolInsert", method = RequestMethod.POST)
-	public String idolInsrtPost(Idol idol) {
-		idolService.insertIdol(idol);
+	public String idolInsrt(Idol idol) {
+		idolService.idolInsrt(idol);
 		System.out.println(idol + "<-- idolController idolInsertPost ");
 		return "redirect:/idol/idolList";
 	}
 
 	// 아이돌 수정페이지 요청
-	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.GET)
-	public String idolModify(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
-		Idol idol = idolService.getIdol(idolId);
-		System.out.println(idolId + "<--IdoController idolModify ");
+	@RequestMapping(value = "/idol/idolUpdate", method = RequestMethod.GET)
+	public String idolSelectOneForUpdate(Model model, @RequestParam(value = "idolId", required = true) int idolId) {
+		Idol idol = idolService.idolSelectOneForUpdate(idolId);
+		System.out.println(idolId + "<--IdoController idolSelectOneForUpdate ");
 		model.addAttribute("Idol", idol);
-		return "/idol/idolModify";
+		return "/idol/idolUpdate";
 	}
 
 	// 아이돌 수정처리 요청
-	@RequestMapping(value = "/idol/idolModify", method = RequestMethod.POST)
-	public String idolModify(Idol idol) {
-		System.out.println(idol.getIdolId() + "<-- IdolController idolModify ");
-		idolService.IdolModify(idol);
+	@RequestMapping(value = "/idol/idolUpdate", method = RequestMethod.POST)
+	public String idolUpdate(Idol idol) {
+		System.out.println(idol.getIdolId() + "<-- IdolController idolUpdate ");
+		idolService.idolUpdate(idol);
 		return "redirect:/idol/idolList";
 	}
 
 	// 아이돌 삭제요청
 	@RequestMapping(value = "/idol/idolDelete", method = RequestMethod.GET)
 	public String idolDelete(@RequestParam(value = "idolId", required = true) int idolId) {
-		idolService.deleteIdol(idolId);
+		idolService.idolDelete(idolId);
 		return "redirect:/idol/idolList";
 	}
 
