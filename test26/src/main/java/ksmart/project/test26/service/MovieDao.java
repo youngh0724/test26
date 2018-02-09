@@ -12,23 +12,23 @@ public class MovieDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String mapperRoot = "ksmart.project.test26.service.MovieMapper.";
 	//movie list
-	public List<Movie> selectMovieList(){
+	public List<Movie> movieList(){
 		return sqlSessionTemplate.selectList(mapperRoot+"selectMovieList");
 	}
 	//insert movie
-	public int insertMovie(Movie movie) {
+	public int movieInsert(Movie movie) {
 		return sqlSessionTemplate.insert(mapperRoot+"insertMovie", movie);
 	}
 	//select one movie
-	public Movie getMovie(int movieId) {
+	public Movie movieSelectOneForUpdate(int movieId) {
 		return sqlSessionTemplate.selectOne(mapperRoot+"selectMovie", movieId);
 	}
 	//update movie
-	public int updateMovie(Movie movie) {
+	public int movieUpdate(Movie movie) {
 		return sqlSessionTemplate.update(mapperRoot+"updateMovie", movie);
 	}
 	//delete movie
-	public int deleteMovie(int movieId) {
+	public int movieDelete(int movieId) {
 		return sqlSessionTemplate.delete(mapperRoot+"deleteMovie", movieId);
 	}
 }

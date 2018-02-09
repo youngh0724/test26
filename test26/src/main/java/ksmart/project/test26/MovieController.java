@@ -24,35 +24,35 @@ public class MovieController {
 		return "movie/movieList";
 	}
 	//영화 추가
-	@RequestMapping(value="/movie/insertMovie", method = RequestMethod.POST)
-	public String insertMovie(Movie movie) {
+	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.POST)
+	public String movieInsert(Movie movie) {
 		System.out.println(movie);
-		movieService.insertMovie(movie);		
+		movieService.movieInsert(movie);		
 		return "redirect:/movie/movieList";		
 	}
 	//영화 추가 폼 요청
-	@RequestMapping(value="/movie/insertMovie", method = RequestMethod.GET)
-	public String insertMovie() {
+	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.GET)
+	public String movieInsert() {
 		System.out.println("MovieController.java insertMovie() insertMovie.jsp 영화 추가 폼 요청 GET");
-		return "movie/insertMovie";
+		return "movie/movieInsert";
 	}
 	//영화 수정 처리 요청
-	@RequestMapping(value="/movie/updateMovie", method = RequestMethod.POST)
-	public String updateMovie(Movie movie) {
-		movieService.updateMovie(movie);
+	@RequestMapping(value="/movie/movieUpdate", method = RequestMethod.POST)
+	public String movieUpdate(Movie movie) {
+		movieService.movieUpdate(movie);
 		return "redirect:/movie/movieList";		
 	}
 	//영화 수정 처리 폼 
-	@RequestMapping(value="/movie/updateMovie", method = RequestMethod.GET)
-	public String updateMovie(Model model, @RequestParam(value="movieId", required=true) int movieId) {
-		Movie movie = movieService.selectOneForUpdateMovie(movieId);
+	@RequestMapping(value="/movie/movieUpdate", method = RequestMethod.GET)
+	public String movieUpdate(Model model, @RequestParam(value="movieId", required=true) int movieId) {
+		Movie movie = movieService.movieSelectOneForUpdate(movieId);
 		model.addAttribute("movie",movie);
-		return "movie/updateMovie";
+		return "movie/movieUpdate";
 	}
 	//영화 삭제 처리 요청
-	@RequestMapping(value="movie/deleteMovie", method = RequestMethod.GET)
-	   public String deleteMovie(@RequestParam(value="movieId", required=true) int movieId) {
-	      movieService.deleteMovie(movieId);
+	@RequestMapping(value="movie/movieDelete", method = RequestMethod.GET)
+	   public String movieDelete(@RequestParam(value="movieId", required=true) int movieId) {
+	      movieService.movieDelete(movieId);
 	      return "redirect:/movie/movieList";
 	}
 

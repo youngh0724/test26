@@ -18,7 +18,7 @@
 <div class="row">
           <div class="col-sm-6 col-lg-6">
 
-	<form action="${pageContext.request.contextPath}/movie/updateMovie" method="post">
+	<form action="${pageContext.request.contextPath}/movie/movieUpdate" method="post">
 		<table class="table table-striped" data-effect="fade">
 			<tr>
 				<td>movie_id</td>

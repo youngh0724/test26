@@ -34,9 +34,9 @@
                   <td>${movie.movieId }</td>
                   <td>${movie.movieName }</td>
                   <td><a
-                     href="${pageContext.request.contextPath}/movie/updateMovie?movieId=${movie.movieId}">수정</a></td>
+                     href="${pageContext.request.contextPath}/movie/movieUpdate?movieId=${movie.movieId}">수정</a></td>
                   <td><a
-                     href="${pageContext.request.contextPath}/movie/deleteMovie?movieId=${movie.movieId}">삭제</a></td>
+                     href="${pageContext.request.contextPath}/movie/movieDelete?movieId=${movie.movieId}">삭제</a></td>
 
                </tr>
             </c:forEach>
@@ -46,7 +46,7 @@
           </div>
          
       <a class="btn btn-default"
-         href="${pageContext.request.contextPath}/movie/insertMovie">영화 추가</a> 
+         href="${pageContext.request.contextPath}/movie/movieInsert">영화 추가</a> 
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
     

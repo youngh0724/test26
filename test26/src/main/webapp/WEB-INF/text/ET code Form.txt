@@ -1,9 +1,9 @@
-  E.T �ڵ� ���� ����
+  E.T 코딩 형식 맞춤
 
-DAO ���� -> SampleDao.java
-DAO �ڵ� -> SampleDao sampleDao = new SampleDao();
+DAO 파일 명 -> SampleDao.java
+DAO 메소드 -> SampleDao sampleDao = new SampleDao();
 -----------------------------------------
-�޼ҵ��(controller)
+메소드(controller)
 bookSelectList
 bookUpdate
 bookDelete
@@ -14,10 +14,10 @@ SampleDelete
 SampleUpdate
 SampleSelectOneForUpdate
 
-�޼ҵ��(service)
+메소드(service)
 bookUpdateService
 ----------------------------------------
-mapper id/jsp���ϸ�/(domain�� �տ� ����� �ڿ�) 
+mapper id/jsp파일/(domain명) 
 bookInsert.jsp
 bookUpdate.jsp
 ------------------

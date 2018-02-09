@@ -16,7 +16,7 @@
 <div class="row">
           <div class="col-sm-6 col-lg-6">
 
-	<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/insertMovie" method="post">
+	<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/movieInsert" method="post">
 		 <table class="table table-striped" data-effect="fade">
 			<thead>
 				<tr>

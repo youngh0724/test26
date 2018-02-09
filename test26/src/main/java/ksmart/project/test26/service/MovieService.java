@@ -14,27 +14,27 @@ public class MovieService {
 	private MovieDao movieDao;
 	//영화 리스트
 	public List<Movie> movieList() {
-		List<Movie> list = movieDao.selectMovieList();		
+		List<Movie> list = movieDao.movieList();		
 		return list;
 	}
 	//영화 목록 추가
-	public int insertMovie(Movie movie) {		
-		int row = movieDao.insertMovie(movie);		
+	public int movieInsert(Movie movie) {		
+		int row = movieDao.movieInsert(movie);		
 		return row;		
 	}
 	//영화 목록 한개 선택	
-	public Movie selectOneForUpdateMovie(int movieId) {
-		Movie movie = movieDao.getMovie(movieId);
+	public Movie movieSelectOneForUpdate(int movieId) {
+		Movie movie = movieDao.movieSelectOneForUpdate(movieId);
 		return movie;		
 	}
 	//영화 수정	
-	public int updateMovie(Movie movie) {
-		int row = movieDao.updateMovie(movie);
+	public int movieUpdate(Movie movie) {
+		int row = movieDao.movieUpdate(movie);
 		return row;
 	}
 	//영화 삭제	
-	   public int deleteMovie(int movieId) {
-	      int row = movieDao.deleteMovie(movieId);
+	   public int movieDelete(int movieId) {
+	      int row = movieDao.movieDelete(movieId);
 	      return row;
 	}
 
