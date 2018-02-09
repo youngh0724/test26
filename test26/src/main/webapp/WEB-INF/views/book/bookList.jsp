@@ -20,8 +20,8 @@
             <table class="table table-striped" data-effect="fade">
               <thead>
                 <tr>
-               <th>book_id</th>
-               <th>book_name</th>
+               <th>bookId</th>
+               <th>bookName</th>
                <th>수정</th>
                <th>삭제</th>
             </tr>
@@ -29,12 +29,12 @@
               <tbody>
                 <c:forEach var="book" items="${list}">
                <tr>
-                  <td>${book.book_id }</td>
-                  <td>${book.book_name }</td>
+                  <td>${book.bookId }</td>
+                  <td>${book.bookName }</td>
                   <td><a
-                     href="${pageContext.request.contextPath}/book/bookUpdate?book_id=${book.book_id}">수정</a></td>
+                     href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
                   <td><a
-                     href="${pageContext.request.contextPath}/book/bookDelete?book_id=${book.book_id}">삭제</a></td>
+                     href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
 
                </tr>
             </c:forEach>

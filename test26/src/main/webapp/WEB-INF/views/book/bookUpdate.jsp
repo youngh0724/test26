@@ -16,12 +16,12 @@
       <form action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
       <table class="table table-striped" data-effect="fade">
          <tr>
-            <td>book_id</td>
-            <td><input type="text" name="book_id" value="${book.book_id }" readonly="readonly"></td>
+            <td>bookId</td>
+            <td><input type="text" name="bookId" value="${book.bookId }" readonly="readonly"></td>
          </tr>
          <tr>
-            <td>book_name</td>
-            <td><input type="text" name="book_name" value="${book.book_name }"></td>
+            <td>bookName</td>
+            <td><input type="text" name="bookName" value="${book.bookName }"></td>
          </tr>
       </table>
       <input type="submit" value="수정">

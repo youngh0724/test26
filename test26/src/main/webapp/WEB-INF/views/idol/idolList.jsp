@@ -43,13 +43,5 @@
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 추가</a> 
 		<a class="btn btn-default" href="${pageContext.request.contextPath}/">메인홈 리스트</a>
 	
-	<!-- Main Scripts-->
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-
-  <!-- Bootstrap 3 has typeahead optionally -->
-  <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
 
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
-
-</html>

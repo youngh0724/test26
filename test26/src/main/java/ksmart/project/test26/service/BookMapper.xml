@@ -4,42 +4,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ksmart.project.test26.service.BookMapper">
-	<select id="selectBookList" resultType="ksmart.project.test26.service.Book">
-		SELECT
-		book_id as book_id
-		,book_name as book_name
-		FROM book;
-	</select>
-
-	<!-- book selectone -->
-	<select id="selectBookOne" resultType="ksmart.project.test26.service.Book"
-		parameterType="int">
-		SELECT book_id as book_id
-		,book_name as book_name
-		FROM book
-		where book_id = #{book_id}
-	</select>
-
-	<!-- book insert -->
-	<insert id="insertBookName" parameterType="ksmart.project.test26.service.Book">
-		INSERT INTO
-		book(book_name)
-		VALUES (#{book_name})
-	</insert>
-
-	<!-- book update -->
-	<update id="updateBookName" parameterType="ksmart.project.test26.service.Book">
-		UPDATE book
-		SET
-		book_name = #{book_name}
-		WHERE book_id = #{book_id}
-	</update>
-
-	<!-- book delete -->
-	<delete id="deleteBookName" parameterType="ksmart.project.test26.service.Book">
-		DELETE FROM book
-		WHERE
-		book_id = #{book_id}
-	</delete>
-</mapper>
+  <mapper namespace="ksmart.project.test26.service.BookMapper">
+  		<!-- bookList view에서 사용하는 select쿼리문 -->  	
+ 		<select id="selectBookList"
+			resultType="ksmart.project.test26.service.Book">
+			SELECT 
+				book_id as bookId
+				,book_name as bookName
+			FROM book
+		</select>
+		
+		<!-- updateBookForm으로 요청때 하나의 book객체만을 select할때 사용하는 쿼리문 -->
+		<select id="selectBookOne" parameterType="int"
+			resultType="ksmart.project.test26.service.Book">
+			SELECT 
+				book_id as bookId
+				,book_name as bookName
+			FROM book
+			WHERE book_id = #{book_id}
+		</select>
+		
+		<!-- bookInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
+		<insert id="insertBookName" parameterType="ksmart.project.test26.service.Book">
+			INSERT INTO book(book_name)
+				VALUES (#{bookName})		
+		</insert>
+		
+		<!-- bookUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
+		<update id="updateBookName" parameterType="ksmart.project.test26.service.Book">
+	        UPDATE book 
+	            SET book_name = #{bookName} 
+	        WHERE book_id = #{bookId}     
+	    </update>
+	    
+	    <!-- bookList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="deleteBookName" parameterType="ksmart.project.test26.service.Book">
+	        DELETE FROM book 
+	        WHERE book_id = #{bookId} 
+	    </delete>
+		
+  </mapper>

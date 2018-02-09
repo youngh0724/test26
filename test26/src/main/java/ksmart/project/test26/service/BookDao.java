@@ -8,33 +8,27 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BookDao {
-   @Autowired
-   private SqlSessionTemplate sst;
-   
-   // DELETE
-   public void deleteBook(int book_id) {
-      sst.delete("ksmart.project.test26.service.BookMapper.deleteBookName",book_id);
-   }
-   
-   // INSERT
-   public void insertBook(Book book) {
-      sst.insert("ksmart.project.test26.service.BookMapper.insertBookName",book);
-   }
-   
-   // SELECT ONE
-   public Book getBook(int book_id) {
-      return sst.selectOne("ksmart.project.test26.service.BookMapper.selectBookOne",book_id);
-   }
-   
-   // UPDATE
-   public int updateBook(Book book) {
-      return sst.update("ksmart.project.test26.service.BookMapper.updateBookName",book);
-   }
-   
-   // SELECT
-   public List<Book> selectBookList(){
-      return sst.selectList("ksmart.project.test26.service.BookMapper.selectBookList");
-   }
-   
-   
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	private final String mapperRoot = "ksmart.project.test26.service.BookMapper.";
+	
+	public List<Book> selectBookList(){
+		return sqlSessionTemplate.selectList(mapperRoot+"selectBookList");
+	}
+	
+	public Book selectBookOne(int book_id) {	
+		return sqlSessionTemplate.selectOne(mapperRoot+"selectBookOne", book_id);
+	}
+	
+	public int insertBook(Book book) {
+		return sqlSessionTemplate.insert(mapperRoot+"insertBookName", book);
+	}
+	
+	public int updateBook(Book book) {
+		return sqlSessionTemplate.update(mapperRoot+"updateBookName", book);
+	}
+	
+	public int deleteBook(int book_id) {
+		return sqlSessionTemplate.delete(mapperRoot+"deleteBookName", book_id);
+	}
 }

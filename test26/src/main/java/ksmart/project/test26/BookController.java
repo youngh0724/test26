@@ -10,51 +10,59 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Book;
-import ksmart.project.test26.service.BookDao;
+import ksmart.project.test26.service.BookService;
 
 @Controller
 public class BookController{
    @Autowired
-   private BookDao bookdao;
-   @RequestMapping(value="/book/bookList")
-   public String bookList(Model model) {
-      List<Book> list = bookdao.selectBookList();
-      model.addAttribute("list",list);
-      return "/book/bookList";
-   }
+   private BookService bookService;
    
-   // book/bookUpdate에서  get 방식으로 호출하여 한명 리스트 출력
-   @RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
-   public String bookSelectOne(Model model, @RequestParam(value="book_id", required=true) int book_id) {
-      Book book = bookdao.getBook(book_id);
-      model.addAttribute("book", book);
-      return "/book/bookUpdate";
-   }
-   
-   // book/bookUpdate에서 post 방식으로 호출 
-   @RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
-   public String bookUpdate(Book book) {
-      bookdao.updateBook(book);
-      return "redirect:/book/bookList";
-   }
-   
-   // book INSERT 입력부분
-   @RequestMapping(value="book/bookInsert", method = RequestMethod.GET)
-   public String bookInsert() {
-      return "/book/bookInsert";
-   }
-   
-   // book INSERT
-   @RequestMapping(value="/book/bookInsert", method = RequestMethod.POST)
-   public String bookInsert(Book book) {
-      bookdao.insertBook(book);
-      return "redirect:/book/bookList";
-   }
-   
-   // book DELETE
-   @RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
-      public String bookDelete(@RequestParam(value="book_id", required=true) int book_id) {
-         bookdao.deleteBook(book_id);
+ 
+ 	@RequestMapping(value="/book/bookList", method = RequestMethod.GET)
+ 	public String bookList(Model model) {
+ 		List<Book> list = bookService.selectBookListService();
+ 		model.addAttribute("list", list);
+ 		return "book/bookList";
+ 	}
+ 	
+ 	
+ 	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
+     public String bookNameAdd() {
+         return "book/bookInsertForm";
+     }
+ 	
+ 	
+ 	@RequestMapping(value="/book/bookInsert", method = RequestMethod.POST)
+     public String bookNameAdd(Book book) {
+ 		bookService.bookNameAddService(book);
          return "redirect:/book/bookList";
-   }
-}
+     }
+ 	
+ 	
+ 	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
+ 	public String bookNameUpdate( Model model, @RequestParam(value="bookId", required=true) int bookId) {
+ 		Book book = bookService.bookNameUpdateService(bookId);
+ 		
+ 		model.addAttribute("book", book);
+ 		
+ 		return "book/bookUpdateForm";
+ 	}
+ 	
+ 
+ 	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
+     public String bookNameUpdate(Book book) {		
+ 		
+ 		bookService.bookNameUpdateService(book);
+        
+         return "redirect:/book/bookList";
+     }
+ 	
+ 	
+ 	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
+ 	public String bookNameDelete(@RequestParam(value="bookId", required=true) int bookId) {
+ 		
+ 		bookService.bookNameDeleteService(bookId);
+ 		
+ 		return "redirect:/book/bookList";
+ 	}
+ }
