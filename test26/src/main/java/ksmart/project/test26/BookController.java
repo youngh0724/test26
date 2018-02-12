@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,29 @@ public class BookController{
    
  
  	@RequestMapping(value="/book/bookList", method = RequestMethod.GET)
- 	public String bookSelcetList(Model model) {
- 		List<Book> list = bookService.bookSelcetList();
- 		logger.debug("bookSelcetList() list = {}", list);
- 		model.addAttribute("list", list);
- 		return "book/bookList";
- 	}
+ 	public String bookSelcetList(Model model, 
+			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
+		
+		logger.debug("bookSelcetList() currentPage = {}", currentPage);
+		logger.debug("bookSelcetList() rowPerPage = {}", rowPerPage);
+		Map<String, Object> map = bookService.bookSelectListByPage(currentPage, rowPerPage);
+		//list에 들어있는 값을 확인해본다.
+		logger.debug("bookSelcetList() map = {}", map);
+		
+		@SuppressWarnings("unchecked")
+		List<Book> list = (List<Book>)map.get("list");
+		int totalCount = (Integer) map.get("totalCount");		
+		
+		int lastPage = (totalCount/rowPerPage)+1;
+		//db에서 받아온 결과값을 model에 세팅한다.
+		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("currentPage", currentPage);
+		return "book/bookList";
+	}
+ 	
  	
  	
  	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
@@ -74,4 +92,5 @@ public class BookController{
  		
  		return "redirect:/book/bookList";
  	}
+ 	
  }

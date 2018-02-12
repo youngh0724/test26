@@ -18,7 +18,7 @@
    <table class="table table-striped" data-effect="fade">
       <tr>
          <td>도시 이름</td>
-         <td><input name="city_name" type="text"/></td>
+         <td><input name="cityName" type="text"/></td>
       </tr>
    </table>
    <input type="submit" value="추가">

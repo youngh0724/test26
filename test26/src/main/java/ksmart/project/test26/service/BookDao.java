@@ -1,6 +1,7 @@
 package ksmart.project.test26.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,16 @@ public class BookDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
 	
+		public List<Book> bookSelectPage(Map<String, Object> map) {
+			logger.debug("bookSelectPage() map = {}", map);
+			return sqlSessionTemplate.selectList(mapperRoot+"bookSelectPage", map);
+		}
+		
+		public int bookSelectTotalCount() {
+			logger.debug("bookSelectTotalCount() 실행확인"); 
+			return sqlSessionTemplate.selectOne(mapperRoot+"bookSelectCount");	
+		}
+		
 	public List<Book> bookSelectList(){
 		logger.debug("bookSelectList() 실행확인");
 		return sqlSessionTemplate.selectList(mapperRoot+"bookSelectList");
