@@ -47,31 +47,35 @@
                      href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
                   <td><a
                      href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
-
-               </tr>
-               
-               
-               
-               
+               </tr>  
             </c:forEach>
-            
               </tbody>
             </table>
-            <div>
-			<c:if test="${currentPage>1}">
-				<a href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
-			</c:if>
-			${currentPage}
-			<c:if test="${currentPage<lastPage}">
-				<a href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
-			</c:if>
-		</div>
           </div>
-          </div>
+          
+          <!-- 이전, 다음 버튼 시작 -->
+			<div class="col-sm-12" style="margin-bottom: 10;">
+				<div>
+					<c:if test="${currentPage>1}">
+						<a href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}"><button type="button" class="btn btn-labeled btn-default">
+								<span class="btn-label"> <i class="fa fa-arrow-left"></i>
+								</span>이전</button></a>
+					</c:if>
+					${currentPage}
+					<c:if test="${currentPage<lastPage}">
+						<a href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}"><button type="button" class="btn btn-labeled btn-default">
+								<span class="btn-label"> <i class="fa fa-arrow-right"></i>
+								</span>다음</button></a>
+					</c:if>
+				</div>
+			</div>
+			 <!-- 이전, 다음 버튼 끝 -->
 
+		</div>
+          <div>
 		<a class="btn btn-default"
          href="${pageContext.request.contextPath}/book/bookInsert">책 추가</a> 
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
-   
+   </div>
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
