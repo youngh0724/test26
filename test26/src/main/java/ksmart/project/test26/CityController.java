@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,28 @@ public class CityController{
    
  
  	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
- 	public String citySelcetList(Model model) {
- 		List<City> list = cityService.citySelcetList();
- 		logger.debug("citySelcetList() list = {}", list);
- 		model.addAttribute("list", list);
- 		return "city/cityList";
- 	}
+ 	public String citySelcetList(Model model, 
+			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
+		
+		logger.debug("citySelcetList() currentPage = {}", currentPage);
+		logger.debug("citySelcetList() rowPerPage = {}", rowPerPage);
+		Map<String, Object> map = cityService.citySelectListByPage(currentPage, rowPerPage);
+		//list에 들어있는 값을 확인해본다.
+		logger.debug("citySelcetList() map = {}", map);
+		
+		@SuppressWarnings("unchecked")
+		List<City> list = (List<City>)map.get("list");
+		int totalCount = (Integer) map.get("totalCount");		
+		
+		int lastPage = (totalCount/rowPerPage)+1;
+		//db에서 받아온 결과값을 model에 세팅한다.
+		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("currentPage", currentPage);
+		return "city/cityList";
+	}
  	
  	
  	@RequestMapping(value="/city/cityInsert", method = RequestMethod.GET)

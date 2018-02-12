@@ -24,7 +24,7 @@
 						<option value="#">보여줄 개수 선택</option>
 						<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=5">5개 보여주기</option>
 						<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=10">10개 보여주기</option>
-						<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=15">20개 보여주기</option>
+						<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=20">20개 보여주기</option>
 					</select><br>
 				</div>
 				<!--SELECT COUNT OPTION 끝 -->

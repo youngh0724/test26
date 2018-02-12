@@ -1,6 +1,8 @@
 package ksmart.project.test26.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,24 @@ public class CityService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(CityService.class);
 	
+public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage){
+			
+			int startRow = (currentPage-1)*rowPerPage;
+			Map map = new HashMap();
+			map.put("startRow", startRow);
+			map.put("rowPerPage", rowPerPage);
+			
+			List<City> list = cityDao.citySelectPage(map);
+			logger.debug("citySelectListByPage() list = {}", list);
+			int totalCount = cityDao.citySelectTotalCount();
+			logger.debug("citySelectListByPage() totalCount = {}", totalCount);
+			
+			Map returnMap = new HashMap();
+			returnMap.put("list", list);
+			returnMap.put("totalCount", totalCount);
+			
+			return returnMap;
+		}	
 	
 	public List<City> citySelcetList(){
 		List<City> list = cityDao.citySelectList();
