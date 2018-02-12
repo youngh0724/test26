@@ -1,6 +1,7 @@
 package ksmart.project.test26.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -17,6 +18,16 @@ public class CountryDao {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
+	
+	public List<Country> countrySelectPage(Map map) {
+		logger.debug("countrySelectPage() map = {}", map);
+		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectPage", map);
+	}
+	
+	public int countrySelectTotalCount() {
+		logger.debug("totalCount() 실행확인"); 
+		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectCount");	
+	}
 	
 	public List<Country> countrySelectList(){
 		logger.debug("countrySelectList() 실행확인");

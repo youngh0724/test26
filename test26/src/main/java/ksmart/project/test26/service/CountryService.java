@@ -1,6 +1,8 @@
 package ksmart.project.test26.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class CountryService {
 	@Autowired
 	private CountryDao countryDao;
+	
+	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage){
+		
+		int startRow = (currentPage-1)*rowPerPage;
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		
+		List<Country> list = countryDao.countrySelectPage(map);
+		logger.debug("countrySelectListByPage() list = {}", list);
+		int totalCount = countryDao.countrySelectTotalCount();
+		logger.debug("countrySelectListByPage() totalCount = {}", totalCount);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("list", list);
+		returnMap.put("totalCount", totalCount);
+		
+		return returnMap;
+	}
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryService.class);

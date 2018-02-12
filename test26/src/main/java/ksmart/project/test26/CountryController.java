@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +25,25 @@ public class CountryController {
 	
 	//countryList.jsp view파일을 요청
 	@RequestMapping(value="/country/countryList", method = RequestMethod.GET)
-	public String countrySelcetList(Model model) {	
-		//countryDao의 selectCountryList메서드를 실행시켜 결과값을 리스트에 저장한다.
-		List<Country> list = countryService.countrySelcetList();
+	public String countrySelcetList(Model model, 
+			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
+		
+		logger.debug("countrySelcetList() currentPage = {}", currentPage);
+		logger.debug("countrySelcetList() rowPerPage = {}", rowPerPage);
+		Map map = countryService.countrySelectListByPage(currentPage, rowPerPage);
 		//list에 들어있는 값을 확인해본다.
-		logger.debug("countrySelcetList() list = {}", list);
+		logger.debug("countrySelcetList() map = {}", map);
+		
+		List<Country> list = (List<Country>)map.get("list");
+		int totalCount = (Integer) map.get("totalCount");		
+		
+		int lastPage = (totalCount/rowPerPage)+1;
 		//db에서 받아온 결과값을 model에 세팅한다.
 		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("currentPage", currentPage);
 		return "country/countryList";
 	}
 	
