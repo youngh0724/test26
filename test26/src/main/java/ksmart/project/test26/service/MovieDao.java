@@ -1,7 +1,7 @@
 package ksmart.project.test26.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -15,6 +15,15 @@ public class MovieDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(MovieDao.class);
 	private final String mapperRoot = "ksmart.project.test26.service.MovieMapper.";
+	
+	//movie list paging	
+	public List<Movie> movieSelectListByPage(Map map) {
+		return sqlSessionTemplate.selectList(mapperRoot+"selectMovieListByPage", map);
+	}
+	//movie total count
+	public int movieSelectTotalCount() {
+		return sqlSessionTemplate.selectOne(mapperRoot+"selectMovieCount");
+	}
 	//movie list
 	public List<Movie> movieList(){
 		logger.debug("movieList() 영화 리스트 출력");
@@ -39,5 +48,6 @@ public class MovieDao {
 	public int movieDelete(int movieId) {
 		logger.debug("movieDelete() movieId = {}", movieId);
 		return sqlSessionTemplate.delete(mapperRoot+"deleteMovie", movieId);
-	}
+	}	
+
 }

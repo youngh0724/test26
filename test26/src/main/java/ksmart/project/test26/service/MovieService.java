@@ -1,6 +1,8 @@
 package ksmart.project.test26.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,27 @@ public class MovieService {
 	@Autowired
 	private MovieDao movieDao;
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
+	
+	//영화 목록 페이징
+    public Map<String, Object> movieSelectListByPage(int currentPage, int pagePerRow) {
+		
+		int startRow = (currentPage-1)*pagePerRow;
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("pagePerRow", pagePerRow);
+		
+		List<Movie> list = movieDao.movieSelectListByPage(map);
+		logger.debug("movieSelectListByPage() list = {}", list);
+		
+		int totalCount = movieDao.movieSelectTotalCount();		
+		logger.debug("movieSelectTotalCount() totalCount = {}", totalCount);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("list", list);
+		returnMap.put("totalCount", totalCount);
+		
+		return returnMap;
+	}
 	//영화 리스트
 	public List<Movie> movieList() {
 		List<Movie> list = movieDao.movieList();	
@@ -44,8 +67,12 @@ public class MovieService {
 	      logger.debug("movieUpdate() movieId = {}", movieId);
 	      return row;
 	}
+		
 
 }
+	   
+	   
+
 	
 	
 

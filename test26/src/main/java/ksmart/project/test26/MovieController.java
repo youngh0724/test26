@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +18,46 @@ import ksmart.project.test26.service.MovieService;
 @Controller
 public class MovieController {
 	@Autowired
-	private MovieService movieService;
+	private MovieService movieService;	
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+	
+	@RequestMapping(value="/movie/movieList")
+	public String movieSelectList(Model model
+		 ,@RequestParam(value="currentPage",defaultValue="1") int currentPage
+		 ,@RequestParam(value="pagePerRow",defaultValue="10") int pagePerRow) {
+		
+		logger.debug("movieSelectList() currentPage = {}", currentPage);
+		logger.debug("movieSelectList() rowPerPage = {}", pagePerRow);
+						 
+		Map map = movieService.movieSelectListByPage(currentPage, pagePerRow);
+		
+		logger.debug("movieSelectList() map = {}", map);
+		
+		List<Movie> list = (List<Movie>)map.get("list");
+		int totalCount = (Integer)map.get("totalCount");
+		logger.debug("movieSelectList() list = {}", list);
+		logger.debug("movieSelectList() totalCount = {}", totalCount);
+		
+		int lastPage = (totalCount/pagePerRow)+1;
+		
+		model.addAttribute("list", list);		
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("pagePerRow", pagePerRow);
+		return "movie/movieList";
+	}
+	
+	/*
 	//영화 리스트
+	
 	@RequestMapping(value="/movie/movieList")
 	public String movieList(Model model) {
 		List<Movie> list = movieService.movieList();
 		model.addAttribute("list", list);
 		logger.debug("movieList() list.get(1).getMovieId = {}", list.get(1).getMovieId());
-		return "movie/movieList";
+		return "movie/movieList";		
 	}
+	*/
 	//영화 추가
 	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.POST)
 	public String movieInsert(Movie movie) {
