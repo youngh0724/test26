@@ -6,8 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <!-- Bootstrap css -->
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/css/bootstrap.techie.css" rel="stylesheet">
 
 <title>Insert title here</title>
 </head>
@@ -42,22 +40,26 @@
             </c:forEach>
               </tbody>
             </table>
-          </div>
-          </div>
-         
+          </div>        
+
+			<div class="col-sm-12" style="margin-bottom: 10;">
+				<div>
+					<a href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage-1}&pagePerRow=${pagePerRow}</c:if>"><button type="button" class="btn btn-labeled btn-default">
+							<span class="btn-label"> <i class="fa fa-arrow-left"></i>
+							</span>이전</button></a> 
+					<a href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage+1}&pagePerRow=${pagePerRow}</c:if>"><button type="button" class="btn btn-labeled btn-default">
+						    다음<span class="btn-label btn-label-right"> <i class="fa fa-arrow-right"></i>
+							</span></button></a>
+				</div>
+			</div>
+		<!-- 이전, 다음 버튼 .. -->
+	</div>
+	
+	<div>
       <a class="btn btn-default"
          href="${pageContext.request.contextPath}/movie/movieInsert">영화 추가</a> 
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
-    
-   
- <!-- Main Scripts-->
-  <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-
-  <!-- Bootstrap 3 has typeahead optionally -->
-  <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
-
+    </div>
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
 
-</html>
