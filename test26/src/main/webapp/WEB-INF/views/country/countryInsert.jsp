@@ -25,8 +25,7 @@
 			</tr>
 		</table>
 		<input id="update" type="button" value="추가">
-	</form>
-	<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+	</form>	
 	
 	<script>
 		$('#update').click(function(){
