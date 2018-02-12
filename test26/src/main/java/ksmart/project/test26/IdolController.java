@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.service.Country;
 import ksmart.project.test26.service.Idol;
 import ksmart.project.test26.service.IdolService;
 
@@ -23,9 +25,25 @@ public class IdolController {
 
 	// idolList.jsp 요청
 	@RequestMapping(value = "/idol/idolList")
-	public String idolSelectList(Model model) {
-		List<Idol> list = idolService.idolSelectList();
+	public String idolSelectList(Model model, 
+			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+		
+		logger.debug("idolSelectList() currentPage = {}", currentPage);
+		logger.debug("idolSelectList() rowPerPage = {}", rowPerPage);
+		Map map = idolService.idolSelectListByPage(currentPage, rowPerPage);
+		
+		logger.debug("idolSelectList() map = {}", map);
+		
+		List<Idol> list = (List<Idol>)map.get("list");
+		int totalCount = (Integer) map.get("totalCount");
+		
+		int lastPage = (totalCount/rowPerPage)+1;
 		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("currentPage", currentPage);
+		
 		logger.debug("idolSelectList idol = {}", list);
 		return "idol/idolList";
 	}

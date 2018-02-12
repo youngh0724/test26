@@ -1,6 +1,7 @@
 package ksmart.project.test26.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -15,7 +16,17 @@ public class IdolDao {
 	private final String nameSpace = "ksmart.project.test26.service.IdolMapper.";
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
+	
+	public List<Idol> idolSelectPage(Map map) {
+		logger.debug("idolSelectPage() map = {}", map);
+		return sqlSessionTemplate.selectList(nameSpace+"idolSelectPage", map);
+	}
+	
+	public int idolSelectTotalCount() {
+		logger.debug("idolSelectTotalCount() 실행확인"); 
+		return sqlSessionTemplate.selectOne(nameSpace+"idolSelectCount");	
+	}	
+	
 	// select 쿼리문을 실행시키고 리턴
 	public List<Idol> idolSelectList() {
 		return sqlSessionTemplate.selectList(nameSpace + "idolSelectList");

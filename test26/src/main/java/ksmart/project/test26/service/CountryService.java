@@ -17,6 +17,9 @@ public class CountryService {
 	@Autowired
 	private CountryDao countryDao;
 	
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	private static final Logger logger = LoggerFactory.getLogger(CountryService.class);
+	
 	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage){
 		
 		int startRow = (currentPage-1)*rowPerPage;
@@ -35,9 +38,6 @@ public class CountryService {
 		
 		return returnMap;
 	}
-	
-	//입력값과 리턴값을 확인하기위해 로거기능 사용
-	private static final Logger logger = LoggerFactory.getLogger(CountryService.class);
 	
 	//컨트롤러에서 전체 리스트를 조회할때 사용되어지는 메서드 
 	public List<Country> countrySelcetList(){

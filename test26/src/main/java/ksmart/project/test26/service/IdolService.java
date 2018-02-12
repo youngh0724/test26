@@ -1,6 +1,8 @@
 package ksmart.project.test26.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,25 @@ public class IdolService {
 	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
 	@Autowired
 	private IdolDao idolDao;
+	
+	public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage){
+		
+		int startRow = (currentPage-1)*rowPerPage;
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		
+		List<Idol> list = idolDao.idolSelectPage(map);
+		logger.debug("idolSelectListByPage() list = {}", list);
+		int totalCount = idolDao.idolSelectTotalCount();
+		logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("list", list);
+		returnMap.put("totalCount", totalCount);
+		
+		return returnMap;
+	}
 	
 	//Controller
 	public List<Idol> idolSelectList(){
