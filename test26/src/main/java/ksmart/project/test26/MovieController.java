@@ -3,6 +3,8 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,14 @@ public class MovieController {
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 	
 	@RequestMapping(value="/movie/movieList")
-	public String movieSelectList(Model model
+	public String movieSelectList(Model model, HttpSession session
 		 ,@RequestParam(value="currentPage",defaultValue="1") int currentPage
 		 ,@RequestParam(value="pagePerRow",defaultValue="10") int pagePerRow
 		 ,@RequestParam(value="word", required=false) String word) {
+		
+		if(session.getAttribute("loginMember")==null) {
+			return "sessionError";
+		}
 		
 		logger.debug("movieSelectList() currentPage = {}", currentPage);
 		logger.debug("movieSelectList() rowPerPage = {}", pagePerRow);
@@ -64,38 +70,53 @@ public class MovieController {
 	*/
 	//영화 추가
 	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.POST)
-	public String movieInsert(Movie movie) {
+	public String movieInsert(Movie movie, HttpSession session) {
 		System.out.println(movie);
 		movieService.movieInsert(movie);	
 		logger.debug("movieList() movie.getMovieId = {}", movie.getMovieId());
+		if(session.getAttribute("loginMember")==null) {
+			return "sessionError";
+		}
 		return "redirect:/movie/movieList";		
 	}
 	//영화 추가 폼 요청
 	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.GET)
-	public String movieInsert() {		
+	public String movieInsert(HttpSession session) {		
 		logger.debug("movieInsert() movieInsert.jsp 폼 요청");
+		if(session.getAttribute("loginMember")==null) {
+			return "sessionError";
+		}
 		return "movie/movieInsert";
 	}
 	//영화 수정 처리 요청
 	@RequestMapping(value="/movie/movieUpdate", method = RequestMethod.POST)
-	public String movieUpdate(Movie movie) {
+	public String movieUpdate(Movie movie, HttpSession session) {
 		movieService.movieUpdate(movie);
 		logger.debug("movieUpdate() movie.getMovieId = {}", movie.getMovieId());
+		if(session.getAttribute("loginMember")==null) {
+			return "sessionError";
+		}
 		return "redirect:/movie/movieList";		
 	}
 	//영화 수정 처리 폼 
 	@RequestMapping(value="/movie/movieUpdate", method = RequestMethod.GET)
-	public String movieUpdate(Model model, @RequestParam(value="movieId", required=true) int movieId) {
+	public String movieUpdate(Model model,HttpSession session ,@RequestParam(value="movieId", required=true) int movieId) {
 		Movie movie = movieService.movieSelectOneForUpdate(movieId);
 		model.addAttribute("movie",movie);
 		logger.debug("movieUpdate() movie.getMovieId = {}", movie.getMovieId());
+		if(session.getAttribute("loginMember")==null) {
+			return "sessionError";
+		}
 		return "movie/movieUpdate";
 	}
 	//영화 삭제 처리 요청
 	@RequestMapping(value="movie/movieDelete", method = RequestMethod.GET)
-	   public String movieDelete(@RequestParam(value="movieId", required=true) int movieId) {
+	   public String movieDelete(HttpSession session,@RequestParam(value="movieId", required=true) int movieId) {
 	      movieService.movieDelete(movieId);
 	      logger.debug("movieDelete() movieId = {}", movieId);
+	  	  if(session.getAttribute("loginMember")==null) {
+			  return "sessionError";
+		}
 	      return "redirect:/movie/movieList";
 	}
 
