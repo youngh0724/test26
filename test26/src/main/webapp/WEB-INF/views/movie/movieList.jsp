@@ -68,10 +68,17 @@
 					<a href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage+1}&pagePerRow=${pagePerRow}</c:if>"><button type="button" class="btn btn-labeled btn-default">
 						    다음<span class="btn-label btn-label-right"> <i class="fa fa-arrow-right"></i>
 							</span></button></a>
+				<!-- 검색 버튼 -->
+					<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/movieList" method="get">
+					<input type="text" name="word" id="word">
+					<button type="button" id="search-btn">검색</button>
+					</form>
+				<!-- 검색버튼 끝 -->
 				</div>
 			</div>
-		<!-- 이전, 다음 버튼 .. -->
-	</div>
+		
+		<!-- 이전, 다음 버튼 .. -->		
+		</div>
 	
 	<div>
       <a class="btn btn-default"
@@ -79,5 +86,13 @@
          <a class = "btn btn-default"
          href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
     </div>
+
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
+
+			<script>
+					
+			$("#search-btn").click(function(){
+			 $('form').submit();						    
+			});
+			</script>
 

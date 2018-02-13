@@ -13,6 +13,9 @@
 			movie_id as movieId,		
 			movie_name as movieName
 		FROM movie
+		<if test="word != null">
+		WHERE movie_name LIKE CONCAT ('%',#{word},'%')  
+		</if>
 		ORDER BY movieId
 		LIMIT #{startRow}, #{pagePerRow}
 	</select>

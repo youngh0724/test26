@@ -24,19 +24,22 @@ public class MovieController {
 	@RequestMapping(value="/movie/movieList")
 	public String movieSelectList(Model model
 		 ,@RequestParam(value="currentPage",defaultValue="1") int currentPage
-		 ,@RequestParam(value="pagePerRow",defaultValue="10") int pagePerRow) {
+		 ,@RequestParam(value="pagePerRow",defaultValue="10") int pagePerRow
+		 ,@RequestParam(value="word", required=false) String word) {
 		
 		logger.debug("movieSelectList() currentPage = {}", currentPage);
 		logger.debug("movieSelectList() rowPerPage = {}", pagePerRow);
+		logger.debug("movieSelectList() word = {}", word);
 						 
-		Map map = movieService.movieSelectListByPage(currentPage, pagePerRow);
+		Map map = movieService.movieSelectListByPage(currentPage, pagePerRow, word);
 		
 		logger.debug("movieSelectList() map = {}", map);
 		
 		List<Movie> list = (List<Movie>)map.get("list");
 		int totalCount = (Integer)map.get("totalCount");
+		
 		logger.debug("movieSelectList() list = {}", list);
-		logger.debug("movieSelectList() totalCount = {}", totalCount);
+		logger.debug("movieSelectList() totalCount = {}", totalCount);		
 		
 		int lastPage = (totalCount/pagePerRow)+1;
 		
@@ -44,6 +47,7 @@ public class MovieController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("pagePerRow", pagePerRow);
+		
 		return "movie/movieList";
 	}
 	

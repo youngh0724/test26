@@ -18,18 +18,19 @@ public class MovieService {
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
 	//영화 목록 페이징
-    public Map<String, Object> movieSelectListByPage(int currentPage, int pagePerRow) {
+    public Map<String, Object> movieSelectListByPage(int currentPage, int pagePerRow, String word) {
 		
 		int startRow = (currentPage-1)*pagePerRow;
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("pagePerRow", pagePerRow);
+		map.put("word", word);
 		
 		List<Movie> list = movieDao.movieSelectListByPage(map);
 		logger.debug("movieSelectListByPage() list = {}", list);
 		
 		int totalCount = movieDao.movieSelectTotalCount();		
-		logger.debug("movieSelectTotalCount() totalCount = {}", totalCount);
+		logger.debug("movieSelectTotalCount() totalCount = {}", totalCount);		
 		
 		Map returnMap = new HashMap();
 		returnMap.put("list", list);

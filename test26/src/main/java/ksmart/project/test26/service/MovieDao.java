@@ -15,6 +15,7 @@ public class MovieDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(MovieDao.class);
 	private final String mapperRoot = "ksmart.project.test26.service.MovieMapper.";
+	//map:startRow + pagePerRow + word
 	
 	//movie list paging	
 	public List<Movie> movieSelectListByPage(Map map) {
