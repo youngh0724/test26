@@ -17,6 +17,24 @@
         <div class="row">
           <div class="col-sm-6 col-lg-6">
             <p class="lead text-muted"> 목록 크기 : ${list.size()}</p>
+	          
+	          				<!--SELECT COUNT OPTION 시작 -->
+			<div style="margin-bottom: 10;">
+				<select name="pagePerRow" onchange="location.href=this.value">
+					<option value="#">보여줄 개수 선택</option>
+					<option
+						value="${pageContext.request.contextPath}/movie/movieList?pagePerRow=5">5개
+						보여주기</option>
+					<option
+						value="${pageContext.request.contextPath}/movie/movieList?pagePerRow=10">10개
+						보여주기</option>
+					<option
+						value="${pageContext.request.contextPath}/movie/movieList?pagePerRow=20">20개
+						보여주기</option>
+				</select><br>
+			</div>
+			<!--SELECT COUNT OPTION 끝 -->                 
+            
             <table class="table table-striped" data-effect="fade">
               <thead>
                 <tr>
