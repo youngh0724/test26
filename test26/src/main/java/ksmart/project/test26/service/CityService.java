@@ -39,9 +39,9 @@ public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage)
 			return returnMap;
 		}	
 	
-	public List<City> citySelcetList(){
+	public List<City> citySelectList(){
 		List<City> list = cityDao.citySelectList();
-		logger.debug("citySelcetList() list = {}", list);
+		logger.debug("citySelectList() list = {}", list);
 		return list;
 	}
 	

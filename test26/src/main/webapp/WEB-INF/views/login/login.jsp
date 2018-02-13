@@ -33,7 +33,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	
 	<!-- Main Scripts-->
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
 	
@@ -55,6 +55,5 @@
 		})
 		
 	</script>
-</body>
-</html>
+
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>

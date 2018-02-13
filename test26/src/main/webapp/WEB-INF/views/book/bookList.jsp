@@ -5,19 +5,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  
-
 <title>Insert title here</title>
 </head>
+
 <body>
    <div class="container">
      <jsp:include page ="/WEB-INF/views/module/top.jsp"/>
       
       <h2>Book List</h2>
-		<div class="row">
+		<div class="row" style="margin-bottom:30;">
 			<div class="col-sm-6 col-lg-6">
 				<p class="lead text-muted">목록 크기 : ${list.size()}</p>
-
+				<p class="lead text-muted">검색</p>
+				
+				<div class="input-group">
+				<form class="navbar-form" role="search" action="${pageContext.request.contextPath}/book/bookList" method="get">
+				<input type="text" class="form-control" placeholder="Search" name="searchWord">
+				<span class="input-group-btn">
+				<button class= "btn btn-default" type="submit">검색</button>	
+				</span>		
+				</form>	
+				</div>
+				
+       			<div>
+		<a class="btn btn-default"
+         href="${pageContext.request.contextPath}/book/bookInsert">책 추가</a>     
+  	    </div>
+  	    
 				<!--SELECT COUNT OPTION 시작 -->
 				<div style="margin-bottom: 10;">
 					<select name="rowPerPage" onchange="location.href=this.value">
@@ -35,7 +49,7 @@
 				</div>
 				<!--SELECT COUNT OPTION 끝 -->
 
-				<table class="table table-striped" data-effect="fade">
+				<table class="table table-striped"  data-effect="fade" >
 					<thead>
 						<tr>
 							<th>bookId</th>
@@ -57,9 +71,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
+				
 			<!-- 이전, 다음 버튼 시작 -->
-			<div class="col-sm-12" style="margin-bottom: 10;">
+			<div class="col-sm-12"  style="margin-bottom: 10; text-align: center">
 				<div>
 					<a href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}</c:if>"><button type="button" class="btn btn-labeled btn-default">
 							<span class="btn-label"> <i class="fa fa-arrow-left"></i>
@@ -72,11 +86,6 @@
 			</div>
 			<!-- 이전, 다음 버튼 끝 -->
 		</div>
-		
-		<div>
-		<a class="btn btn-default"
-         href="${pageContext.request.contextPath}/book/bookInsert">책 추가</a> 
-         <a class = "btn btn-default"
-         href="${pageContext.request.contextPath}/">메인 홈 리스트</a>
-   </div>
+		</div>
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
+

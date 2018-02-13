@@ -19,7 +19,9 @@ public class BookDao {
 		private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
 	
 		public List<Book> bookSelectPage(Map<String, Object> map) {
-			logger.debug("bookSelectPage() map = {}", map);
+			logger.debug("bookSelectPage() map.startRow = {}", map.get("startRow"));
+			logger.debug("bookSelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
+			logger.debug("bookSelectPage() map.searchWord = {}", map.get("searchWord"));
 			return sqlSessionTemplate.selectList(mapperRoot+"bookSelectPage", map);
 		}
 		

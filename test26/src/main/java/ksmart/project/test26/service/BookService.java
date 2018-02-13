@@ -21,12 +21,17 @@ public class BookService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 	
-		public Map<String, Object> bookSelectListByPage(int currentPage, int rowPerPage){
+		public Map<String, Object> bookSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+			
+			logger.debug("bookSelectPage() map.startRow = {}", currentPage);
+			logger.debug("bookSelectPage() map.rowPerPage = {}", rowPerPage);
+			logger.debug("bookSelectPage() map.searchWord = {}", searchWord);
 			
 			int startRow = (currentPage-1)*rowPerPage;
 			Map map = new HashMap();
 			map.put("startRow", startRow);
 			map.put("rowPerPage", rowPerPage);
+			map.put("searchWord", searchWord);
 			
 			List<Book> list = bookDao.bookSelectPage(map);
 			logger.debug("bookSelectListByPage() list = {}", list);
@@ -41,9 +46,9 @@ public class BookService {
 		}	
 		
 	
-	public List<Book> bookSelcetList(int startRow){
+	public List<Book> bookSelectList(int startRow){
 		List<Book> list = bookDao.bookSelectList();
-		logger.debug("bookSelcetList() list = {}", list);
+		logger.debug("bookSelectList() list = {}", list);
 		return list;
 		
 	}

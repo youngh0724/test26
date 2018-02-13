@@ -25,15 +25,15 @@ public class CityController{
    
  
  	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
- 	public String citySelcetList(Model model, 
+ 	public String cityselectList(Model model, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
 			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
 		
-		logger.debug("citySelcetList() currentPage = {}", currentPage);
-		logger.debug("citySelcetList() rowPerPage = {}", rowPerPage);
+		logger.debug("cityselectList() currentPage = {}", currentPage);
+		logger.debug("cityselectList() rowPerPage = {}", rowPerPage);
 		Map<String, Object> map = cityService.citySelectListByPage(currentPage, rowPerPage);
 		//list에 들어있는 값을 확인해본다.
-		logger.debug("citySelcetList() map = {}", map);
+		logger.debug("cityselectList() map = {}", map);
 		
 		@SuppressWarnings("unchecked")
 		List<City> list = (List<City>)map.get("list");

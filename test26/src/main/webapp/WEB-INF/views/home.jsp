@@ -84,6 +84,5 @@
 
 <script type="text/javascript" src="resources/js/bootstrap.js"></script>
 
-</body>
 
 <jsp:include page ="/WEB-INF/views/module/footer.jsp"/>
