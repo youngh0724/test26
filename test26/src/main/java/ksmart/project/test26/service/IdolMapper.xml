@@ -20,6 +20,9 @@
 			idol_id AS idolId,
 			idol_name AS idolName
 		FROM idol
+		<if test="word != null">
+			WHERE idol_name LIKE CONCAT('%',#{word},'%')
+		</if> 
 		ORDER BY idolId
 		LIMIT #{startRow}, #{rowPerPage}
 	</select>

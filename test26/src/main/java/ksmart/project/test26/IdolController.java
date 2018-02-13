@@ -27,11 +27,13 @@ public class IdolController {
 	@RequestMapping(value = "/idol/idolList")
 	public String idolSelectList(Model model, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
-			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
+			@RequestParam(value="word", required=false) String word) {
 		
 		logger.debug("idolSelectList() currentPage = {}", currentPage);
 		logger.debug("idolSelectList() rowPerPage = {}", rowPerPage);
-		Map map = idolService.idolSelectListByPage(currentPage, rowPerPage);
+		logger.debug("idolSelectList() word = {}", word);
+		Map map = idolService.idolSelectListByPage(currentPage, rowPerPage, word);
 		
 		logger.debug("idolSelectList() map = {}", map);
 		

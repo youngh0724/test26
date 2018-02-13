@@ -16,6 +16,12 @@
 		<div class="row">
 			<div class="col-sm-6 col-lg-6">
 				<p class="lead text-muted">목록 크기 : ${list.size()}</p>
+				
+					<p class="lead text-muted">검색</p>
+ 					<form action="${pageContext.request.contextPath}/idol/idolList" method="get">
+ 					<input type="text" name="word">
+ 					<button type="submit">검색</button>
+ 					</form>	
 
 				<!--SELECT COUNT OPTION 시작 -->
 				<div style="margin-bottom: 10;">

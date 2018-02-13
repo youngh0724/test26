@@ -17,21 +17,26 @@ public class IdolService {
 	@Autowired
 	private IdolDao idolDao;
 	
-	public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage){
+	public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String word){
+		
+		logger.debug("idolSelectListByPage() currentPage = {}", currentPage);
+		logger.debug("idolSelectListByPage() rowPerPage = {}", rowPerPage);
+		logger.debug("idolSelectListByPage() word = {}", word);
 		
 		int startRow = (currentPage-1)*rowPerPage;
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("word", word);
 		
 		List<Idol> list = idolDao.idolSelectPage(map);
 		logger.debug("idolSelectListByPage() list = {}", list);
 		int totalCount = idolDao.idolSelectTotalCount();
 		logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
-		
 		Map returnMap = new HashMap();
 		returnMap.put("list", list);
 		returnMap.put("totalCount", totalCount);
+		
 		
 		return returnMap;
 	}
