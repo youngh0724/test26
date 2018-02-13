@@ -22,6 +22,9 @@
   				country_id AS countryId,
   				country_name AS countryName
   			FROM country
+  			<if test="searchWord != null">
+  				WHERE country_name LIKE CONCAT('%',#{searchWord},'%')
+  			</if>
   			ORDER BY countryId
   			LIMIT #{startRow}, #{rowPerPage} 		
   		</select>

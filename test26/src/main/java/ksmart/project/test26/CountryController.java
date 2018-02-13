@@ -27,11 +27,13 @@ public class CountryController {
 	@RequestMapping(value="/country/countryList", method = RequestMethod.GET)
 	public String countrySelcetList(Model model, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
-			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
+			@RequestParam(value="searchWord", required=false) String searchWord) {	
 		
 		logger.debug("countrySelcetList() currentPage = {}", currentPage);
 		logger.debug("countrySelcetList() rowPerPage = {}", rowPerPage);
-		Map map = countryService.countrySelectListByPage(currentPage, rowPerPage);
+		logger.debug("countrySelectPage() searchWord = {}", searchWord);
+		Map map = countryService.countrySelectListByPage(currentPage, rowPerPage, searchWord);
 		//list에 들어있는 값을 확인해본다.
 		logger.debug("countrySelcetList() map = {}", map);
 		

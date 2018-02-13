@@ -20,7 +20,9 @@ public class CountryDao {
 	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
 	
 	public List<Country> countrySelectPage(Map map) {
-		logger.debug("countrySelectPage() map = {}", map);
+		logger.debug("countrySelectPage() map.startRow = {}", map.get("startRow"));
+		logger.debug("countrySelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
+		logger.debug("countrySelectPage() map.searchWord = {}", map.get("searchWord"));
 		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectPage", map);
 	}
 	

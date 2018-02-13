@@ -20,12 +20,17 @@ public class CountryService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryService.class);
 	
-	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage){
+	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage, String searchWord){
+		
+		logger.debug("countrySelectListByPage() currentPage = {}", currentPage);
+		logger.debug("countrySelectListByPage() rowPerPage = {}", rowPerPage);
+		logger.debug("countrySelectListByPage() searchWord = {}", searchWord);
 		
 		int startRow = (currentPage-1)*rowPerPage;
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
 		
 		List<Country> list = countryDao.countrySelectPage(map);
 		logger.debug("countrySelectListByPage() list = {}", list);
