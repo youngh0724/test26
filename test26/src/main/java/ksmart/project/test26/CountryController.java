@@ -32,7 +32,7 @@ public class CountryController {
 			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
 			@RequestParam(value="searchWord", required=false) String searchWord) {	
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
 				
@@ -61,7 +61,7 @@ public class CountryController {
 		//처리하는 내용이 없기때문에 메서드가 실행되었는지 확인하기위해 문자열을 출력해본다.
 		logger.debug("countryInsert() 실행확인"); 
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}		
         return "country/countryInsert";
@@ -72,7 +72,7 @@ public class CountryController {
     public String countryInsert(Country country, HttpSession session) {		
 		logger.debug("countryInsert() countryName = {}", country.getCountryName());
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}		
 		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
@@ -86,7 +86,7 @@ public class CountryController {
 	public String countrySelectOne( Model model, HttpSession session, @RequestParam(value="countryId", required=true) int countryId) {
 		logger.debug("countrySelectOne() countryId = {}", countryId);
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
 		//매개변수로 받은 countryId값을 이요하여 하나의 country객체를 리턴받는다.
@@ -103,7 +103,7 @@ public class CountryController {
     public String countryUpdate(HttpSession session, Country country) {		
 		logger.debug("countryUpdate() countryName = {}", country.getCountryName());
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
 		//입력받은 정보를 매개변수로하여 db정보를 update시킨다.
@@ -117,7 +117,7 @@ public class CountryController {
 	public String countryDelete(HttpSession session, @RequestParam(value="countryId", required=true) int countryId) {
 		logger.debug("countryDelete() countryId = {}", countryId);
 		
-		if(session.getAttribute("loginSession") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
 		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출
