@@ -24,8 +24,12 @@ public class MemberController {
 	
 	//홈화면에서 정보 수정버튼 클릭시 들어오는 요청 처리
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.GET)
-	public String memberSelectOneForUpdate(Model model, @RequestParam(value="memberNo", required=true) int memberNo) {
+	public String memberSelectOneForUpdate(Model model, HttpSession session, @RequestParam(value="memberNo", required=true) int memberNo) {
 		logger.debug("memberSelectOneForUpdate() memberNo = {}", memberNo);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		//한명의 정보를 조회하는 메서드 호출
 		Member member = memberService.memberSelectOneForUpdate(memberNo);
 		logger.debug("memberSelectOneForUpdate() memberId = {}", member.getMemberId());
@@ -36,8 +40,12 @@ public class MemberController {
 	
 	//회원정보 수정화면에서 수정완료버튼 클릭시 들어오는 요청처리
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.POST)
-	public String memberUpdate(Member member) {
+	public String memberUpdate(Member member, HttpSession session) {
 		logger.debug("memberUpdate() member = {}", member);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		//한명의 정보를 수정하는 메서드 호출
 		memberService.memberUpdate(member);
 		return "redirect:/member/memberInfo";
@@ -45,9 +53,13 @@ public class MemberController {
 	
 	//홈화면에서 회원 정보버튼 클릭시 들어오는 요청처리
 	@RequestMapping(value="/member/memberInfo", method = RequestMethod.GET)
-	public String memberInfo() {
+	public String memberInfo(HttpSession session) {
 		//처리내용은 없고 화면 포워드를 시킨다. 메서드 실행확인용 로그를 남긴다.
 		logger.debug("memberInfo() 실행확인");
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		return "member/memberInfo";
 	}
 	
@@ -72,6 +84,10 @@ public class MemberController {
 	@RequestMapping(value="/member/memberDelete", method = RequestMethod.GET)
 	public String memberDelete(@RequestParam(value="memberId", required=true) String memberId, HttpSession session) {
 		logger.debug("memberDelete() memberId = {}", memberId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		//회원정보 삭제 메서드 호출
 		memberService.memberDelete(memberId);
 		//session도 연결을 끈는다.

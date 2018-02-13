@@ -47,6 +47,10 @@ public class LoginController {
 	}
 	@RequestMapping(value="/login/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		session.invalidate();
 		return "redirect:/";
 	}
