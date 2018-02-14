@@ -13,9 +13,10 @@
 
 <style style="text/css">
 .footer{
+width: 100%;
 position: absolute;
 bottom: 0;
-left: 100%; margin-left: -630px;
+text-align: center;
 }
 </style>
 

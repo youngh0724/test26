@@ -19,7 +19,9 @@ public class CityDao {
 		private static final Logger logger = LoggerFactory.getLogger(CityDao.class);
 	
 		public List<City> citySelectPage(Map<String, Object> map) {
-			logger.debug("citySelectPage() map = {}", map);
+			logger.debug("citySelectPage() map.startRow = {}", map.get("startRow"));
+			logger.debug("citySelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
+			logger.debug("citySelectPage() map.searchWord = {}", map.get("searchWord"));
 			return sqlSessionTemplate.selectList(mapperRoot+"citySelectPage", map);
 		}
 		
@@ -27,7 +29,6 @@ public class CityDao {
 			logger.debug("citySelectTotalCount() 실행확인"); 
 			return sqlSessionTemplate.selectOne(mapperRoot+"citySelectCount");	
 		}
-		
 		
 	public List<City> citySelectList(){
 		logger.debug("citySelectList() 실행확인");

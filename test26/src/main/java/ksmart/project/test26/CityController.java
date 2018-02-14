@@ -3,6 +3,8 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +27,21 @@ public class CityController{
    
  
  	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
- 	public String cityselectList(Model model, 
+ 	public String citySelectList(Model model, HttpSession session, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
-			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {	
+			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
+			@RequestParam(value="searchWord", required=false) String searchWord) {	
 		
-		logger.debug("cityselectList() currentPage = {}", currentPage);
-		logger.debug("cityselectList() rowPerPage = {}", rowPerPage);
-		Map<String, Object> map = cityService.citySelectListByPage(currentPage, rowPerPage);
+ 		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+ 		
+ 		logger.debug("citySelectPage() map.startRow = {}", currentPage);
+		logger.debug("citySelectPage() map.rowPerPage = {}", rowPerPage);
+		logger.debug("citySelectPage() map.searchWord = {}", searchWord);
+		Map<String, Object> map = cityService.citySelectListByPage(currentPage, rowPerPage, searchWord);
 		//list에 들어있는 값을 확인해본다.
-		logger.debug("cityselectList() map = {}", map);
+		logger.debug("citySelectList() map = {}", map);
 		
 		@SuppressWarnings("unchecked")
 		List<City> list = (List<City>)map.get("list");
@@ -47,6 +55,7 @@ public class CityController{
 		model.addAttribute("currentPage", currentPage);
 		return "city/cityList";
 	}
+ 	
  	
  	
  	@RequestMapping(value="/city/cityInsert", method = RequestMethod.GET)
@@ -91,4 +100,5 @@ public class CityController{
  		
  		return "redirect:/city/cityList";
  	}
+ 	
  }

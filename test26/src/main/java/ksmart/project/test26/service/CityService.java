@@ -14,18 +14,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CityService {
+	private final int LINE_PER_PAGE = 5;
 	@Autowired
 	private CityDao cityDao;
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(CityService.class);
 	
-public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage){
+		public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage, String searchWord){
+			
+			logger.debug("citySelectPage() map.startRow = {}", currentPage);
+			logger.debug("citySelectPage() map.rowPerPage = {}", rowPerPage);
+			logger.debug("citySelectPage() map.searchWord = {}", searchWord);
 			
 			int startRow = (currentPage-1)*rowPerPage;
 			Map map = new HashMap();
 			map.put("startRow", startRow);
 			map.put("rowPerPage", rowPerPage);
+			map.put("searchWord", searchWord);
 			
 			List<City> list = cityDao.citySelectPage(map);
 			logger.debug("citySelectListByPage() list = {}", list);
@@ -38,11 +44,13 @@ public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage)
 			
 			return returnMap;
 		}	
+		
 	
-	public List<City> citySelectList(){
+	public List<City> citySelectList(int startRow){
 		List<City> list = cityDao.citySelectList();
 		logger.debug("citySelectList() list = {}", list);
 		return list;
+		
 	}
 	
 	public int cityInsert(City city) {
@@ -60,7 +68,7 @@ public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage)
 	}
 	
 	public int cityUpdate(City city) {
-		logger.debug("cityUpdate() country = {}", city);
+		logger.debug("cityUpdate() city = {}", city);
 		int row = cityDao.cityUpdate(city); 
 		logger.debug("cityUpdate() row = {}", row);
 		return row;
