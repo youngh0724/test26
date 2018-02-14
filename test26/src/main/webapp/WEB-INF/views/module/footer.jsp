@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 
-<style style="text/css">
-.footer{
-position: absolute;
-bottom: 0; 
-text-align:center;
-}
-</style>
+
 
 <!-- Main Scripts-->
   <script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
@@ -17,9 +11,15 @@ text-align:center;
   <script src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
 
 
+<style style="text/css">
+.footer{
+position: absolute;
+bottom: 0;
+left: 100%; margin-left: -630px;
+}
+</style>
 
-
-<div class="footer">
+<div class="footer" >
 <div>CopyRight by ET</div>
 </div>
 </div>
