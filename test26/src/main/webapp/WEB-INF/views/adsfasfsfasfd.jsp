@@ -1,0 +1,52 @@
+              <div class="col-lg-3 col-sm-3 ">
+                <div class="thumbnail">
+                  <img alt="avator" src="resources/image/RoJin.png">
+                  <div class="caption" style="height:300px">
+                    <h3>박로진</h3>
+                    <p>나이 : 27살</p>
+                    <p>소속 : 2조</p>
+                    <p>역할 : 뿌릉</p>
+                    <p>소갯말 : 부릉부릉</p>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 ">
+                <div class="thumbnail">
+                  <img alt="avator" src="resources/image/heartcat.jpg">
+                  <div class="caption" style="height:300px">
+                    <h3>박범진</h3>
+                    <p>나이 : 29살</p>
+                    <p>소속 : 2조</p>
+                    <p>역할 : 눈팅</p>
+                    <p>소갯말 : 가즈아ㅏㅏㅏㅏ</p>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 ">
+                <div class="thumbnail">
+                  <img alt="avator" src="resources/image/minsang.jpg">
+                  <div class="caption" style="height:300px">
+                    <h3>안준철</h3>
+                    <p>나이 : 35살</p>
+                    <p>소속 : 2조</p>
+                    <p>역할 : 나이 많은 형</p>
+                    <p>소갯말 : 열심히는 핡게요 열심히만...</p>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 ">
+                <div class="thumbnail">
+                  <img alt="avator" src="resources/image/Ryan.jpg">
+                  <div class="caption" style="height:300px">
+                    <h3>이영현</h3>
+                    <p>나이 : 29</p>
+                    <p>소속 : 2조</p>
+                    <p>역할 : 팀장</p>
+                    <p>소갯말 : 팀장 하기 싫었는데</p>
+                    
+                  </div>
+                </div>
+              </div>
