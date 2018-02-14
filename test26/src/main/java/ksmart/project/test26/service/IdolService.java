@@ -10,69 +10,76 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Transactional
 public class IdolService {
-	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
+	private final int LINE_PER_PAGE = 5;
 	@Autowired
 	private IdolDao idolDao;
 	
-	public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String word){
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+		private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
+	
+		public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+			
+			logger.debug("idolSelectPage() map.startRow = {}", currentPage);
+			logger.debug("idolSelectPage() map.rowPerPage = {}", rowPerPage);
+			logger.debug("idolSelectPage() map.searchWord = {}", searchWord);
+			
+			int startRow = (currentPage-1)*rowPerPage;
+			Map map = new HashMap();
+			map.put("startRow", startRow);
+			map.put("rowPerPage", rowPerPage);
+			map.put("searchWord", searchWord);
+			
+			List<Idol> list = idolDao.idolSelectPage(map);
+			logger.debug("idolSelectListByPage() list = {}", list);
+			int totalCount = idolDao.idolSelectTotalCount();
+			logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
+			
+			Map returnMap = new HashMap();
+			returnMap.put("list", list);
+			returnMap.put("totalCount", totalCount);
+			
+			return returnMap;
+		}	
 		
-		logger.debug("idolSelectListByPage() currentPage = {}", currentPage);
-		logger.debug("idolSelectListByPage() rowPerPage = {}", rowPerPage);
-		logger.debug("idolSelectListByPage() word = {}", word);
+	
+	public List<Idol> idolSelectList(int startRow){
+		List<Idol> list = idolDao.idolSelectList();
+		logger.debug("idolSelectList() list = {}", list);
+		return list;
 		
-		int startRow = (currentPage-1)*rowPerPage;
-		Map map = new HashMap();
-		map.put("startRow", startRow);
-		map.put("rowPerPage", rowPerPage);
-		map.put("word", word);
-		
-		List<Idol> list = idolDao.idolSelectPage(map);
-		logger.debug("idolSelectListByPage() list = {}", list);
-		int totalCount = idolDao.idolSelectTotalCount();
-		logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
-		Map returnMap = new HashMap();
-		returnMap.put("list", list);
-		returnMap.put("totalCount", totalCount);
-		
-		
-		return returnMap;
 	}
 	
-	//Controller
-	public List<Idol> idolSelectList(){
-		List<Idol> list = idolDao.idolSelectList();
-		logger.debug("idolSelectList idolList = {}", list);
-		return list;
-	}
-	//Controller에서 매개변수를 입력받을 값을 통해 idoDao.insertIdol을 호출
 	public int idolInsert(Idol idol) {
+		logger.debug("idolInsert() idolName = {}", idol.getIdolName());
 		int row = idolDao.idolInsert(idol);
-		logger.debug("idolInsert idolName = {}", idol.getIdolName());
+		logger.debug("idolInsert() row = {}", row);
 		return row;
 	}
-	//Controller에서 매개변수를 입력받을 값을 통해 idoDao.getIdol을 호출
-	public Idol idolSelectOneForUpdate(int idolId) {
-		logger.debug("idolSelectOneForUpdate idolId = {}", idolId);
+	
+	public Idol idolSelectOne(int idolId) {
+		logger.debug("idolSelectOne() idolId = {}", idolId);
 		Idol idol = idolDao.idolSelectOneForUpdate(idolId);
-		logger.debug("idolSelectOneForUpdate idolId = {}", idol.getIdolId());
-		logger.debug("idolSelectOneForUpdate idolName = {}", idol.getIdolName());
+		logger.debug("idolSelectOne() idol = {}", idol);
 		return idol;
-	} 
-	//Controller에서 입력받을 값을 통해 idoDao.updateIdol을 호출
+	}
+	
 	public int idolUpdate(Idol idol) {
-		logger.debug("idolUpdate idolId = {}", idol.getIdolId());
-		logger.debug("idolUpdate idolName = {}", idol.getIdolName());
-		int row = idolDao.idolUpdate(idol);
+		logger.debug("idolUpdate() idol = {}", idol);
+		int row = idolDao.idolUpdate(idol); 
+		logger.debug("idolUpdate() row = {}", row);
 		return row;
 	}
-	//Controller에서 입력받을 값을 통해 idoDao.deleteIdol을 호출
+	
 	public int idolDelete(int idolId) {
+		logger.debug("idolDelete() idolId = {}", idolId);
 		int row = idolDao.idolDelete(idolId);
-		logger.debug("idolDelete idolId = {}", idolId);
+		logger.debug("idolDelete() row = {}", row);
 		return row;
-		
 	}
+	
 }
+ 

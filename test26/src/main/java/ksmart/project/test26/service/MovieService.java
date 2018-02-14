@@ -10,70 +10,76 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Transactional
 public class MovieService {
+	private final int LINE_PER_PAGE = 5;
 	@Autowired
 	private MovieDao movieDao;
-	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
-	//영화 목록 페이징
-    public Map<String, Object> movieSelectListByPage(int currentPage, int pagePerRow, String word) {
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+		private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
+	
+		public Map<String, Object> movieSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+			
+			logger.debug("movieSelectPage() map.startRow = {}", currentPage);
+			logger.debug("movieSelectPage() map.rowPerPage = {}", rowPerPage);
+			logger.debug("movieSelectPage() map.searchWord = {}", searchWord);
+			
+			int startRow = (currentPage-1)*rowPerPage;
+			Map map = new HashMap();
+			map.put("startRow", startRow);
+			map.put("rowPerPage", rowPerPage);
+			map.put("searchWord", searchWord);
+			
+			List<Movie> list = movieDao.movieSelectPage(map);
+			logger.debug("movieSelectListByPage() list = {}", list);
+			int totalCount = movieDao.movieSelectTotalCount();
+			logger.debug("movieSelectListByPage() totalCount = {}", totalCount);
+			
+			Map returnMap = new HashMap();
+			returnMap.put("list", list);
+			returnMap.put("totalCount", totalCount);
+			
+			return returnMap;
+		}	
 		
-		int startRow = (currentPage-1)*pagePerRow;
-		Map map = new HashMap();
-		map.put("startRow", startRow);
-		map.put("pagePerRow", pagePerRow);
-		map.put("word", word);
-		
-		List<Movie> list = movieDao.movieSelectListByPage(map);
-		logger.debug("movieSelectListByPage() list = {}", list);
-		
-		int totalCount = movieDao.movieSelectTotalCount();		
-		logger.debug("movieSelectTotalCount() totalCount = {}", totalCount);		
-		
-		Map returnMap = new HashMap();
-		returnMap.put("list", list);
-		returnMap.put("totalCount", totalCount);
-		
-		return returnMap;
-	}
-	//영화 리스트
-	public List<Movie> movieList() {
-		List<Movie> list = movieDao.movieList();	
-		logger.debug("movieList() movieId = {}", list.get(1).getMovieId());
+	
+	public List<Movie> movieSelectList(int startRow){
+		List<Movie> list = movieDao.movieSelectList();
+		logger.debug("movieSelectList() list = {}", list);
 		return list;
+		
 	}
-	//영화 목록 추가
-	public int movieInsert(Movie movie) {		
-		int row = movieDao.movieInsert(movie);		
-		logger.debug("movieInsert() movieId = {}", movie.getMovieId());
-		return row;		
-	}
-	//영화 목록 한개 선택	
-	public Movie movieSelectOneForUpdate(int movieId) {
-		Movie movie = movieDao.movieSelectOneForUpdate(movieId);
-		logger.debug("movieSelectOneForUpdate() movieId = {}", movie.getMovieId());
-		return movie;		
-	}
-	//영화 수정	
-	public int movieUpdate(Movie movie) {
-		int row = movieDao.movieUpdate(movie);
-		logger.debug("movieUpdate() movieId = {}", movie.getMovieId());
+	
+	public int movieInsert(Movie movie) {
+		logger.debug("movieInsert() movieName = {}", movie.getMovieName());
+		int row = movieDao.movieInsert(movie);
+		logger.debug("movieInsert() row = {}", row);
 		return row;
 	}
-	//영화 삭제	
-	   public int movieDelete(int movieId) {
-	      int row = movieDao.movieDelete(movieId);
-	      logger.debug("movieUpdate() movieId = {}", movieId);
-	      return row;
+	
+	public Movie movieSelectOne(int movieId) {
+		logger.debug("movieSelectOne() movieId = {}", movieId);
+		Movie movie = movieDao.movieSelectOneForUpdate(movieId);
+		logger.debug("movieSelectOne() movie = {}", movie);
+		return movie;
 	}
-		
-
+	
+	public int movieUpdate(Movie movie) {
+		logger.debug("movieUpdate() movie = {}", movie);
+		int row = movieDao.movieUpdate(movie); 
+		logger.debug("movieUpdate() row = {}", row);
+		return row;
+	}
+	
+	public int movieDelete(int movieId) {
+		logger.debug("movieDelete() movieId = {}", movieId);
+		int row = movieDao.movieDelete(movieId);
+		logger.debug("movieDelete() row = {}", row);
+		return row;
+	}
+	
 }
-	   
-	   
-
-	
-	
-
+ 

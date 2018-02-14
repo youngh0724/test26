@@ -5,65 +5,71 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="ksmart.project.test26.service.MovieMapper">
-  <!-- 영화 목록 페이징  -->
-	<select id="selectMovieListByPage"
-			parameterType="java.util.Map"
+  
+ 
+  <!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+  		<select id="movieSelectCount"
+  				resultType="int">
+  			SELECT 
+  				COUNT(*) 
+  			FROM movie
+  		</select>
+  		
+  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 + 상세검색 -->
+  		<select id="movieSelectPage"
+  				parameterType="java.util.Map"
+  				resultType="ksmart.project.test26.service.Movie">
+  			SELECT 
+  				movie_id AS movieId,
+  				movie_name AS movieName
+  			FROM movie
+  			<if test="searchWord != null">
+  				WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+  			</if>
+  			ORDER BY movieId
+  			LIMIT #{startRow}, #{rowPerPage} 		
+  		</select>
+  		
+  		<!-- movieList view에서 사용하는 select쿼리문 -->  	
+ 		<select id="movieSelectList"
 			resultType="ksmart.project.test26.service.Movie">
-		SELECT 
-			movie_id as movieId,		
-			movie_name as movieName
-		FROM movie
-		<if test="word != null">
-		WHERE movie_name LIKE CONCAT ('%',#{word},'%')  
-		</if>
-		ORDER BY movieId
-		LIMIT #{startRow}, #{pagePerRow}
-	</select>
-<!-- 전체 목록 갯수 -->
-	<select id="selectMovieCount"
-			resultType="int">
-		SELECT COUNT(*) 
-		FROM movie
-	</select>
-<!-- 영화 전체 list 출력 -->
-	<select id="selectMovieList"
-			resultType="ksmart.project.test26.service.Movie">
-		SELECT movie_id as movieId
-			  ,movie_name as movieName
-		FROM movie;
-	</select>
-<!-- 영화 목록 추가 하기 -->	
-	<insert id="insertMovie"
-			parameterType="ksmart.project.test26.service.Movie">
-		INSERT INTO movie(
-			movie_name
-		)
-		VALUES(
-			#{movieName}
-		)			
-	</insert>
-<!-- 영화 한개 선택하기 -->
-	<select id="selectMovie"
-			parameterType="int"
-			resultType="ksmart.project.test26.service.Movie">
-		SELECT movie_id as movieId
-			  ,movie_name as movieName
-		FROM movie
-		WHERE movie_id = #{movieId}			
-	</select>
-<!-- 영화 수정 하기 -->
-	<update id="updateMovie"
-			parameterType="ksmart.project.test26.service.Movie">
-		UPDATE movie
-		SET movie_name = #{movieName}
-		WHERE movie_id = #{movieId}		
-	</update>
-<!-- 영화 삭제 하기 -->
-	<delete id="deleteMovie"
-			parameterType="ksmart.project.test26.service.Movie">
-		DELETE FROM movie
-		WHERE movie_id = #{movieId}				
-	</delete>
-	
-</mapper>
-
+			SELECT 
+				movie_id as movieId
+				,movie_name as movieName
+			FROM movie 
+		</select>
+		
+		<!-- updateMovieForm으로 요청때 하나의 movie객체만을 select할때 사용하는 쿼리문 -->
+		<select id="movieSelectOne" 
+				parameterType="int"
+				resultType="ksmart.project.test26.service.Movie">
+			SELECT 
+				movie_id as movieId
+				,movie_name as movieName
+			FROM movie
+			WHERE movie_id = #{movie_id}
+		</select>
+		
+		<!-- movieInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
+		<insert id="movieInsert" 
+				parameterType="ksmart.project.test26.service.Movie">
+			INSERT INTO movie(movie_name)
+				VALUES (#{movieName})		
+		</insert>
+		
+		<!-- movieUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
+		<update id="movieUpdate" 
+				parameterType="ksmart.project.test26.service.Movie">
+	        UPDATE movie 
+	            SET movie_name = #{movieName} 
+	        WHERE movie_id = #{movieId}     
+	    </update>
+	    
+	    <!-- movieList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="movieDelete" 
+	    		parameterType="ksmart.project.test26.service.Movie">
+	        DELETE FROM movie 
+	        WHERE movie_id = #{movieId} 
+	    </delete>
+		
+  </mapper>
