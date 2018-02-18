@@ -1,52 +1,152 @@
-              <div class="col-lg-3 col-sm-3 ">
-                <div class="thumbnail">
-                  <img alt="avator" src="resources/image/RoJin.png">
-                  <div class="caption" style="height:300px">
-                    <h3>박로진</h3>
-                    <p>나이 : 27살</p>
-                    <p>소속 : 2조</p>
-                    <p>역할 : 뿌릉</p>
-                    <p>소갯말 : 부릉부릉</p>
-                   
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-3 ">
-                <div class="thumbnail">
-                  <img alt="avator" src="resources/image/heartcat.jpg">
-                  <div class="caption" style="height:300px">
-                    <h3>박범진</h3>
-                    <p>나이 : 29살</p>
-                    <p>소속 : 2조</p>
-                    <p>역할 : 눈팅</p>
-                    <p>소갯말 : 가즈아ㅏㅏㅏㅏ</p>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-3 ">
-                <div class="thumbnail">
-                  <img alt="avator" src="resources/image/minsang.jpg">
-                  <div class="caption" style="height:300px">
-                    <h3>안준철</h3>
-                    <p>나이 : 35살</p>
-                    <p>소속 : 2조</p>
-                    <p>역할 : 나이 많은 형</p>
-                    <p>소갯말 : 열심히는 핡게요 열심히만...</p>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-3 ">
-                <div class="thumbnail">
-                  <img alt="avator" src="resources/image/Ryan.jpg">
-                  <div class="caption" style="height:300px">
-                    <h3>이영현</h3>
-                    <p>나이 : 29</p>
-                    <p>소속 : 2조</p>
-                    <p>역할 : 팀장</p>
-                    <p>소갯말 : 팀장 하기 싫었는데</p>
-                    
-                  </div>
-                </div>
-              </div>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div class="container">
+		<jsp:include page="/WEB-INF/views/module/top.jsp" />
+
+		<h2>Country List</h2>
+		<div class="row" style="margin-bottom: 30;">
+			<div class="col-sm-6 col-lg-6">
+
+				<table style="width: 100%">
+					<tr>
+						<td>
+							<div>
+								<select name="rowPerPage" onchange="location.href=this.value">
+									<option value="#">보여줄 개수 선택</option>
+									<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=5">5개 보여주기</option>
+									<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=10">10개 보여주기</option>
+									<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=20">20개 보여주기</option>
+								</select><br>
+							</div>
+						</td>
+
+						<td style="margin: auto; text-align: right;">
+							<!--SELECT COUNT OPTION 시작 -->
+							<div>
+								<a class="btn btn-default" href="${pageContext.request.contextPath}/country/countryInsert">도시 추가</a>
+							</div>
+						</td>
+					</tr>
+					<!--SELECT COUNT OPTION 끝 -->
+				</table>
+				
+				<table class="table table-striped" data-effect="fade">
+					<thead>
+						<tr>
+							<th>countryId</th>
+							<th>countryName</th>
+							<th>수정</th>
+							<th>삭제</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="country" items="${list}">
+							<tr>
+								<td>${country.countryId }</td>
+								<td>${country.countryName }</td>
+								<td><a href="${pageContext.request.contextPath}/country/countryUpdate?countryId=${country.countryId}">수정</a></td>
+								<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${country.countryId}">삭제</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
+				<!-- 이전, 다음 버튼 시작 -->
+				<div class="col-sm-12" style="margin-bottom: 10; text-align: center">
+					<div>
+						<a href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}</c:if>">
+							<button type="button" class="btn btn-labeled btn-default">
+								<span class="btn-label"> <i class="fa fa-arrow-left"></i>
+								</span>이전
+							</button></a> ${currentPage} <a
+							href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}</c:if>">
+							<button type="button" class="btn btn-labeled btn-default">
+								다음<span class="btn-label btn-label-right"> <i class="fa fa-arrow-right"></i>
+								</span>
+							</button></a>
+					</div>
+					
+					<div class="input-group" style="margin: auto;">
+						<form class="navbar-form" role="search" action="${pageContext.request.contextPath}/country/countryList" method="get">
+							<input type="text" class="form-control" placeholder="Search" name="searchWord"> <span class="input-group-btn">
+								<button class="btn btn-default" type="submit">검색</button>
+							</span>
+						</form>
+					</div>
+				</div>
+				<!-- 이전, 다음 버튼 끝 -->
+			</div>
+		</div>
+		
+		<jsp:include page="/WEB-INF/views/module/footer.jsp" />
+		
+		
+		
+		<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<jsp:include page="/WEB-INF/views/module/top.jsp" />
+
+		<h2>member Login Form</h2>
+		<div class="row">
+			<div class="col-sm-6 col-lg-6">
+				<form
+					action="${pageContext.request.contextPath}/login/login"
+					method="post">
+					<table class="table table-striped" data-effect="fade">
+						<tr>
+							<td>ID</td>
+							<td><input id="memberId" name="memberId" type="text" value="guest"/></td>
+						</tr>
+						<tr>
+							<td>PW</td>
+							<td><input id="memberPw" name="memberPw" type="text" value="1234"/></td>
+						</tr>
+					</table>
+					<input class="btn btn-default" id="login" type="button" value="login">
+				</form>
+			</div>
+		</div>
+	
+	<!-- Main Scripts-->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+	
+
+	<!-- Bootstrap 3 has typeahead optionally -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/typeahead.min.js"></script>
+	<script>
+		$('#login').click(function(){
+			if($('#memberId').val() == ''){
+				alert('아이디를 입력하세요');
+				$('#memberId').focus();
+			} else if($('#memberPw').val() == ''){
+				alert('비밀번호를 입력하세요');
+				$('#memberPw').focus();
+			}else{
+				$('form').submit();
+			}
+		})
+		
+	</script>
+
+<jsp:include page ="/WEB-INF/views/module/footer.jsp"/>

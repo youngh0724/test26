@@ -13,7 +13,7 @@
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/module/top.jsp" />
 	</div>
-			<meta http-equiv='refresh' content='2;url=${pageContext.request.contextPath}/login/login'>
+			<meta http-equiv='refresh' content='1;url=${pageContext.request.contextPath}/login/login'>
 	
 	<img style="display: block; margin-left: auto; margin-right: auto;" src="${pageContext.request.contextPath}/resources/image/sessionError.png">
 
