@@ -54,9 +54,9 @@
 							<tr>
 								<td>${article.articleId }</td>
 								<td>${article.articleTitle }</td>
-								<td><a href="${pageContext.request.contextPath}/article/articleDetail?articleId=$${article.articleId }">상세보기</a></td>
-								<td><a href="${pageContext.request.contextPath}/country/countryUpdate?countryId=${country.countryId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${country.countryId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/article/articleDetail?articleId=${article.articleId }">상세보기</a></td>
+								<td><a href="${pageContext.request.contextPath}/article/articleUpdate?articleId=${article.articleId }">수정</a></td>
+								<td><a href="${pageContext.request.contextPath}/article/articleDelete?articleId=${article.articleId }">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

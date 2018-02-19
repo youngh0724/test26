@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.service.Article;
 import ksmart.project.test26.service.ArticleCommand;
+import ksmart.project.test26.service.ArticleFile;
 import ksmart.project.test26.service.ArticleService;
-import ksmart.project.test26.service.Country;
+
 
 @Controller
 public class ArticleController {
@@ -25,7 +27,21 @@ public class ArticleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 	
-	//countryList.jsp view파일을 요청
+	@RequestMapping(value="/article/articleDetail", method = RequestMethod.GET)
+	public String articleFileSelectList(Model model, HttpSession session, @RequestParam(value="articleId", required=true) int articleId) {
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		logger.debug("articleFileSelectList() articleId = {}", articleId);
+		
+		List<ArticleFile> list = articleService.articleFileSelectList(articleId);
+		
+		model.addAttribute("list", list);
+		
+		return "article/articleDetail";
+	}
+	
+	//articleList.jsp view파일을 요청
 		@RequestMapping(value="/article/articleList", method = RequestMethod.GET)
 		public String articleSelcetList(Model model, HttpSession session, 
 				@RequestParam(value="currentPage", defaultValue="1") int currentPage,
@@ -43,7 +59,7 @@ public class ArticleController {
 			//list에 들어있는 값을 확인해본다.
 			logger.debug("articleSelcetList() map = {}", map);
 			
-			List<Country> list = (List<Country>)map.get("list");
+			List<Article> list = (List<Article>)map.get("list");
 			int totalCount = (Integer) map.get("totalCount");		
 			
 			int lastPage = (totalCount/rowPerPage)+1;
@@ -56,8 +72,12 @@ public class ArticleController {
 		}
 	//추가 화면 호출
 	@RequestMapping(value="/article/articleInsert", method = RequestMethod.GET)
-	public String articleInsert() {
+	public String articleInsert(HttpSession session) {		
 		logger.debug("articleInsert() articleInsert.jsp 화면 호출");
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
 		return "article/articleInsert";
 	}
 	

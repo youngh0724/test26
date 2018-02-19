@@ -22,25 +22,37 @@
   	</insert> 
   	
   	<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
-  		<select id="articleSelectCount"
-  				resultType="int">
-  			SELECT 
-  				count(*) 
-  			FROM article
-  		</select>
+		<select id="articleSelectCount"
+				resultType="int">
+			SELECT 
+				count(*) 
+			FROM article
+		</select>
+		
+		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
+		<select id="articleSelectPage"
+				parameterType="java.util.Map"
+				resultType="ksmart.project.test26.service.Article">
+			SELECT 
+				article_id AS articleId,
+				article_title AS articleTitle
+			FROM article
+			<if test="searchWord != null">
+				WHERE article_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+			ORDER BY articleId
+			LIMIT #{startRow}, #{rowPerPage} 		
+		</select> 
   		
-  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
-  		<select id="articleSelectPage"
-  				parameterType="java.util.Map"
-  				resultType="ksmart.project.test26.service.Article">
-  			SELECT 
-  				article_id AS articleId,
-  				article_title AS articleTitle
-  			FROM article
-  			<if test="searchWord != null">
-  				WHERE article_title LIKE CONCAT('%',#{searchWord},'%')
-  			</if>
-  			ORDER BY articleId
-  			LIMIT #{startRow}, #{rowPerPage} 		
-  		</select> 	  	 
+  	<select id="articleFileSelect" 
+  			resultType="ksmart.project.test26.service.ArticleFile">
+  		SELECT 
+  			article_file_id AS articleFileId
+  			,article_id AS articleId
+  			,file_name AS fileName
+  			,file_ext AS fileExt
+  			,file_size AS fileSize
+  		FROM article_file
+  		WHERE article_id = #{articleId}
+  	</select>  	 
 </mapper>

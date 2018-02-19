@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.ibatis.annotations.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,11 @@ public class ArticleService {
 	
 	//업로드 경로를 final로 선언하여 상수화하여 사용한다.
 	private final String uploadRoot= "c:\\upload\\";
+	
+	public List<ArticleFile> articleFileSelectList(int articleId) {
+		List<ArticleFile> list = articleDao.articleFileSelectList(articleId);
+		return list;
+	}
 	
 	//추가 기능을 수행하는 요청을 처리
 	public void articleInsert(ArticleCommand articleCommand) {

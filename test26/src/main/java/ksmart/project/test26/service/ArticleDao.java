@@ -17,7 +17,12 @@ public class ArticleDao {
 	private final String mapperRoot = "ksmart.project.test26.service.ArticleMapper.";
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleDao.class);
-		
+	
+	public List<ArticleFile> articleFileSelectList(int articleId) {
+		logger.debug("articleFileSelectList() articleId : {}", articleId);
+		return sqlSessionTemplate.selectList(mapperRoot+"articleFileSelect", articleId);
+	}
+	
 	public int insertArticle(Article article) {
 		logger.debug("insertArticle() articleTitle : {}", article.getArticleTitle());
 		return sqlSessionTemplate.insert(mapperRoot+"articleInsertTitle", article);
