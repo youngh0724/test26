@@ -3,22 +3,20 @@ package ksmart.project.test26.service;
 import java.util.List;
 
 public class ArticleAndArticleFile {
-	private Article article;
+	private int articleId;
+	private String articleTitle;
 	private List<ArticleFile> list;
-		
-	public ArticleAndArticleFile() {
-		super();
+	public int getArticleId() {
+		return articleId;
 	}
-	public ArticleAndArticleFile(Article article, List<ArticleFile> list) {
-		super();
-		this.article = article;
-		this.list = list;
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
 	}
-	public Article getArticle() {
-		return article;
+	public String getArticleTitle() {
+		return articleTitle;
 	}
-	public void setArticle(Article article) {
-		this.article = article;
+	public void setArticleTitle(String articleTitle) {
+		this.articleTitle = articleTitle;
 	}
 	public List<ArticleFile> getList() {
 		return list;
@@ -27,5 +25,5 @@ public class ArticleAndArticleFile {
 		this.list = list;
 	}
 	
-
+	
 }

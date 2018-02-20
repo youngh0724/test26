@@ -7,7 +7,7 @@
   <mapper namespace="ksmart.project.test26.service.IdolMapper">
   
  
-  <!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="idolSelectCount"
   				resultType="int">
   			SELECT 
@@ -52,11 +52,20 @@
 		
 		<!-- idolInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
 		<insert id="idolInsert" 
-				parameterType="ksmart.project.test26.service.Idol">
+				parameterType="ksmart.project.test26.service.IdolCommand">
 			INSERT INTO idol(idol_name)
-				VALUES (#{idolName})		
+				VALUES (#{idolName})
+			<selectKey keyProperty="idolId" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+			</selectKey>	
 		</insert>
 		
+		<!-- idolInsertForm에서 추가시 같이 등록되는 파일처리 쿼리문 -->
+		<insert id="idolInsertFile" parameterType="ksmart.project.test26.service.IdolFile">
+			INSERT INTO idol_file
+				(idol_id, file_name, file_ext, file_size)
+				VALUES (#{idolId}, #{idolFileName}, #{idolFileExt}, #{idolFileSize})
+		</insert>
 		<!-- idolUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="idolUpdate" 
 				parameterType="ksmart.project.test26.service.Idol">

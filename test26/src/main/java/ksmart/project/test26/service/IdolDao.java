@@ -40,9 +40,16 @@ public class IdolDao {
 		return sqlSessionTemplate.selectOne(mapperRoot+"idolSelectOne", idolId);
 	}
 	
-	public int idolInsert(Idol idol) {
-		logger.debug("idolInsert() idol = {}", idol);
-		return sqlSessionTemplate.insert(mapperRoot+"idolInsert", idol);
+	public int idolInsert(IdolCommand idolCommand) {
+		logger.debug("idolInsert() idolCommand = {}", idolCommand);
+		return sqlSessionTemplate.insert(mapperRoot+"idolInsert", idolCommand);
+	}
+	
+	public int idolInsertFile(IdolFile idolfile) {
+		logger.debug("insertArticleFile() articleFileName : {}", idolfile.getIdolFileName());
+		logger.debug("insertArticleFile() articleFileExt : {}", idolfile.getIdolFileExt());
+		logger.debug("insertArticleFile() articleFileSize : {}", idolfile.getIdolFileSize());
+		return sqlSessionTemplate.insert(mapperRoot+"idolInsertFile", idolfile);
 	}
 	
 	public int idolUpdate(Idol idol) {

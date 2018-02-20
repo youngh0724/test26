@@ -17,11 +17,16 @@
 		<div class="row">
 			<div class="col-sm-6 col-lg-6">
 				<form action="${pageContext.request.contextPath}/idol/idolInsert"
-					method="post">
+					method="post"
+					enctype="multipart/form-data">
 					<table class="table table-striped" data-effect="fade">
 						<tr>
 							<td>아이돌 이름</td>
 							<td><input type="text" name="idolName" id="idolName"></td>
+						</tr>
+						<tr>
+						<td>파일</td>
+						<td><input type="file" name="files" multiple="multiple"/></td>
 						</tr>
 					</table>
 					<input id=insert Type="button" value="추가">

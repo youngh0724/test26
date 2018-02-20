@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Idol;
+import ksmart.project.test26.service.IdolCommand;
 import ksmart.project.test26.service.IdolService;
 
 @Controller
@@ -25,7 +26,7 @@ public class IdolController{
  //입력값과 리턴값을 확인하기위해 로거기능 사용
  	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
    
- 
+ 	//아이돌 목록화면 요청
  	@RequestMapping(value="/idol/idolList", method = RequestMethod.GET)
  	public String idolSelectList(Model model, HttpSession session, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
@@ -57,22 +58,24 @@ public class IdolController{
 	}
  	
  	
- 	
+ 	//추가 화면 요청
  	@RequestMapping(value="/idol/idolInsert", method = RequestMethod.GET)
      public String idolInsert() {
  		logger.debug("idolInsert() 실행확인");
          return "idol/idolInsert";
      }
  	
- 	
+ 	//추가화면에서 정보를 입력받아 추가처리요청
  	@RequestMapping(value="/idol/idolInsert", method = RequestMethod.POST)
-     public String idolInsert(Idol idol) {
- 		logger.debug("idolInsert() idolName = {}", idol.getIdolName());
- 		idolService.idolInsert(idol);
+     public String idolInsert(IdolCommand idolCommand) {
+ 		logger.debug("idolInsert() idolName = {}", idolCommand.getIdolName());
+		logger.debug("idolInsert() idolsize: {}", idolCommand.getFiles().size());
+ 		idolService.idolInsert(idolCommand);
          return "redirect:/idol/idolList";
      }
  	
  	
+ 	//수정화면 요청
  	@RequestMapping(value="/idol/idolUpdate", method = RequestMethod.GET)
  	public String idolSelectOne( Model model, @RequestParam(value="idolId", required=true) int idolId) {
  		logger.debug("idolSelectOne() idolId = {}", idolId);
@@ -83,7 +86,7 @@ public class IdolController{
  		return "idol/idolUpdate";
  	}
  	
- 
+ 	//수정화면에서 수정정보를 입력받아 수정처리요청
  	@RequestMapping(value="/idol/idolUpdate", method = RequestMethod.POST)
      public String idolUpdate(Idol idol) {		
  		logger.debug("idolUpdate() idolName = {}", idol.getIdolName());
@@ -92,7 +95,7 @@ public class IdolController{
          return "redirect:/idol/idolList";
      }
  	
- 	
+ 	//삭제버튼 클릭시 삭제처리 요청
  	@RequestMapping(value="/idol/idolDelete", method = RequestMethod.GET)
  	public String idolDelete(@RequestParam(value="idolId", required=true) int idolId) {
  		logger.debug("idolDelete() idolId = {}", idolId);

@@ -1,8 +1,8 @@
 package ksmart.project.test26;
 
 import java.util.List;
-import java.util.Map;
-
+import java.util.Map;import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -26,6 +26,12 @@ public class ArticleController {
 	private ArticleService articleService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+	
+	@RequestMapping(value="/article/addArticle", method = RequestMethod.GET)
+	public String addArticle(HttpServletRequest request) {
+		String path = request.getRealPath("/resource");
+		return "addArticle";
+	}
 	
 	@RequestMapping(value="/article/articleDetail", method = RequestMethod.GET)
 	public String articleFileSelectList(Model model, HttpSession session, @RequestParam(value="articleId", required=true) int articleId) {
