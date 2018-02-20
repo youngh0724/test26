@@ -53,8 +53,30 @@
 		<insert id="countryInsert" 
 				parameterType="ksmart.project.test26.service.Country">
 			INSERT INTO country(country_name)
-				VALUES (#{countryName})		
+				VALUES (#{countryName})	
+			<selectKey keyProperty="countryId" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>		
 		</insert>
+		
+		<insert id="countryInsertFile" 
+  				parameterType="ksmart.project.test26.service.CountryFile">
+	  		INSERT INTO country_file
+	  			(country_id, file_name, file_ext, file_size)
+	  		VALUES (#{countryId}, #{fileName}, #{fileExt}, #{fileSize})
+  		</insert>
+		
+		<select id="countrySelectListCountryFile" 
+				resultType="ksmart.project.test26.service.CountryFile">
+			SELECT 
+				country_file_id AS countryFileId
+				,country_id AS countryId
+				,file_name AS fileName
+				,file_ext AS fileExt
+				,file_size AS fileSize
+			FROM country_file
+			WHERE country_id = #{countryId}		
+		</select>		
 		
 		<!-- countryUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="countryUpdate" 
@@ -69,6 +91,13 @@
 	    		parameterType="ksmart.project.test26.service.Country">
 	        DELETE FROM country 
 	        WHERE country_id = #{countryId} 
+	    </delete>
+	    
+	    <!-- countryList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="countryDeleteFile" 
+	    		parameterType="ksmart.project.test26.service.CountryFile">
+	        DELETE FROM country_file 
+	        WHERE country_file_id = #{countryFileId} 
 	    </delete>
 		
   </mapper>

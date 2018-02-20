@@ -19,6 +19,12 @@ public class CountryDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
 	
+	public List<CountryFile> countrySelectListCountryFile(int countryId){
+		
+		logger.debug("countrySelectListDetail() countryId = {}", countryId);
+		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectListCountryFile", countryId);
+	}
+		
 	public List<Country> countrySelectPage(Map map) {
 		logger.debug("countrySelectPage() map.startRow = {}", map.get("startRow"));
 		logger.debug("countrySelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
@@ -47,6 +53,17 @@ public class CountryDao {
 		logger.debug("countryInsert() country = {}", country);
 		//country객체를 매개변수로 받아 db에 정보를 입력한다.
 		return sqlSessionTemplate.insert(mapperRoot+"countryInsert", country);
+	}
+	
+	public int countryInsertFile(CountryFile countryFile) {
+		logger.debug("countryInsertFile() countryFileName : {}", countryFile.getFileName());
+		logger.debug("countryInsertFile() countryFileExt : {}", countryFile.getFileExt());
+		logger.debug("countryInsertFile() countryFileSize : {}", countryFile.getFileSize());
+		return sqlSessionTemplate.insert(mapperRoot+"countryInsertFile", countryFile);
+	}
+	
+	public int countryDeleteFile(CountryFile countryFile) {
+		return sqlSessionTemplate.insert(mapperRoot+"countryDeleteFile", countryFile);
 	}
 	
 	public int countryUpdate(Country country) {

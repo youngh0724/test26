@@ -17,18 +17,22 @@
 	<h2>country insert form</h2>
 	<div class="row">
           <div class="col-sm-6 col-lg-6">
-	<form action="${pageContext.request.contextPath}/country/countryInsert" method="post">
+	<form action="${pageContext.request.contextPath}/country/countryInsert" method="post" enctype="multipart/form-data">
 		<table class="table table-striped" data-effect="fade">
 			<tr>
 				<td>국가명</td>
 				<td><input id="countryName" name="countryName" type="text"/></td>
 			</tr>
+			<tr>
+				<td>파일</td>
+				<td><input type="file" name="files" multiple="multiple"/></td>
+			</tr>
 		</table>
-		<input id="update" type="button" value="추가">
+		<input id="insert" type="button" value="추가">
 	</form>	
 	
 	<script>
-		$('#update').click(function(){
+		$('#insert').click(function(){
 			if($('#countryName').val() == ''){
 				alert('국가이름을 입력하세요');
 				$('#countryName').focus();

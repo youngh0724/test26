@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Country;
+import ksmart.project.test26.service.CountryCommand;
+import ksmart.project.test26.service.CountryFile;
 import ksmart.project.test26.service.CountryService;
 
 @Controller
@@ -55,6 +57,21 @@ public class CountryController {
 		return "country/countryList";
 	}
 	
+	@RequestMapping(value="/country/countryDetail", method = RequestMethod.GET)
+	public String countrySelectListDetail(Model model, HttpSession session, 
+										@RequestParam(value="countryId", required=true) int countryId) {
+		logger.debug("countrySelectListDetail() countryId = {}", countryId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		
+		List<CountryFile> list = countryService.countrySelectListCountryFile(countryId);
+		
+		model.addAttribute("list", list);
+		return "country/countryDetail";
+	}
+	
 	//countryInserForm 입력폼  view파일을 요청
 	@RequestMapping(value="/country/countryInsert", method = RequestMethod.GET)
     public String countryInsert(HttpSession session) {
@@ -69,14 +86,15 @@ public class CountryController {
 	
 	//countryInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드를 호출
 	@RequestMapping(value="/country/countryInsert", method = RequestMethod.POST)
-    public String countryInsert(Country country, HttpSession session) {		
-		logger.debug("countryInsert() countryName = {}", country.getCountryName());
-		
+    public String countryInsert(CountryCommand countryCommand, HttpSession session) {	
 		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
-		}		
+		}	
+		logger.debug("countryInsert() countryName = {}", countryCommand.getCountryName());
+		String path = session.getServletContext().getRealPath("/resources");
+		logger.debug("countryInsert() ResourcesRealPath = {}", path);
 		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
-		countryService.countryInsert(country);
+		countryService.countryInsert(countryCommand, path);
         //리스트페이지로 리다이렉트 시킨다.
         return "redirect:/country/countryList";
     }
@@ -120,8 +138,9 @@ public class CountryController {
 		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
+		String path = session.getServletContext().getRealPath("/resources");
 		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출
-		countryService.countryDelete(countryId);
+		countryService.countryDelete(countryId, path);
 		//리스트페이지로 리다이렉트 시킨다.
 		return "redirect:/country/countryList";
 	}
