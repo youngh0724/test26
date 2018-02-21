@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.service.CountryAndCountryFile;
 import ksmart.project.test26.service.Idol;
+import ksmart.project.test26.service.IdolAndIdolFile;
 import ksmart.project.test26.service.IdolCommand;
 import ksmart.project.test26.service.IdolService;
 
@@ -27,6 +29,22 @@ public class IdolController{
  //입력값과 리턴값을 확인하기위해 로거기능 사용
  	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
    
+ 	//
+ 	@RequestMapping(value="/idol/idolFileList", method = RequestMethod.GET)
+	public String idolSelectFileList(Model model, HttpSession session, 
+										@RequestParam(value="idolId", required=true) int idolId) {
+		logger.debug("idolSelectFileList() idolId = {}", idolId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		
+		IdolAndIdolFile idolAndIdolFile = idolService.idolAndIdolFileMap(idolId);
+		
+		model.addAttribute("idolAndIdolFile", idolAndIdolFile);
+		return "idol/idolFileList";
+	}
+	
  	//아이돌 목록화면 요청
  	@RequestMapping(value="/idol/idolList", method = RequestMethod.GET)
  	public String idolSelectList(Model model, HttpSession session, 

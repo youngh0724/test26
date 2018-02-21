@@ -17,6 +17,17 @@ public class IdolDao {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(IdolDao.class);
+		
+		public IdolAndIdolFile idolAndIdolFileMap(int idolId){
+			logger.debug("idolAndIdolFileMap() idolId = {}", idolId);
+			return sqlSessionTemplate.selectOne(mapperRoot+"idolAndIdolFileMap", idolId);
+		}
+		
+		public List<IdolFile> countrySelectListCountryFile(int idolId){
+			
+			logger.debug("countrySelectListDetail() countryId = {}", idolId);
+			return sqlSessionTemplate.selectList(mapperRoot+"countrySelectListCountryFile", idolId);
+		}
 	
 		public List<Idol> idolSelectPage(Map<String, Object> map) {
 			logger.debug("idolSelectPage() map.startRow = {}", map.get("startRow"));

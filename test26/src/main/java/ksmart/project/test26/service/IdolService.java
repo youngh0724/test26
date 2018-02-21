@@ -24,6 +24,14 @@ public class IdolService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
 	
+	public IdolAndIdolFile idolAndIdolFileMap(int idolId){
+		logger.debug("idolAndIdolFileMap() idolId = {}", idolId);
+		IdolAndIdolFile idolAndIdolFile = idolDao.idolAndIdolFileMap(idolId);
+		logger.debug("idolAndIdolFileMap() countryId = {}", idolAndIdolFile.getIdolId());
+		logger.debug("idolAndIdolFileMap() idolAndIdolFile.getList() = {}", idolAndIdolFile.getList());		
+		return idolAndIdolFile;		
+	}
+	
 		public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 			
 			logger.debug("idolSelectPage() map.startRow = {}", currentPage);
@@ -87,7 +95,12 @@ public class IdolService {
 			
 			//2. 파일 저장
 			//업로드 경로에 UUID를 통해 랜덤으로 파일명 생성
-			File temp = new File(path,fileName+"."+fileExt);
+			
+			File directory = new File(path + "/idolFileUpload/");
+			if(!directory.exists()) {
+				directory.mkdirs();
+			}
+			File temp = new File(path + "/idolFileUpload/",fileName+"."+fileExt);
 			try {
 				//랜덤으로 생성된 파일을 temp에 생성
 				files.transferTo(temp);

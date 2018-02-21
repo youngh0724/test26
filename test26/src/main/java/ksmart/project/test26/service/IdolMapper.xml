@@ -6,7 +6,29 @@
 
   <mapper namespace="ksmart.project.test26.service.IdolMapper">
   
- 
+ 		<resultMap type="ksmart.project.test26.service.IdolAndIdolFile"
+				id="IdolAndIdolFileMap">
+		<id column="idol_id" property="idolId" />
+		<result column="idol_name" property="idolName" />
+			<collection property="list"			ofType="ksmart.project.test26.service.IdolFile">
+				<id column="idol_file_id" property="idolFileId"/>
+				<result column="file_name" property="idolFileName"/>
+				<result column="file_ext" property="idolFileExt"/>
+				<result column="file_size" property="idolFileSize"/>
+			</collection>
+		</resultMap>
+		<select id="idolAndIdolFileMap" parameterType="int" resultMap="IdolAndIdolFileMap">
+				SELECT 
+					a.idol_id 
+					,a.idol_name 
+					,f.idol_file_id 
+					,f.file_name
+					,f.file_ext 
+					,f.file_size 
+				FROM idol a INNER JOIN idol_file f 
+				ON a.idol_id = f.idol_id 
+				WHERE a.idol_id = #{idolId} 
+		</select>	
   		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="idolSelectCount"
   				resultType="int">

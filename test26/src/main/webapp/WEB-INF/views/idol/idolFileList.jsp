@@ -12,13 +12,14 @@
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/module/top.jsp" />
 
-		<h2>Idol List</h2>
+		<h2>아이돌 파일 리스트</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-6 col-lg-6">
 
 				<table style="width: 100%">
 					<tr>
 						<td>
+						<!--SELECT COUNT OPTION 시작 -->
 							<div>
 								<select name="rowPerPage" onchange="location.href=this.value">
 									<option value="#">보여줄 개수 선택</option>
@@ -30,7 +31,6 @@
 						</td>
 
 						<td style="margin: auto; text-align: right;">
-							<!--SELECT COUNT OPTION 시작 -->
 							<div>
 								<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolInsert">아이돌 추가</a>
 							</div>
@@ -42,49 +42,31 @@
 				<table class="table table-striped" data-effect="fade">
 					<thead>
 						<tr>
+							<th>idolFileId</th>
 							<th>idolId</th>
-							<th>idolName</th>
+							<th>fileName</th>
+							<th>fileExt</th>
+							<th>fileSize</th>					
 							<th>수정</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="idol" items="${list}">
+						<c:forEach var="idolFileList" items="${idolAndIdolFile.list}">
 							<tr>
-								<td>${idol.idolId }</td>
-								<td><a href="${pageContext.request.contextPath}/idol/idolFileList?idolId=${idol.idolId}">${idol.idolName}</a></td>
+								<td>${idolFileList.idolFileId }</td>
+								<td>${idolAndIdolFile.idolId }</td>
+								<td>${idolAndIdolFile.idolName }</td>
+								<td>${idolFileList.idolFileName}</td>
+								<td>${idolFileList.idolFileExt }</td>
+								<td>${idolFileList.idolFileSize }</td>								
 								<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${idol.idolId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/idol/idolDelete?idolId=${idol.idolId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/idol/idolDelete?idolyId=${idol.idolId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-
-				<!-- 이전, 다음 버튼 시작 -->
-				<div class="col-sm-12" style="margin-bottom: 10; text-align: center">
-					<div>
-						<a
-							href="<c:if test="${currentPage>1}">${pageContext.request.contextPath}/idol/idolList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}</c:if>">
-							<button type="button" class="btn btn-labeled btn-default">
-								<span class="btn-label"> <i class="fa fa-arrow-left"></i>
-								</span>이전
-							</button></a> ${currentPage} <a
-							href="<c:if test="${currentPage<lastPage}">${pageContext.request.contextPath}/idol/idolList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}</c:if>">
-							<button type="button" class="btn btn-labeled btn-default">
-								다음<span class="btn-label btn-label-right"> <i class="fa fa-arrow-right"></i>
-								</span>
-							</button></a>
-					</div>
-					
-					<div class="input-group" style="margin: auto;">
-						<form class="navbar-form" role="search" action="${pageContext.request.contextPath}/idol/idolList" method="get">
-							<input type="text" class="form-control" placeholder="Search" name="searchWord"> <span class="input-group-btn">
-								<button class="btn btn-default" type="submit">검색</button>
-							</span>
-						</form>
-					</div>
-				</div>
-				<!-- 이전, 다음 버튼 끝 -->
+				<a class="btn btn-default" href="${pageContext.request.contextPath}/idol/idolList">리스트로 돌아가기</a>
 			</div>
 		</div>
 		
