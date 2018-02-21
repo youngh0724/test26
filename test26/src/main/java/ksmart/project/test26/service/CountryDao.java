@@ -24,6 +24,11 @@ public class CountryDao {
 		logger.debug("countrySelectListDetail() countryId = {}", countryId);
 		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectListCountryFile", countryId);
 	}
+	
+	public CountryAndCountryFile countryAndCountryFileMap(int countryId){
+		logger.debug("countryAndCountryFileMap() countryId = {}", countryId);
+		return sqlSessionTemplate.selectOne(mapperRoot+"countryAndCountryFileMap", countryId);
+	}
 		
 	public List<Country> countrySelectPage(Map map) {
 		logger.debug("countrySelectPage() map.startRow = {}", map.get("startRow"));

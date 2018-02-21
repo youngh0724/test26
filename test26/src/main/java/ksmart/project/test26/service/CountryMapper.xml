@@ -4,8 +4,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.CountryMapper">
-  
+	<mapper namespace="ksmart.project.test26.service.CountryMapper">
+ 
+ 		<select id="countryAndCountryFileMap" parameterType="int"
+				resultMap="CountryAndCountryFileMap">
+			SELECT
+				c.country_id 
+				,c.country_name
+				,f.country_file_id 
+				,f.file_name
+				,f.file_ext
+				,f.file_size 
+			FROM country c INNER JOIN country_file f
+			ON c.country_id = f.country_id
+			WHERE c.country_id = #{countryId}
+		</select>
+
+	<resultMap type="ksmart.project.test26.service.CountryAndCountryFile"
+				id="CountryAndCountryFileMap">
+		<id column="country_id" property="countryId" />
+		<result column="country_name" property="countryName" />
+			<collection property="list"			ofType="ksmart.project.test26.service.CountryFile">
+				<id column="country_file_id" property="countryFileId"/>
+				<result column="file_name" property="fileName"/>
+				<result column="file_ext" property="fileExt"/>
+				<result column="file_size" property="fileSize"/>
+			</collection>
+		</resultMap>	
+  	
   		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="countrySelectCount"
   				resultType="int">

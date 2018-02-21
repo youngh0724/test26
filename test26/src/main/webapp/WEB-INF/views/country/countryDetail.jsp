@@ -44,23 +44,25 @@
 						<tr>
 							<th>countryFileId</th>
 							<th>countryId</th>
+							<th>countryName</th>
 							<th>fileName</th>
 							<th>fileExt</th>
-							<th>fileSize</th>					
+							<th>fileSize</th>									
 							<th>수정</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="countryFile" items="${list}">
+						<c:forEach var="file" items="${countryAndCountryFile.list}">
 							<tr>
-								<td>${countryFile.countryFileId }</td>
-								<td>${countryFile.countryId }</td>
-								<td>${countryFile.fileName }</td>
-								<td>${countryFile.fileExt }</td>
-								<td>${countryFile.fileSize }</td>								
-								<td><a href="${pageContext.request.contextPath}/country/countryUpdate?countryId=${country.countryId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${country.countryId}">삭제</a></td>
+								<td>${file.countryFileId }</td>
+								<td>${countryAndCountryFile.countryId }</td>
+								<td>${countryAndCountryFile.countryName }</td>
+								<td><a href="${pageContext.request.contextPath}/country/countryFileDown?countryFileId=${file.countryFileId }">${file.fileName }</a></td>
+								<td>${file.fileExt }</td>
+								<td>${file.fileSize }</td>													
+								<td><a href="${pageContext.request.contextPath}/country/countryUpdate?countryId=${file.countryId}">수정</a></td>
+								<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${file.countryId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

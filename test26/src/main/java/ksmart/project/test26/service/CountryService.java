@@ -26,9 +26,28 @@ public class CountryService {
 	
 	public List<CountryFile> countrySelectListCountryFile(int countryId){
 		
+		logger.debug("countrySelectListCountryFile() countryId = {}", countryId);
 		List<CountryFile> list = countryDao.countrySelectListCountryFile(countryId);
-		
+		logger.debug("countrySelectListCountryFile() list = {}", list);
 		return list;
+	}
+	
+	public CountryAndCountryFile countryAndCountryFileMap(int countryId){
+		logger.debug("countryAndCountryFileMap() countryId = {}", countryId);
+		CountryAndCountryFile countryAndCountryFile = countryDao.countryAndCountryFileMap(countryId);
+		logger.debug("countryAndCountryFileMap() countryId = {}", countryAndCountryFile.getCountryId());
+		logger.debug("countryAndCountryFileMap() countryAndCountryFile.getList() = {}", countryAndCountryFile.getList());		
+		return countryAndCountryFile;		
+	}
+	
+	
+	
+	public void countryFileDownload(int countryFileId, String path) {
+		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
+		logger.debug("countryFileDownload() path = {}", path);
+		
+		
+		
 	}
 	
 	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage, String searchWord){
@@ -102,14 +121,12 @@ public class CountryService {
 			countryFile.setFileExt(fileExt);
 			countryFile.setFileSize(fileSize);
 			countryFile.setCountryId(generatedId);
-			
-			String realPath = "C:\\Users\\Administrator\\git\\test26\\test26\\src\\main\\webapp\\resources";
-			
-			File directory = new File(realPath+"/countryFileUpload/");
+						
+			File directory = new File(path+"/countryFileUpload/");
 			if(!directory.exists()) {
 				directory.mkdirs();
 			} else {
-				File temp = new File(realPath+"/countryFileUpload/", fileName+"."+fileExt);
+				File temp = new File(path+"/countryFileUpload/", fileName+"."+fileExt);
 				try {
 					files.transferTo(temp);
 					

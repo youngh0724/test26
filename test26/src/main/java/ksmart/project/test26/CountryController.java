@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Country;
+import ksmart.project.test26.service.CountryAndCountryFile;
 import ksmart.project.test26.service.CountryCommand;
 import ksmart.project.test26.service.CountryFile;
 import ksmart.project.test26.service.CountryService;
@@ -26,6 +27,16 @@ public class CountryController {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
+	
+	@RequestMapping(value="/country/countryFileDown", method = RequestMethod.GET)
+	public String countryFileDownload(HttpSession session,
+			@RequestParam(value="countryFileId", required=true) int countryFileId) {
+		
+		String path = session.getServletContext().getRealPath("/resources");
+		countryService.countryFileDownload(countryFileId, path);
+		return "";
+	}
+	
 	
 	//countryList.jsp view파일을 요청
 	@RequestMapping(value="/country/countryList", method = RequestMethod.GET)
@@ -66,9 +77,9 @@ public class CountryController {
 			return "sessionError";
 		}
 		
-		List<CountryFile> list = countryService.countrySelectListCountryFile(countryId);
+		CountryAndCountryFile countryAndCountryFile = countryService.countryAndCountryFileMap(countryId);
 		
-		model.addAttribute("list", list);
+		model.addAttribute("countryAndCountryFile", countryAndCountryFile);
 		return "country/countryDetail";
 	}
 	
