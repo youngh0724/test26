@@ -3,6 +3,7 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -67,10 +68,11 @@ public class IdolController{
  	
  	//추가화면에서 정보를 입력받아 추가처리요청
  	@RequestMapping(value="/idol/idolInsert", method = RequestMethod.POST)
-     public String idolInsert(IdolCommand idolCommand) {
+     public String idolInsert(IdolCommand idolCommand,HttpServletRequest request) {
+ 		String path = request.getSession().getServletContext().getRealPath("/resources");
  		logger.debug("idolInsert() idolName = {}", idolCommand.getIdolName());
 		logger.debug("idolInsert() idolsize: {}", idolCommand.getFiles().size());
- 		idolService.idolInsert(idolCommand);
+ 		idolService.idolInsert(idolCommand, path);
          return "redirect:/idol/idolList";
      }
  	

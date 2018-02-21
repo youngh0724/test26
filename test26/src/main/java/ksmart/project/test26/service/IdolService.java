@@ -21,7 +21,6 @@ public class IdolService {
 	private final int LINE_PER_PAGE = 5;
 	@Autowired
 	private IdolDao idolDao;
-	private final String uploadRoot= "c:\\temp\\";
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
 	
@@ -57,7 +56,7 @@ public class IdolService {
 		
 	}
 	
-	public int idolInsert(IdolCommand idolCommand)  {
+	public void idolInsert(IdolCommand idolCommand,String path)  {
 		logger.debug("idolInsert() idolName = {}", idolCommand.getIdolName());
 		int row = idolDao.idolInsert(idolCommand);
 		int generated_id = idolCommand.getIdolId();
@@ -88,25 +87,17 @@ public class IdolService {
 			
 			//2. 파일 저장
 			//업로드 경로에 UUID를 통해 랜덤으로 파일명 생성
-			File temp = new File(uploadRoot+fileName);
+			File temp = new File(path,fileName+"."+fileExt);
 			try {
 				//랜덤으로 생성된 파일을 temp에 생성
 				files.transferTo(temp);
 				//idolFileInsert메소드를 호출
 				idolDao.idolInsertFile(idolFile);
 			}catch(Exception e) {
-				//temp 중복시 삭제
-				boolean isExists = temp.exists();
-				if(isExists) {
-					temp.delete();
-					logger.debug("Exception IdolInsert() delete : {}", temp);
-				}
 				e.printStackTrace();
+				}
 			}
 		}
-		logger.debug("idolInsert() row = {}", row);
-		return row;
-	}
 	
 	public Idol idolSelectOne(int idolId) {
 		logger.debug("idolSelectOne() idolId = {}", idolId);
