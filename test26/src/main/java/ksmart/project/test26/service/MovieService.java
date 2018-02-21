@@ -23,7 +23,14 @@ public class MovieService {
 	private MovieDao movieDao;
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
-		private static final Logger logger = LoggerFactory.getLogger(MovieService.class);		
+		private static final Logger logger = LoggerFactory.getLogger(MovieService.class);	
+		
+		public MovieAndMovieFile movieFileList(int movieId) {
+			logger.debug("movieAndMovieFile() movieId = {}", movieId);
+			MovieAndMovieFile movieAndMovieFile = movieDao.movieAndMovieFile(movieId);
+			logger.debug("movieAndMovieFile() movie = {}", movieAndMovieFile.getMovieName());
+			return movieAndMovieFile;
+		}
 		
 		public Map<String, Object> movieSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 			
@@ -129,6 +136,9 @@ public class MovieService {
 		logger.debug("movieDelete() row = {}", row);
 		return row;
 	}
+
+
+	
 	
 }
  

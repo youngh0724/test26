@@ -18,17 +18,24 @@ public class MovieDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(MovieDao.class);
 	
-		public List<Movie> movieSelectPage(Map<String, Object> map) {
-			logger.debug("movieSelectPage() map.startRow = {}", map.get("startRow"));
-			logger.debug("movieSelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
-			logger.debug("movieSelectPage() map.searchWord = {}", map.get("searchWord"));
-			return sqlSessionTemplate.selectList(mapperRoot+"movieSelectPage", map);
-		}
 		
-		public int movieSelectTotalCount() {
-			logger.debug("movieSelectTotalCount() 실행확인"); 
-			return sqlSessionTemplate.selectOne(mapperRoot+"movieSelectCount");	
-		}
+	public MovieAndMovieFile movieAndMovieFile(int movieId) {
+		logger.debug("movieAndMovieFile() movieId {}", movieId);
+		return sqlSessionTemplate.selectOne(mapperRoot+"movieJoinFile", movieId);
+	}
+		
+		
+	public List<Movie> movieSelectPage(Map<String, Object> map) {
+		logger.debug("movieSelectPage() map.startRow = {}", map.get("startRow"));
+		logger.debug("movieSelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
+		logger.debug("movieSelectPage() map.searchWord = {}", map.get("searchWord"));
+		return sqlSessionTemplate.selectList(mapperRoot+"movieSelectPage", map);
+	}
+	
+	public int movieSelectTotalCount() {
+		logger.debug("movieSelectTotalCount() 실행확인"); 
+		return sqlSessionTemplate.selectOne(mapperRoot+"movieSelectCount");	
+	}
 		
 	public List<Movie> movieSelectList(){
 		logger.debug("movieSelectList() 실행확인");

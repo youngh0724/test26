@@ -52,7 +52,7 @@
 						<c:forEach var="movie" items="${list}">
 							<tr>
 								<td>${movie.movieId }</td>
-								<td>${movie.movieName }</td>
+								<td><a href="${pageContext.request.contextPath}/movie/movieFileList?movieId=${movie.movieId}">${movie.movieName}</a></td>
 								<td><a href="${pageContext.request.contextPath}/movie/movieUpdate?movieId=${movie.movieId}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/movie/movieDelete?movieId=${movie.movieId}">삭제</a></td>
 							</tr>

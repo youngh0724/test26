@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Movie;
+import ksmart.project.test26.service.MovieAndMovieFile;
 import ksmart.project.test26.service.MovieCommand;
+import ksmart.project.test26.service.MovieFile;
 import ksmart.project.test26.service.MovieService;
 
 @Controller
@@ -25,6 +27,16 @@ public class MovieController{
    
  //입력값과 리턴값을 확인하기위해 로거기능 사용
  	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+ 	
+ 	//movie file list 조회
+ 	@RequestMapping(value="/movie/movieFileList", method = RequestMethod.GET)
+ 	public String movieFileList(Model model, @RequestParam(value="movieId", required=true) int movieId) {
+ 		logger.debug("movieAndMovieFile() movieId = {}", movieId);
+ 		MovieAndMovieFile movieAndMovieFile = movieService.movieFileList(movieId);
+ 		logger.debug("movieAndMovieFile() movieName = {}", movieAndMovieFile.getMovieId());
+ 		model.addAttribute("movieAndMovieFile", movieAndMovieFile); 		
+ 		return "movie/movieFileList";
+ 	}
    
  
  	@RequestMapping(value="/movie/movieList", method = RequestMethod.GET)

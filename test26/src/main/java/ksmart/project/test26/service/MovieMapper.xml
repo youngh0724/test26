@@ -7,7 +7,31 @@
   <mapper namespace="ksmart.project.test26.service.MovieMapper">
   
  
-  <!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+
+		 <resultMap type="ksmart.project.test26.service.MovieAndMovieFile" id="MovieAndMovieFileMap">
+		  <id column="movie_id" property="movieId" /> 
+		  <result column="movie_name" property="movieName" /> 
+		 <collection property="list" ofType="ksmart.project.test26.service.MovieFile">
+		  <id column="movie_file_id" property="movieFileId" /> 
+		  <result column="file_name" property="fileName" /> 
+		  <result column="file_ext" property="fileExt" /> 
+		  <result column="file_size" property="fileSize" /> 
+		  </collection>
+		  </resultMap>
+		  
+		  <select id="movieJoinFile" parameterType="int" resultMap="MovieAndMovieFileMap">
+		  	SELECT m.movie_id 
+		  		  ,m.movie_name 
+		  		  ,f.movie_file_id 
+		  		  ,f.file_name 
+		  		  ,f.file_ext 
+		  		  ,f.file_size 
+		  	FROM movie m INNER JOIN movie_file f ON m.movie_id = f.movie_id 
+		  	WHERE m.movie_id = #{movieId}
+		  </select>   
+ 
+  		 
+  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="movieSelectCount"
   				resultType="int">
   			SELECT 
