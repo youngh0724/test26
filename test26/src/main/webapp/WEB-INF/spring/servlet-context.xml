@@ -72,9 +72,7 @@
 				<value>classpath:ksmart/project/test26/service/LoginMapper.xml
 				</value>
 				<value>classpath:ksmart/project/test26/service/MemberMapper.xml
-				</value>
-				<value>classpath:ksmart/project/test26/service/ArticleMapper.xml
-				</value>
+				</value>				
 			</list>
 		</property>
 	</bean>
