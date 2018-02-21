@@ -15,35 +15,47 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Book;
+import ksmart.project.test26.service.BookAndBookFile;
+import ksmart.project.test26.service.BookCommand;
+import ksmart.project.test26.service.BookFile;
 import ksmart.project.test26.service.BookService;
 
 @Controller
-public class BookController{
-   @Autowired
-   private BookService bookService;
-   
- //입력값과 리턴값을 확인하기위해 로거기능 사용
- 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
-   
- 
- 	@RequestMapping(value="/book/bookList", method = RequestMethod.GET)
- 	public String bookSelectList(Model model, HttpSession session, 
+public class BookController {
+	@Autowired
+	private BookService bookService;
+	
+	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+	
+	@RequestMapping(value="/book/bookFileDown", method = RequestMethod.GET)
+	public String bookFileDownload(HttpSession session,
+			@RequestParam(value="bookFileId", required=true) int bookFileId) {
+		
+		String path = session.getServletContext().getRealPath("/resources");
+		bookService.bookFileDownload(bookFileId, path);
+		return "";
+	}
+	
+	
+	//bookList.jsp view파일을 요청
+	@RequestMapping(value="/book/bookList", method = RequestMethod.GET)
+	public String bookSelcetList(Model model, HttpSession session, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
 			@RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage,
 			@RequestParam(value="searchWord", required=false) String searchWord) {	
 		
- 		if(session.getAttribute("loginMember") == null) {
+		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
- 		
- 		logger.debug("bookSelectPage() map.startRow = {}", currentPage);
-		logger.debug("bookSelectPage() map.rowPerPage = {}", rowPerPage);
-		logger.debug("bookSelectPage() map.searchWord = {}", searchWord);
-		Map<String, Object> map = bookService.bookSelectListByPage(currentPage, rowPerPage, searchWord);
+				
+		logger.debug("bookSelcetList() currentPage = {}", currentPage);
+		logger.debug("bookSelcetList() rowPerPage = {}", rowPerPage);
+		logger.debug("bookSelectPage() searchWord = {}", searchWord);
+		Map map = bookService.bookSelectListByPage(currentPage, rowPerPage, searchWord);
 		//list에 들어있는 값을 확인해본다.
-		logger.debug("bookSelectList() map = {}", map);
+		logger.debug("bookSelcetList() map = {}", map);
 		
-		@SuppressWarnings("unchecked")
 		List<Book> list = (List<Book>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
 		
@@ -55,50 +67,92 @@ public class BookController{
 		model.addAttribute("currentPage", currentPage);
 		return "book/bookList";
 	}
- 	
- 	
- 	
- 	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
-     public String bookInsert() {
- 		logger.debug("bookInsert() 실행확인");
-         return "book/bookInsert";
-     }
- 	
- 	
- 	@RequestMapping(value="/book/bookInsert", method = RequestMethod.POST)
-     public String bookInsert(Book book) {
- 		logger.debug("bookInsert() bookName = {}", book.getBookName());
- 		bookService.bookInsert(book);
-         return "redirect:/book/bookList";
-     }
- 	
- 	
- 	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
- 	public String bookSelectOne( Model model, @RequestParam(value="bookId", required=true) int bookId) {
- 		logger.debug("bookSelectOne() bookId = {}", bookId);
- 		Book book = bookService.bookSelectOne(bookId);
- 		logger.debug("bookSelectOne() bookName = {}", book.getBookName());
- 		model.addAttribute("book", book);
- 		
- 		return "book/bookUpdate";
- 	}
- 	
- 
- 	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
-     public String bookUpdate(Book book) {		
- 		logger.debug("bookUpdate() bookName = {}", book.getBookName());
- 		bookService.bookUpdate(book);
-        
-         return "redirect:/book/bookList";
-     }
- 	
- 	
- 	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
- 	public String bookDelete(@RequestParam(value="bookId", required=true) int bookId) {
- 		logger.debug("bookDelete() bookId = {}", bookId);
- 		bookService.bookDelete(bookId);
- 		
- 		return "redirect:/book/bookList";
- 	}
- 	
- }
+	
+	@RequestMapping(value="/book/bookDetail", method = RequestMethod.GET)
+	public String bookSelectListDetail(Model model, HttpSession session, 
+										@RequestParam(value="bookId", required=true) int bookId) {
+		logger.debug("bookSelectListDetail() bookId = {}", bookId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		
+		BookAndBookFile bookAndBookFile = bookService.bookAndBookFileMap(bookId);
+		
+		model.addAttribute("bookAndBookFile", bookAndBookFile);
+		return "book/bookDetail";
+	}
+	
+	//bookInserForm 입력폼  view파일을 요청
+	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
+    public String bookInsert(HttpSession session) {
+		//처리하는 내용이 없기때문에 메서드가 실행되었는지 확인하기위해 문자열을 출력해본다.
+		logger.debug("bookInsert() 실행확인"); 
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}		
+        return "book/bookInsert";
+    }
+	
+	//bookInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드를 호출
+	@RequestMapping(value="/book/bookInsert", method = RequestMethod.POST)
+    public String bookInsert(BookCommand bookCommand, HttpSession session) {	
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}	
+		logger.debug("bookInsert() bookName = {}", bookCommand.getBookName());
+		String path = session.getServletContext().getRealPath("/resources");
+		logger.debug("bookInsert() ResourcesRealPath = {}", path);
+		//dao에 insert메서드를 호출하여 db에 입력을 수행한다.
+		bookService.bookInsert(bookCommand, path);
+        //리스트페이지로 리다이렉트 시킨다.
+        return "redirect:/book/bookList";
+    }
+	
+	//업데이트 폼페이지 요청
+	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
+	public String bookSelectOne( Model model, HttpSession session, @RequestParam(value="bookId", required=true) int bookId) {
+		logger.debug("bookSelectOne() bookId = {}", bookId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		//매개변수로 받은 bookId값을 이요하여 하나의 book객체를 리턴받는다.
+		Book book = bookService.bookSelectOne(bookId);		
+		logger.debug("bookSelectOne() bookName = {}", book.getBookName());
+		//리턴받은 book객체를 model에 세팅한다.
+		model.addAttribute("book", book);
+		//업데이트폽으로 포워드 시킨다.
+		return "book/bookUpdate";
+	}
+	
+	//업데이트 action요청
+	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
+    public String bookUpdate(HttpSession session, Book book) {		
+		logger.debug("bookUpdate() bookName = {}", book.getBookName());
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		//입력받은 정보를 매개변수로하여 db정보를 update시킨다.
+		bookService.bookUpdate(book);
+        //리스트페이지로 리다이렉트 시킨다.
+        return "redirect:/book/bookList";
+    }
+	
+	//삭제 action 요청
+	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
+	public String bookDelete(HttpSession session, @RequestParam(value="bookId", required=true) int bookId) {
+		logger.debug("bookDelete() bookId = {}", bookId);
+		
+		if(session.getAttribute("loginMember") == null) {
+			return "sessionError";
+		}
+		String path = session.getServletContext().getRealPath("/resources");
+		//입력받은 아이디값을 이용하여 삭제하는 기능의 메서드 호출
+		bookService.bookDelete(bookId, path);
+		//리스트페이지로 리다이렉트 시킨다.
+		return "redirect:/book/bookList";
+	}
+}

@@ -4,18 +4,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.BookMapper">
-  
+	<mapper namespace="ksmart.project.test26.service.BookMapper">
  
-  <!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+ 		<select id="bookAndBookFileMap" parameterType="int"
+				resultMap="BookAndBookFileMap">
+			SELECT
+				c.book_id 
+				,c.book_name
+				,f.book_file_id 
+				,f.file_name
+				,f.file_ext
+				,f.file_size 
+			FROM book c INNER JOIN book_file f
+			ON c.book_id = f.book_id
+			WHERE c.book_id = #{bookId}
+		</select>
+
+	<resultMap type="ksmart.project.test26.service.BookAndBookFile"
+				id="BookAndBookFileMap">
+		<id column="book_id" property="bookId" />
+		<result column="book_name" property="bookName" />
+			<collection property="list"			ofType="ksmart.project.test26.service.BookFile">
+				<id column="book_file_id" property="bookFileId"/>
+				<result column="file_name" property="fileName"/>
+				<result column="file_ext" property="fileExt"/>
+				<result column="file_size" property="fileSize"/>
+			</collection>
+		</resultMap>	
+  	
+  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="bookSelectCount"
   				resultType="int">
   			SELECT 
-  				COUNT(*) 
+  				count(*) 
   			FROM book
   		</select>
   		
-  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 + 상세검색 -->
+  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="bookSelectPage"
   				parameterType="java.util.Map"
   				resultType="ksmart.project.test26.service.Book">
@@ -29,18 +54,18 @@
   			ORDER BY bookId
   			LIMIT #{startRow}, #{rowPerPage} 		
   		</select>
-  		
+  
   		<!-- bookList view에서 사용하는 select쿼리문 -->  	
- 		<select id="bookSelectList"
-			resultType="ksmart.project.test26.service.Book">
+ 		<select id="bookSelcetList"
+				resultType="ksmart.project.test26.service.Book">
 			SELECT 
 				book_id as bookId
 				,book_name as bookName
-			FROM book 
+			FROM book
 		</select>
 		
 		<!-- updateBookForm으로 요청때 하나의 book객체만을 select할때 사용하는 쿼리문 -->
-		<select id="bookSelectOne" 
+		<select id="bookSelectOne"
 				parameterType="int"
 				resultType="ksmart.project.test26.service.Book">
 			SELECT 
@@ -54,8 +79,30 @@
 		<insert id="bookInsert" 
 				parameterType="ksmart.project.test26.service.Book">
 			INSERT INTO book(book_name)
-				VALUES (#{bookName})		
+				VALUES (#{bookName})	
+			<selectKey keyProperty="bookId" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>		
 		</insert>
+		
+		<insert id="bookInsertFile" 
+  				parameterType="ksmart.project.test26.service.BookFile">
+	  		INSERT INTO book_file
+	  			(book_id, file_name, file_ext, file_size)
+	  		VALUES (#{bookId}, #{fileName}, #{fileExt}, #{fileSize})
+  		</insert>
+		
+		<select id="bookSelectListBookFile" 
+				resultType="ksmart.project.test26.service.BookFile">
+			SELECT 
+				book_file_id AS bookFileId
+				,book_id AS bookId
+				,file_name AS fileName
+				,file_ext AS fileExt
+				,file_size AS fileSize
+			FROM book_file
+			WHERE book_id = #{bookId}		
+		</select>		
 		
 		<!-- bookUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="bookUpdate" 
@@ -70,6 +117,13 @@
 	    		parameterType="ksmart.project.test26.service.Book">
 	        DELETE FROM book 
 	        WHERE book_id = #{bookId} 
+	    </delete>
+	    
+	    <!-- bookList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="bookDeleteFile" 
+	    		parameterType="ksmart.project.test26.service.BookFile">
+	        DELETE FROM book_file 
+	        WHERE book_file_id = #{bookFileId} 
 	    </delete>
 		
   </mapper>

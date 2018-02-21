@@ -4,18 +4,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.CityMapper">
-  
+	<mapper namespace="ksmart.project.test26.service.CityMapper">
  
-  <!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+ 		<select id="cityAndCityFileMap" parameterType="int"
+				resultMap="CityAndCityFileMap">
+			SELECT
+				c.city_id 
+				,c.city_name
+				,f.city_file_id 
+				,f.file_name
+				,f.file_ext
+				,f.file_size 
+			FROM city c INNER JOIN city_file f
+			ON c.city_id = f.city_id
+			WHERE c.city_id = #{cityId}
+		</select>
+
+	<resultMap type="ksmart.project.test26.service.CityAndCityFile"
+				id="CityAndCityFileMap">
+		<id column="city_id" property="cityId" />
+		<result column="city_name" property="cityName" />
+			<collection property="list"			ofType="ksmart.project.test26.service.CityFile">
+				<id column="city_file_id" property="cityFileId"/>
+				<result column="file_name" property="fileName"/>
+				<result column="file_ext" property="fileExt"/>
+				<result column="file_size" property="fileSize"/>
+			</collection>
+		</resultMap>	
+  	
+  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="citySelectCount"
   				resultType="int">
   			SELECT 
-  				COUNT(*) 
+  				count(*) 
   			FROM city
   		</select>
   		
-  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 + 상세검색 -->
+  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="citySelectPage"
   				parameterType="java.util.Map"
   				resultType="ksmart.project.test26.service.City">
@@ -29,18 +54,18 @@
   			ORDER BY cityId
   			LIMIT #{startRow}, #{rowPerPage} 		
   		</select>
-  		
+  
   		<!-- cityList view에서 사용하는 select쿼리문 -->  	
- 		<select id="citySelectList"
-			resultType="ksmart.project.test26.service.City">
+ 		<select id="citySelcetList"
+				resultType="ksmart.project.test26.service.City">
 			SELECT 
 				city_id as cityId
 				,city_name as cityName
-			FROM city 
+			FROM city
 		</select>
 		
 		<!-- updateCityForm으로 요청때 하나의 city객체만을 select할때 사용하는 쿼리문 -->
-		<select id="citySelectOne" 
+		<select id="citySelectOne"
 				parameterType="int"
 				resultType="ksmart.project.test26.service.City">
 			SELECT 
@@ -54,8 +79,30 @@
 		<insert id="cityInsert" 
 				parameterType="ksmart.project.test26.service.City">
 			INSERT INTO city(city_name)
-				VALUES (#{cityName})		
+				VALUES (#{cityName})	
+			<selectKey keyProperty="cityId" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>		
 		</insert>
+		
+		<insert id="cityInsertFile" 
+  				parameterType="ksmart.project.test26.service.CityFile">
+	  		INSERT INTO city_file
+	  			(city_id, file_name, file_ext, file_size)
+	  		VALUES (#{cityId}, #{fileName}, #{fileExt}, #{fileSize})
+  		</insert>
+		
+		<select id="citySelectListCityFile" 
+				resultType="ksmart.project.test26.service.CityFile">
+			SELECT 
+				city_file_id AS cityFileId
+				,city_id AS cityId
+				,file_name AS fileName
+				,file_ext AS fileExt
+				,file_size AS fileSize
+			FROM city_file
+			WHERE city_id = #{cityId}		
+		</select>		
 		
 		<!-- cityUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="cityUpdate" 
@@ -70,6 +117,13 @@
 	    		parameterType="ksmart.project.test26.service.City">
 	        DELETE FROM city 
 	        WHERE city_id = #{cityId} 
+	    </delete>
+	    
+	    <!-- cityList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="cityDeleteFile" 
+	    		parameterType="ksmart.project.test26.service.CityFile">
+	        DELETE FROM city_file 
+	        WHERE city_file_id = #{cityFileId} 
 	    </delete>
 		
   </mapper>

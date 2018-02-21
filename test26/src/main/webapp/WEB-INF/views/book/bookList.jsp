@@ -52,7 +52,7 @@
 						<c:forEach var="book" items="${list}">
 							<tr>
 								<td>${book.bookId }</td>
-								<td>${book.bookName }</td>
+								<td><a href="${pageContext.request.contextPath}/book/bookDetail?bookId=${book.bookId}">${book.bookName }</a></td>
 								<td><a href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
 							</tr>

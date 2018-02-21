@@ -52,7 +52,7 @@
 						<c:forEach var="city" items="${list}">
 							<tr>
 								<td>${city.cityId }</td>
-								<td>${city.cityName }</td>
+								<td><a href="${pageContext.request.contextPath}/city/cityDetail?cityId=${city.cityId}">${city.cityName }</a></td>
 								<td><a href="${pageContext.request.contextPath}/city/cityUpdate?cityId=${city.cityId}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/city/cityDelete?cityId=${city.cityId}">삭제</a></td>
 							</tr>
