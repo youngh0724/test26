@@ -48,7 +48,7 @@
 							<th>fileName</th>
 							<th>fileExt</th>
 							<th>fileSize</th>									
-							<th>수정</th>
+							<th>다운로드</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
@@ -61,8 +61,8 @@
 								<td><a href="${pageContext.request.contextPath}/country/countryFileDown?countryFileId=${file.countryFileId }">${file.fileName }</a></td>
 								<td>${file.fileExt }</td>
 								<td>${file.fileSize }</td>													
-								<td><a href="${pageContext.request.contextPath}/country/countryUpdate?countryId=${file.countryId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${file.countryId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/country/countryFileDown?countryFileId=${file.countryFileId}">다운로드</a></td>
+								<td><a href="${pageContext.request.contextPath}/country/countryDeleteFile?countryFileId=${file.countryFileId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

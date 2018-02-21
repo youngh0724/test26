@@ -39,14 +39,19 @@ public class CountryService {
 		logger.debug("countryAndCountryFileMap() countryAndCountryFile.getList() = {}", countryAndCountryFile.getList());		
 		return countryAndCountryFile;		
 	}
-	
-	
-	
+		
 	public void countryFileDownload(int countryFileId, String path) {
 		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
 		logger.debug("countryFileDownload() path = {}", path);
 		
+		CountryFile countryFile = countryDao.countrySelectOneCountryFile(countryFileId);
 		
+		File file = new File(path+"/countryFileUpload/", countryFile.getFileName()+"."+countryFile.getFileExt());
+		if(file.isFile()) {
+			logger.debug("countryFileDownload() 다운로드 실행");
+		} else {
+			logger.debug("countryFileDownload() 파일이 없습니다.");
+		}
 		
 	}
 	

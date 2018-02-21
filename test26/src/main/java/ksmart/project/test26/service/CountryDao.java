@@ -19,6 +19,13 @@ public class CountryDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
 	
+	public CountryFile countrySelectOneCountryFile(int countryFileId) {
+		logger.debug("countrySelectOneCountryFile() countryFileId = {}", countryFileId);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectOneCountryFile", countryFileId);
+	}
+	
+	
 	public List<CountryFile> countrySelectListCountryFile(int countryId){
 		
 		logger.debug("countrySelectListDetail() countryId = {}", countryId);

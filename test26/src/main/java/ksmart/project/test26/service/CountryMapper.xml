@@ -6,6 +6,19 @@
 
 	<mapper namespace="ksmart.project.test26.service.CountryMapper">
  
+ 		<select id="countrySelectOneCountryFile" 
+ 				resultType="ksmart.project.test26.service.CountryFile">
+ 			SELECT 
+ 				country_file_id AS countryFileId
+ 				,country_id AS countryId
+ 				,file_name AS fileName
+ 				,file_ext AS fileExt
+ 				,file_size AS fileSize
+ 			FROM country_file
+ 			WHERE country_file_id = #{countryFileId}
+ 		
+ 		</select> 
+ 
  		<select id="countryAndCountryFileMap" parameterType="int"
 				resultMap="CountryAndCountryFileMap">
 			SELECT

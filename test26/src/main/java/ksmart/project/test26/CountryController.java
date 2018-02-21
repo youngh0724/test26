@@ -33,8 +33,9 @@ public class CountryController {
 			@RequestParam(value="countryFileId", required=true) int countryFileId) {
 		
 		String path = session.getServletContext().getRealPath("/resources");
-		countryService.countryFileDownload(countryFileId, path);
-		return "";
+		countryService.countryFileDownload(countryFileId, path);	
+		
+		return "/";
 	}
 	
 	
@@ -77,10 +78,17 @@ public class CountryController {
 			return "sessionError";
 		}
 		
-		CountryAndCountryFile countryAndCountryFile = countryService.countryAndCountryFileMap(countryId);
+		String returnStr = "redirect:/country/countryList";
 		
-		model.addAttribute("countryAndCountryFile", countryAndCountryFile);
-		return "country/countryDetail";
+		List<CountryFile> list = countryService.countrySelectListCountryFile(countryId);
+		
+		if(list.size() != 0) {
+			CountryAndCountryFile countryAndCountryFile = countryService.countryAndCountryFileMap(countryId);
+			logger.debug("countrySelectListDetail() countryAndCountryFile = {}", countryAndCountryFile);
+			model.addAttribute("countryAndCountryFile", countryAndCountryFile);
+			returnStr = "country/countryDetail";
+		}
+		return returnStr;
 	}
 	
 	//countryInserForm 입력폼  view파일을 요청
