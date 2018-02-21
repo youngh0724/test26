@@ -44,7 +44,12 @@ public class MovieDao {
 		logger.debug("movieInsert() movie = {}", movie);
 		return sqlSessionTemplate.insert(mapperRoot+"movieInsert", movie);
 	}
-	
+	public int movieInsertFile(MovieFile movieFile) {
+		logger.debug("movieInsertFile() movieFileName : {}", movieFile.getFileName());
+		logger.debug("movieInsertFile() movieFileExt : {}", movieFile.getFileExt());
+		logger.debug("movieInsertFile() movieFileSize : {}", movieFile.getFileSize());
+		return sqlSessionTemplate.insert(mapperRoot+"movieInsertFile", movieFile);
+	}
 	public int movieUpdate(Movie movie) {
 		logger.debug("movieUpdate() movie = {}", movie);
 		return sqlSessionTemplate.update(mapperRoot+"movieUpdate", movie);

@@ -1,14 +1,18 @@
 package ksmart.project.test26.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -19,8 +23,8 @@ public class MovieService {
 	private MovieDao movieDao;
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
-		private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
-	
+		private static final Logger logger = LoggerFactory.getLogger(MovieService.class);		
+		
 		public Map<String, Object> movieSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 			
 			logger.debug("movieSelectPage() map.startRow = {}", currentPage);
@@ -53,11 +57,56 @@ public class MovieService {
 		
 	}
 	
-	public int movieInsert(Movie movie) {
-		logger.debug("movieInsert() movieName = {}", movie.getMovieName());
-		int row = movieDao.movieInsert(movie);
-		logger.debug("movieInsert() row = {}", row);
-		return row;
+	public void movieInsert(MovieCommand movieCommand, String path) {
+		logger.debug("movieInsert() movieName = {}", movieCommand.getMovieName());
+				
+		Movie movie = new Movie();				
+		movie.setMovieName(movieCommand.getMovieName());
+		
+		movieDao.movieInsert(movie);
+		int generated_id = movie.getMovieId();
+		logger.debug("movieInsert() generated_id = {}", generated_id);
+				
+		for(MultipartFile files : movieCommand.getFiles()) {
+			MovieFile movieFile = new MovieFile();
+			
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid.toString();
+			
+			String movieFileName = files.getOriginalFilename();
+			
+			int pos = movieFileName.lastIndexOf(".");
+			String fileExt = movieFileName.substring( pos + 1 );
+			
+			long fileSize = files.getSize();
+			
+			movieFile.setFileName(movieFileName);
+			movieFile.setFileExt(fileExt);
+			movieFile.setFileSize(fileSize);
+			movieFile.setMovieId(generated_id);
+					
+			File temp = new File(path, fileName);
+			try { 
+				files.transferTo(temp);
+				movieDao.movieInsertFile(movieFile);
+			} catch (IllegalStateException e) {
+				boolean isExists = temp.exists();
+				if(isExists) {
+					temp.delete();
+					logger.debug("IllegalStateExeption movieInsert() delete : {}", temp);
+				}
+				e.printStackTrace();
+				
+			}catch (IOException e) {
+				boolean isExists = temp.exists();
+				if(isExists) {
+					temp.delete();
+					logger.debug("IOExeption movieInsert() delete : {}", temp);
+				}
+				e.printStackTrace();
+			}			
+		}
+		
 	}
 	
 	public Movie movieSelectOne(int movieId) {

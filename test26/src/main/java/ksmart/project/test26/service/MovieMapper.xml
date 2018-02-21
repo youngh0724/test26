@@ -54,7 +54,17 @@
 		<insert id="movieInsert" 
 				parameterType="ksmart.project.test26.service.Movie">
 			INSERT INTO movie(movie_name)
-				VALUES (#{movieName})		
+			VALUES (#{movieName})		
+			<selectKey keyProperty="movieId" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>
+		</insert>
+		
+		<insert id="movieInsertFile"
+				parameterType="ksmart.project.test26.service.MovieFile">
+			INSERT INTO movie_file
+				(movie_id, file_name, file_ext, file_size)
+			VALUES (#{movieId}, #{fileName}, #{fileExt}, #{fileSize})		
 		</insert>
 		
 		<!-- movieUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->

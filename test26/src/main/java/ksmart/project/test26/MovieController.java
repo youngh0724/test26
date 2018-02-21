@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Movie;
+import ksmart.project.test26.service.MovieCommand;
 import ksmart.project.test26.service.MovieService;
 
 @Controller
@@ -59,16 +60,24 @@ public class MovieController{
  	
  	
  	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.GET)
-     public String movieInsert() {
+     public String movieInsert(HttpSession session) {
  		logger.debug("movieInsert() 실행확인");
+ 		
+ 		if(session.getAttribute("loginMember") == null) {
+ 			return "sessionError";
+ 		}
          return "movie/movieInsert";
      }
  	
  	
  	@RequestMapping(value="/movie/movieInsert", method = RequestMethod.POST)
-     public String movieInsert(Movie movie) {
- 		logger.debug("movieInsert() movieName = {}", movie.getMovieName());
- 		movieService.movieInsert(movie);
+     public String movieInsert(MovieCommand movieCommand, HttpSession session) {
+ 		logger.debug("movieInsert() movieName = {}", movieCommand.getMovieName());
+ 		logger.debug("movieInsert() movieSize = {}", movieCommand.getFiles().size());
+ 		
+ 		String path = session.getServletContext().getRealPath("/resources");
+ 		logger.debug("movieInsert() path = {}", path);
+ 		 movieService.movieInsert(movieCommand, path);
          return "redirect:/movie/movieList";
      }
  	

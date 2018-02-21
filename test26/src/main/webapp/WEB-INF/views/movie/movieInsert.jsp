@@ -16,17 +16,23 @@
 <div class="row">
           <div class="col-sm-6 col-lg-6">
 
-	<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/movieInsert" method="post">
+	<form id = "insertMovie" action="${pageContext.request.contextPath}/movie/movieInsert" method="post" enctype="multipart/form-data">
 		 <table class="table table-striped" data-effect="fade">
 			<thead>
 				<tr>
 					<th>movie_name</th>
+					<th>파일 첨부</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td><input type="text" name="movieName" id="movieName">
+					<td><input type="file" name="files" multiple="multiple"/></td>
 				</td>
+				<tr>
+					
+				</tr>
+							
 			</tbody>
 							
 		</table>	
