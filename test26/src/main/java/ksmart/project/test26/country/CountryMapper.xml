@@ -5,9 +5,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="ksmart.project.test26.service.CountryMapper">
+	
+		<delete id="countryDeleteCountryFile">
+			DELETE FROM country_file
+			WHERE country_file_id = #{countryFileId}
+		</delete>		
  
  		<select id="countrySelectOneCountryFile" 
- 				resultType="ksmart.project.test26.service.CountryFile">
+ 				resultType="ksmart.project.test26.country.dto.CountryFile">
  			SELECT 
  				country_file_id AS countryFileId
  				,country_id AS countryId
@@ -33,11 +38,11 @@
 			WHERE c.country_id = #{countryId}
 		</select>
 
-	<resultMap type="ksmart.project.test26.service.CountryAndCountryFile"
+	<resultMap type="ksmart.project.test26.country.dto.CountryAndCountryFile"
 				id="CountryAndCountryFileMap">
 		<id column="country_id" property="countryId" />
 		<result column="country_name" property="countryName" />
-			<collection property="list"			ofType="ksmart.project.test26.service.CountryFile">
+			<collection property="list"			ofType="ksmart.project.test26.country.dto.CountryFile">
 				<id column="country_file_id" property="countryFileId"/>
 				<result column="file_name" property="fileName"/>
 				<result column="file_ext" property="fileExt"/>
@@ -56,7 +61,7 @@
   		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="countrySelectPage"
   				parameterType="java.util.Map"
-  				resultType="ksmart.project.test26.service.Country">
+  				resultType="ksmart.project.test26.country.dto.Country">
   			SELECT 
   				country_id AS countryId,
   				country_name AS countryName
@@ -70,7 +75,7 @@
   
   		<!-- countryList view에서 사용하는 select쿼리문 -->  	
  		<select id="countrySelcetList"
-				resultType="ksmart.project.test26.service.Country">
+				resultType="ksmart.project.test26.country.dto.Country">
 			SELECT 
 				country_id as countryId
 				,country_name as countryName
@@ -80,7 +85,7 @@
 		<!-- updateCountryForm으로 요청때 하나의 country객체만을 select할때 사용하는 쿼리문 -->
 		<select id="countrySelectOne"
 				parameterType="int"
-				resultType="ksmart.project.test26.service.Country">
+				resultType="ksmart.project.test26.country.dto.Country">
 			SELECT 
 				country_id as countryId
 				,country_name as countryName
@@ -90,7 +95,7 @@
 		
 		<!-- countryInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
 		<insert id="countryInsert" 
-				parameterType="ksmart.project.test26.service.Country">
+				parameterType="ksmart.project.test26.country.dto.Country">
 			INSERT INTO country(country_name)
 				VALUES (#{countryName})	
 			<selectKey keyProperty="countryId" resultType="int" order="AFTER">
@@ -99,14 +104,14 @@
 		</insert>
 		
 		<insert id="countryInsertFile" 
-  				parameterType="ksmart.project.test26.service.CountryFile">
+  				parameterType="ksmart.project.test26.country.dto.CountryFile">
 	  		INSERT INTO country_file
 	  			(country_id, file_name, file_ext, file_size)
 	  		VALUES (#{countryId}, #{fileName}, #{fileExt}, #{fileSize})
   		</insert>
 		
 		<select id="countrySelectListCountryFile" 
-				resultType="ksmart.project.test26.service.CountryFile">
+				resultType="ksmart.project.test26.country.dto.CountryFile">
 			SELECT 
 				country_file_id AS countryFileId
 				,country_id AS countryId
@@ -119,7 +124,7 @@
 		
 		<!-- countryUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="countryUpdate" 
-				parameterType="ksmart.project.test26.service.Country">
+				parameterType="ksmart.project.test26.country.dto.Country">
 	        UPDATE country 
 	            SET country_name = #{countryName} 
 	        WHERE country_id = #{countryId}     
@@ -127,14 +132,14 @@
 	    
 	    <!-- countryList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="countryDelete" 
-	    		parameterType="ksmart.project.test26.service.Country">
+	    		parameterType="ksmart.project.test26.country.dto.Country">
 	        DELETE FROM country 
 	        WHERE country_id = #{countryId} 
 	    </delete>
 	    
 	    <!-- countryList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="countryDeleteFile" 
-	    		parameterType="ksmart.project.test26.service.CountryFile">
+	    		parameterType="ksmart.project.test26.country.dto.CountryFile">
 	        DELETE FROM country_file 
 	        WHERE country_file_id = #{countryFileId} 
 	    </delete>

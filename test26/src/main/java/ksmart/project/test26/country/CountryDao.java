@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.country;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import ksmart.project.test26.country.dto.Country;
+import ksmart.project.test26.country.dto.CountryAndCountryFile;
+import ksmart.project.test26.country.dto.CountryFile;
 
 @Repository
 public class CountryDao {
@@ -25,6 +29,11 @@ public class CountryDao {
 		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectOneCountryFile", countryFileId);
 	}
 	
+	public int countrtyDeleteFile(int countryFileId) {
+		logger.debug("countrtyDeleteFile() countryFileId = {}", countryFileId);
+		
+		return sqlSessionTemplate.delete(mapperRoot+"countryDeleteCountryFile", countryFileId);
+	}
 	
 	public List<CountryFile> countrySelectListCountryFile(int countryId){
 		

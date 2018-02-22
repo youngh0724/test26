@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.country;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import ksmart.project.test26.country.dto.Country;
+import ksmart.project.test26.country.dto.CountryAndCountryFile;
+import ksmart.project.test26.country.dto.CountryCommand;
+import ksmart.project.test26.country.dto.CountryFile;
 
 
 @Service
@@ -40,7 +45,7 @@ public class CountryService {
 		return countryAndCountryFile;		
 	}
 		
-	public void countryFileDownload(int countryFileId, String path) {
+	public File countryFileDownload(int countryFileId, String path) {
 		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
 		logger.debug("countryFileDownload() path = {}", path);
 		
@@ -49,10 +54,30 @@ public class CountryService {
 		File file = new File(path+"/countryFileUpload/", countryFile.getFileName()+"."+countryFile.getFileExt());
 		if(file.isFile()) {
 			logger.debug("countryFileDownload() 다운로드 실행");
+			
 		} else {
 			logger.debug("countryFileDownload() 파일이 없습니다.");
 		}
+		return file;
+	}
+	
+	public int countryDeleteFile(int countryFileId, String path) {
+		logger.debug("countryDeleteFile() countryFileId = {}", countryFileId);
+		logger.debug("countryDeleteFile() path = {}", path);
 		
+		CountryFile countryFile = countryDao.countrySelectOneCountryFile(countryFileId);
+		
+		File file = new File(path+"/countryFileUpload/", countryFile.getFileName()+"."+countryFile.getFileExt());
+		if(file.isFile()) {
+			logger.debug("countryDeleteFile() 경로상에 파일이 존재합니다.");
+			file.delete();
+		} else {
+			logger.debug("countryDeleteFile() 경로상에 파일이 존재하지 않습니다.");
+		}
+		
+		countryDao.countrtyDeleteFile(countryFileId);
+		
+		return countryFile.getCountryId();
 	}
 	
 	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage, String searchWord){

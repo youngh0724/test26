@@ -30,6 +30,15 @@
 	<!-- multiPartFile config -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
 
+	<!-- 다운로드 처리 빈즈 시작 -->	
+	<bean id="fileDownloadView" class="ksmart.project.test26.country.FileDownloadView"/>
+	
+	<bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+   		<property name="order" value="0"/>
+	</bean>
+	
+	<!-- 다운로드 처리빈즈 끝 -->
+	
 	<context:component-scan base-package="ksmart.project.test26" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
@@ -63,7 +72,7 @@
 				</value>
 				<value>classpath:ksmart/project/test26/service/IdolMapper.xml
 				</value>
-				<value>classpath:ksmart/project/test26/service/CountryMapper.xml
+				<value>classpath:ksmart/project/test26/country/CountryMapper.xml
 				</value>
 				<value>classpath:ksmart/project/test26/service/CityMapper.xml
 				</value>

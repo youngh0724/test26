@@ -1,8 +1,11 @@
-package ksmart.project.test26;
+package ksmart.project.test26.country;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ksmart.project.test26.service.Country;
-import ksmart.project.test26.service.CountryAndCountryFile;
-import ksmart.project.test26.service.CountryCommand;
-import ksmart.project.test26.service.CountryFile;
-import ksmart.project.test26.service.CountryService;
+import ksmart.project.test26.country.dto.Country;
+import ksmart.project.test26.country.dto.CountryAndCountryFile;
+import ksmart.project.test26.country.dto.CountryCommand;
+import ksmart.project.test26.country.dto.CountryFile;
 
 @Controller
 public class CountryController {
@@ -27,17 +31,29 @@ public class CountryController {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
-	
+
 	@RequestMapping(value="/country/countryFileDown", method = RequestMethod.GET)
-	public String countryFileDownload(HttpSession session,
+	public ModelAndView countryFileDownload(HttpSession session,
 			@RequestParam(value="countryFileId", required=true) int countryFileId) {
-		
+		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
 		String path = session.getServletContext().getRealPath("/resources");
-		countryService.countryFileDownload(countryFileId, path);	
 		
-		return "/";
+		File downloadFile = countryService.countryFileDownload(countryFileId, path);
+		
+		logger.debug("countryFileDownload() downloadFile = {}", downloadFile);
+				
+		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
 	
+	@RequestMapping(value="/country/countryDeleteFile", method = RequestMethod.GET)
+	public String countryDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
+			@RequestParam(value="countryFileId", required=true) int countryFileId) {
+		logger.debug("countryDeleteFile() countryFileId = {}", countryFileId);
+		String path = session.getServletContext().getRealPath("/resources");
+		int countryId = countryService.countryDeleteFile(countryFileId, path);	
+		redirectAttributes.addAttribute("countryId", countryId);
+		return "redirect:/country/countryDetail";
+	}	
 	
 	//countryList.jsp view파일을 요청
 	@RequestMapping(value="/country/countryList", method = RequestMethod.GET)
