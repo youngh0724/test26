@@ -1,4 +1,4 @@
-package ksmart.project.test26;
+package ksmart.project.test26.idol;
 
 import java.util.List;
 import java.util.Map;
@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Idol;
-import ksmart.project.test26.service.IdolAndIdolFile;
-import ksmart.project.test26.service.IdolCommand;
-import ksmart.project.test26.service.IdolService;
+import ksmart.project.test26.idoldto.Idol;
+import ksmart.project.test26.idoldto.IdolAndIdolFile;
+import ksmart.project.test26.idoldto.IdolCommand;
 
 @Controller
 public class IdolController{

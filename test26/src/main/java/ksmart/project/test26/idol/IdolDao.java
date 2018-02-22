@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.idol;
 
 import java.util.List;
 import java.util.Map;
@@ -6,6 +6,12 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import ksmart.project.test26.idoldto.Idol;
+import ksmart.project.test26.idoldto.IdolAndIdolFile;
+import ksmart.project.test26.idoldto.IdolCommand;
+import ksmart.project.test26.idoldto.IdolFile;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class IdolDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	private final String mapperRoot = "ksmart.project.test26.service.IdolMapper.";
+	private final String mapperRoot = "ksmart.project.test26.idol.IdolMapper.";
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(IdolDao.class);

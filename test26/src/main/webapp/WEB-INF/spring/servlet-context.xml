@@ -70,7 +70,7 @@
 			<list>
 				<value>classpath:ksmart/project/test26/book/BookMapper.xml
 				</value>
-				<value>classpath:ksmart/project/test26/service/IdolMapper.xml
+				<value>classpath:ksmart/project/test26/idol/IdolMapper.xml
 				</value>
 				<value>classpath:ksmart/project/test26/country/CountryMapper.xml
 				</value>

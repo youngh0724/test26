@@ -4,13 +4,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="ksmart.project.test26.service.IdolMapper">
+  <mapper namespace="ksmart.project.test26.idol.IdolMapper">
   
- 		<resultMap type="ksmart.project.test26.service.IdolAndIdolFile"
+ 		<resultMap type="ksmart.project.test26.idoldto.IdolAndIdolFile"
 				id="IdolAndIdolFileMap">
 		<id column="idol_id" property="idolId" />
 		<result column="idol_name" property="idolName" />
-			<collection property="list"			ofType="ksmart.project.test26.service.IdolFile">
+			<collection property="list"			ofType="ksmart.project.test26.idoldto.IdolFile">
 				<id column="idol_file_id" property="idolFileId"/>
 				<result column="file_name" property="idolFileName"/>
 				<result column="file_ext" property="idolFileExt"/>
@@ -40,7 +40,7 @@
   		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 + 상세검색 -->
   		<select id="idolSelectPage"
   				parameterType="java.util.Map"
-  				resultType="ksmart.project.test26.service.Idol">
+  				resultType="ksmart.project.test26.idoldto.Idol">
   			SELECT 
   				idol_id AS idolId,
   				idol_name AS idolName
@@ -54,7 +54,7 @@
   		
   		<!-- idolList view에서 사용하는 select쿼리문 -->  	
  		<select id="idolSelectList"
-			resultType="ksmart.project.test26.service.Idol">
+			resultType="ksmart.project.test26.idoldto.Idol">
 			SELECT 
 				idol_id as idolId
 				,idol_name as idolName
@@ -64,7 +64,7 @@
 		<!-- updateIdolForm으로 요청때 하나의 idol객체만을 select할때 사용하는 쿼리문 -->
 		<select id="idolSelectOne" 
 				parameterType="int"
-				resultType="ksmart.project.test26.service.Idol">
+				resultType="ksmart.project.test26.idoldto.Idol">
 			SELECT 
 				idol_id as idolId
 				,idol_name as idolName
@@ -74,7 +74,7 @@
 		
 		<!-- idolInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
 		<insert id="idolInsert" 
-				parameterType="ksmart.project.test26.service.IdolCommand">
+				parameterType="ksmart.project.test26.idoldto.IdolCommand">
 			INSERT INTO idol(idol_name)
 				VALUES (#{idolName})
 			<selectKey keyProperty="idolId" resultType="int" order="AFTER">
@@ -83,14 +83,14 @@
 		</insert>
 		
 		<!-- idolInsertForm에서 추가시 같이 등록되는 파일처리 쿼리문 -->
-		<insert id="idolInsertFile" parameterType="ksmart.project.test26.service.IdolFile">
+		<insert id="idolInsertFile" parameterType="ksmart.project.test26.idoldto.IdolFile">
 			INSERT INTO idol_file
 				(idol_id, file_name, file_ext, file_size)
 				VALUES (#{idolId}, #{idolFileName}, #{idolFileExt}, #{idolFileSize})
 		</insert>
 		<!-- idolUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="idolUpdate" 
-				parameterType="ksmart.project.test26.service.Idol">
+				parameterType="ksmart.project.test26.idoldto.Idol">
 	        UPDATE idol 
 	            SET idol_name = #{idolName} 
 	        WHERE idol_id = #{idolId}     
@@ -98,7 +98,7 @@
 	    
 	    <!-- idolList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="idolDelete" 
-	    		parameterType="ksmart.project.test26.service.Idol">
+	    		parameterType="ksmart.project.test26.idoldto.Idol">
 	        DELETE FROM idol 
 	        WHERE idol_id = #{idolId} 
 	    </delete>

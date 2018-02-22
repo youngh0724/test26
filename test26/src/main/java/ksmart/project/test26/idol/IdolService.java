@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.idol;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import ksmart.project.test26.idoldto.Idol;
+import ksmart.project.test26.idoldto.IdolAndIdolFile;
+import ksmart.project.test26.idoldto.IdolCommand;
+import ksmart.project.test26.idoldto.IdolFile;
 
 
 @Service
