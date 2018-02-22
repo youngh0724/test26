@@ -5,6 +5,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="ksmart.project.test26.service.CityMapper">
+	
+		<delete id="cityDeleteCityFile">
+			DELETE FROM city_file
+			WHERE city_file_id = #{cityFileId}
+		</delete>		
+ 
+ 		<select id="citySelectOneCityFile" 
+ 				resultType="ksmart.project.test26.city.dto.CityFile">
+ 			SELECT 
+ 				city_file_id AS cityFileId
+ 				,city_id AS cityId
+ 				,file_name AS fileName
+ 				,file_ext AS fileExt
+ 				,file_size AS fileSize
+ 			FROM city_file
+ 			WHERE city_file_id = #{cityFileId}
+ 		
+ 		</select> 
  
  		<select id="cityAndCityFileMap" parameterType="int"
 				resultMap="CityAndCityFileMap">
@@ -20,11 +38,11 @@
 			WHERE c.city_id = #{cityId}
 		</select>
 
-	<resultMap type="ksmart.project.test26.service.CityAndCityFile"
+	<resultMap type="ksmart.project.test26.city.dto.CityAndCityFile"
 				id="CityAndCityFileMap">
 		<id column="city_id" property="cityId" />
 		<result column="city_name" property="cityName" />
-			<collection property="list"			ofType="ksmart.project.test26.service.CityFile">
+			<collection property="list"			ofType="ksmart.project.test26.city.dto.CityFile">
 				<id column="city_file_id" property="cityFileId"/>
 				<result column="file_name" property="fileName"/>
 				<result column="file_ext" property="fileExt"/>
@@ -43,7 +61,7 @@
   		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="citySelectPage"
   				parameterType="java.util.Map"
-  				resultType="ksmart.project.test26.service.City">
+  				resultType="ksmart.project.test26.city.dto.City">
   			SELECT 
   				city_id AS cityId,
   				city_name AS cityName
@@ -57,7 +75,7 @@
   
   		<!-- cityList view에서 사용하는 select쿼리문 -->  	
  		<select id="citySelcetList"
-				resultType="ksmart.project.test26.service.City">
+				resultType="ksmart.project.test26.city.dto.City">
 			SELECT 
 				city_id as cityId
 				,city_name as cityName
@@ -67,7 +85,7 @@
 		<!-- updateCityForm으로 요청때 하나의 city객체만을 select할때 사용하는 쿼리문 -->
 		<select id="citySelectOne"
 				parameterType="int"
-				resultType="ksmart.project.test26.service.City">
+				resultType="ksmart.project.test26.city.dto.City">
 			SELECT 
 				city_id as cityId
 				,city_name as cityName
@@ -77,7 +95,7 @@
 		
 		<!-- cityInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
 		<insert id="cityInsert" 
-				parameterType="ksmart.project.test26.service.City">
+				parameterType="ksmart.project.test26.city.dto.City">
 			INSERT INTO city(city_name)
 				VALUES (#{cityName})	
 			<selectKey keyProperty="cityId" resultType="int" order="AFTER">
@@ -86,14 +104,14 @@
 		</insert>
 		
 		<insert id="cityInsertFile" 
-  				parameterType="ksmart.project.test26.service.CityFile">
+  				parameterType="ksmart.project.test26.city.dto.CityFile">
 	  		INSERT INTO city_file
 	  			(city_id, file_name, file_ext, file_size)
 	  		VALUES (#{cityId}, #{fileName}, #{fileExt}, #{fileSize})
   		</insert>
 		
 		<select id="citySelectListCityFile" 
-				resultType="ksmart.project.test26.service.CityFile">
+				resultType="ksmart.project.test26.city.dto.CityFile">
 			SELECT 
 				city_file_id AS cityFileId
 				,city_id AS cityId
@@ -106,7 +124,7 @@
 		
 		<!-- cityUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="cityUpdate" 
-				parameterType="ksmart.project.test26.service.City">
+				parameterType="ksmart.project.test26.city.dto.City">
 	        UPDATE city 
 	            SET city_name = #{cityName} 
 	        WHERE city_id = #{cityId}     
@@ -114,14 +132,14 @@
 	    
 	    <!-- cityList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="cityDelete" 
-	    		parameterType="ksmart.project.test26.service.City">
+	    		parameterType="ksmart.project.test26.city.dto.City">
 	        DELETE FROM city 
 	        WHERE city_id = #{cityId} 
 	    </delete>
 	    
 	    <!-- cityList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="cityDeleteFile" 
-	    		parameterType="ksmart.project.test26.service.CityFile">
+	    		parameterType="ksmart.project.test26.city.dto.CityFile">
 	        DELETE FROM city_file 
 	        WHERE city_file_id = #{cityFileId} 
 	    </delete>

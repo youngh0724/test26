@@ -20,7 +20,7 @@
 	<form action="${pageContext.request.contextPath}/city/cityInsert" method="post" enctype="multipart/form-data">
 		<table class="table table-striped" data-effect="fade">
 			<tr>
-				<td>도시 이름</td>
+				<td>도시명</td>
 				<td><input id="cityName" name="cityName" type="text"/></td>
 			</tr>
 			<tr>
@@ -34,7 +34,7 @@
 	<script>
 		$('#insert').click(function(){
 			if($('#cityName').val() == ''){
-				alert('도시 이름을 입력하세요');
+				alert('도시이름을 입력하세요');
 				$('#cityName').focus();
 			}else{
 				$('form').submit();

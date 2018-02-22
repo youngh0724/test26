@@ -12,7 +12,7 @@
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/module/top.jsp" />
 
-		<h2>Book List</h2>
+		<h2>City List</h2>
 		<div class="row" style="margin-bottom: 30;">
 			<div class="col-sm-12 col-lg-12">
 
@@ -23,16 +23,16 @@
 							<div>
 								<select name="rowPerPage" onchange="location.href=this.value">
 									<option value="#">보여줄 개수 선택</option>
-									<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=5">5개 보여주기</option>
-									<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=10">10개 보여주기</option>
-									<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=20">20개 보여주기</option>
+									<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개 보여주기</option>
+									<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개 보여주기</option>
+									<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=20">20개 보여주기</option>
 								</select><br>
 							</div>
 						</td>
 
 						<td style="margin: auto; text-align: right;">
 							<div>
-								<a class="btn btn-default" href="${pageContext.request.contextPath}/book/bookInsert">책 추가</a>
+								<a class="btn btn-default" href="${pageContext.request.contextPath}/city/cityInsert">도시 추가</a>
 							</div>
 						</td>
 					</tr>
@@ -42,9 +42,9 @@
 				<table class="table table-striped" data-effect="fade">
 					<thead>
 						<tr>
-							<th>bookFileId</th>
-							<th>bookId</th>
-							<th>bookName</th>
+							<th>cityFileId</th>
+							<th>cityId</th>
+							<th>cityName</th>
 							<th>fileName</th>
 							<th>fileExt</th>
 							<th>fileSize</th>									
@@ -53,21 +53,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="file" items="${bookAndBookFile.list}">
+						<c:forEach var="file" items="${cityAndCityFile.list}">
 							<tr>
-								<td>${file.bookFileId }</td>
-								<td>${bookAndBookFile.bookId }</td>
-								<td>${bookAndBookFile.bookName }</td>
-								<td><a href="${pageContext.request.contextPath}/book/bookFileDown?bookFileId=${file.bookFileId }">${file.fileName }</a></td>
+								<td>${file.cityFileId }</td>
+								<td>${cityAndCityFile.cityId }</td>
+								<td>${cityAndCityFile.cityName }</td>
+								<td><a href="${pageContext.request.contextPath}/city/cityFileDown?cityFileId=${file.cityFileId }">${file.fileName }</a></td>
 								<td>${file.fileExt }</td>
 								<td>${file.fileSize }</td>													
-								<td><a href="${pageContext.request.contextPath}/book/bookFileDown?bookFileId=${file.bookFileId}">다운로드</a></td>
-								<td><a href="${pageContext.request.contextPath}/book/bookDeleteFile?bookFileId=${file.bookFileId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/city/cityFileDown?cityFileId=${file.cityFileId}">다운로드</a></td>
+								<td><a href="${pageContext.request.contextPath}/city/cityDeleteFile?cityFileId=${file.cityFileId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<a class="btn btn-default" href="${pageContext.request.contextPath}/book/bookList">리스트로 돌아가기</a>
+				<a class="btn btn-default" href="${pageContext.request.contextPath}/city/cityList">리스트로 돌아가기</a>
 			</div>
 		</div>
 		

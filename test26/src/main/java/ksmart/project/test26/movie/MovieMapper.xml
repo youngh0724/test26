@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="ksmart.project.test26.service.MovieMapper">
+	
+		<delete id="movieDeleteMovieFile">
+			DELETE FROM movie_file
+			WHERE movie_file_id = #{movieFileId}
+		</delete>		
+ 
+ 		<select id="movieSelectOneMovieFile" 
+ 				resultType="ksmart.project.test26.movie.dto.MovieFile">
+ 			SELECT 
+ 				movie_file_id AS movieFileId
+ 				,movie_id AS movieId
+ 				,file_name AS fileName
+ 				,file_ext AS fileExt
+ 				,file_size AS fileSize
+ 			FROM movie_file
+ 			WHERE movie_file_id = #{movieFileId}
+ 		
+ 		</select> 
+ 
+ 		<select id="movieAndMovieFileMap" parameterType="int"
+				resultMap="MovieAndMovieFileMap">
+			SELECT
+				c.movie_id 
+				,c.movie_name
+				,f.movie_file_id 
+				,f.file_name
+				,f.file_ext
+				,f.file_size 
+			FROM movie c INNER JOIN movie_file f
+			ON c.movie_id = f.movie_id
+			WHERE c.movie_id = #{movieId}
+		</select>
+
+	<resultMap type="ksmart.project.test26.movie.dto.MovieAndMovieFile"
+				id="MovieAndMovieFileMap">
+		<id column="movie_id" property="movieId" />
+		<result column="movie_name" property="movieName" />
+			<collection property="list"			ofType="ksmart.project.test26.movie.dto.MovieFile">
+				<id column="movie_file_id" property="movieFileId"/>
+				<result column="file_name" property="fileName"/>
+				<result column="file_ext" property="fileExt"/>
+				<result column="file_size" property="fileSize"/>
+			</collection>
+		</resultMap>	
+  	
+  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+  		<select id="movieSelectCount"
+  				resultType="int">
+  			SELECT 
+  				count(*) 
+  			FROM movie
+  		</select>
+  		
+  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
+  		<select id="movieSelectPage"
+  				parameterType="java.util.Map"
+  				resultType="ksmart.project.test26.movie.dto.Movie">
+  			SELECT 
+  				movie_id AS movieId,
+  				movie_name AS movieName
+  			FROM movie
+  			<if test="searchWord != null">
+  				WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+  			</if>
+  			ORDER BY movieId
+  			LIMIT #{startRow}, #{rowPerPage} 		
+  		</select>
+  
+  		<!-- movieList view에서 사용하는 select쿼리문 -->  	
+ 		<select id="movieSelcetList"
+				resultType="ksmart.project.test26.movie.dto.Movie">
+			SELECT 
+				movie_id as movieId
+				,movie_name as movieName
+			FROM movie
+		</select>
+		
+		<!-- updateMovieForm으로 요청때 하나의 movie객체만을 select할때 사용하는 쿼리문 -->
+		<select id="movieSelectOne"
+				parameterType="int"
+				resultType="ksmart.project.test26.movie.dto.Movie">
+			SELECT 
+				movie_id as movieId
+				,movie_name as movieName
+			FROM movie
+			WHERE movie_id = #{movie_id}
+		</select>
+		
+		<!-- movieInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
+		<insert id="movieInsert" 
+				parameterType="ksmart.project.test26.movie.dto.Movie">
+			INSERT INTO movie(movie_name)
+				VALUES (#{movieName})	
+			<selectKey keyProperty="movieId" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>		
+		</insert>
+		
+		<insert id="movieInsertFile" 
+  				parameterType="ksmart.project.test26.movie.dto.MovieFile">
+	  		INSERT INTO movie_file
+	  			(movie_id, file_name, file_ext, file_size)
+	  		VALUES (#{movieId}, #{fileName}, #{fileExt}, #{fileSize})
+  		</insert>
+		
+		<select id="movieSelectListMovieFile" 
+				resultType="ksmart.project.test26.movie.dto.MovieFile">
+			SELECT 
+				movie_file_id AS movieFileId
+				,movie_id AS movieId
+				,file_name AS fileName
+				,file_ext AS fileExt
+				,file_size AS fileSize
+			FROM movie_file
+			WHERE movie_id = #{movieId}		
+		</select>		
+		
+		<!-- movieUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
+		<update id="movieUpdate" 
+				parameterType="ksmart.project.test26.movie.dto.Movie">
+	        UPDATE movie 
+	            SET movie_name = #{movieName} 
+	        WHERE movie_id = #{movieId}     
+	    </update>
+	    
+	    <!-- movieList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="movieDelete" 
+	    		parameterType="ksmart.project.test26.movie.dto.Movie">
+	        DELETE FROM movie 
+	        WHERE movie_id = #{movieId} 
+	    </delete>
+	    
+	    <!-- movieList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
+	    <delete id="movieDeleteFile" 
+	    		parameterType="ksmart.project.test26.movie.dto.MovieFile">
+	        DELETE FROM movie_file 
+	        WHERE movie_file_id = #{movieFileId} 
+	    </delete>
+		
+  </mapper>

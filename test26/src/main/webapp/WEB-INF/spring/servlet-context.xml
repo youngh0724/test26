@@ -74,9 +74,9 @@
 				</value>
 				<value>classpath:ksmart/project/test26/country/CountryMapper.xml
 				</value>
-				<value>classpath:ksmart/project/test26/service/CityMapper.xml
+				<value>classpath:ksmart/project/test26/city/CityMapper.xml
 				</value>
-				<value>classpath:ksmart/project/test26/service/MovieMapper.xml
+				<value>classpath:ksmart/project/test26/movie/MovieMapper.xml
 				</value>
 				<value>classpath:ksmart/project/test26/service/LoginMapper.xml
 				</value>

@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.city;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ksmart.project.test26.city.dto.City;
+import ksmart.project.test26.city.dto.CityAndCityFile;
+import ksmart.project.test26.city.dto.CityFile;
+
 @Repository
 public class CityDao {
 	@Autowired
@@ -18,6 +22,18 @@ public class CityDao {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CityDao.class);
+	
+	public CityFile citySelectOneCityFile(int cityFileId) {
+		logger.debug("citySelectOneCityFile() cityFileId = {}", cityFileId);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"citySelectOneCityFile", cityFileId);
+	}
+	
+	public int countrtyDeleteFile(int cityFileId) {
+		logger.debug("countrtyDeleteFile() cityFileId = {}", cityFileId);
+		
+		return sqlSessionTemplate.delete(mapperRoot+"cityDeleteCityFile", cityFileId);
+	}
 	
 	public List<CityFile> citySelectListCityFile(int cityId){
 		

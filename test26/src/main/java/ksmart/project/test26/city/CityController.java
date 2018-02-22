@@ -1,8 +1,11 @@
-package ksmart.project.test26;
+package ksmart.project.test26.city;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ksmart.project.test26.service.City;
-import ksmart.project.test26.service.CityAndCityFile;
-import ksmart.project.test26.service.CityCommand;
-import ksmart.project.test26.service.CityFile;
-import ksmart.project.test26.service.CityService;
+import ksmart.project.test26.city.dto.City;
+import ksmart.project.test26.city.dto.CityAndCityFile;
+import ksmart.project.test26.city.dto.CityCommand;
+import ksmart.project.test26.city.dto.CityFile;
 
 @Controller
 public class CityController {
@@ -27,16 +31,29 @@ public class CityController {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CityController.class);
-	
+
 	@RequestMapping(value="/city/cityFileDown", method = RequestMethod.GET)
-	public String cityFileDownload(HttpSession session,
+	public ModelAndView cityFileDownload(HttpSession session,
 			@RequestParam(value="cityFileId", required=true) int cityFileId) {
-		
+		logger.debug("cityFileDownload() cityFileId = {}", cityFileId);
 		String path = session.getServletContext().getRealPath("/resources");
-		cityService.cityFileDownload(cityFileId, path);
-		return "";
+		
+		File downloadFile = cityService.cityFileDownload(cityFileId, path);
+		
+		logger.debug("cityFileDownload() downloadFile = {}", downloadFile);
+				
+		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
 	
+	@RequestMapping(value="/city/cityDeleteFile", method = RequestMethod.GET)
+	public String cityDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
+			@RequestParam(value="cityFileId", required=true) int cityFileId) {
+		logger.debug("cityDeleteFile() cityFileId = {}", cityFileId);
+		String path = session.getServletContext().getRealPath("/resources");
+		int cityId = cityService.cityDeleteFile(cityFileId, path);	
+		redirectAttributes.addAttribute("cityId", cityId);
+		return "redirect:/city/cityDetail";
+	}	
 	
 	//cityList.jsp view파일을 요청
 	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
@@ -77,10 +94,17 @@ public class CityController {
 			return "sessionError";
 		}
 		
-		CityAndCityFile cityAndCityFile = cityService.cityAndCityFileMap(cityId);
+		String returnStr = "redirect:/city/cityList";
 		
-		model.addAttribute("cityAndCityFile", cityAndCityFile);
-		return "city/cityDetail";
+		List<CityFile> list = cityService.citySelectListCityFile(cityId);
+		
+		if(list.size() != 0) {
+			CityAndCityFile cityAndCityFile = cityService.cityAndCityFileMap(cityId);
+			logger.debug("citySelectListDetail() cityAndCityFile = {}", cityAndCityFile);
+			model.addAttribute("cityAndCityFile", cityAndCityFile);
+			returnStr = "city/cityDetail";
+		}
+		return returnStr;
 	}
 	
 	//cityInserForm 입력폼  view파일을 요청

@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.city;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import ksmart.project.test26.city.dto.City;
+import ksmart.project.test26.city.dto.CityAndCityFile;
+import ksmart.project.test26.city.dto.CityCommand;
+import ksmart.project.test26.city.dto.CityFile;
 
 
 @Service
@@ -39,15 +44,40 @@ public class CityService {
 		logger.debug("cityAndCityFileMap() cityAndCityFile.getList() = {}", cityAndCityFile.getList());		
 		return cityAndCityFile;		
 	}
-	
-	
-	
-	public void cityFileDownload(int cityFileId, String path) {
+		
+	public File cityFileDownload(int cityFileId, String path) {
 		logger.debug("cityFileDownload() cityFileId = {}", cityFileId);
 		logger.debug("cityFileDownload() path = {}", path);
 		
+		CityFile cityFile = cityDao.citySelectOneCityFile(cityFileId);
 		
+		File file = new File(path+"/cityFileUpload/", cityFile.getFileName()+"."+cityFile.getFileExt());
+		if(file.isFile()) {
+			logger.debug("cityFileDownload() 다운로드 실행");
+			
+		} else {
+			logger.debug("cityFileDownload() 파일이 없습니다.");
+		}
+		return file;
+	}
+	
+	public int cityDeleteFile(int cityFileId, String path) {
+		logger.debug("cityDeleteFile() cityFileId = {}", cityFileId);
+		logger.debug("cityDeleteFile() path = {}", path);
 		
+		CityFile cityFile = cityDao.citySelectOneCityFile(cityFileId);
+		
+		File file = new File(path+"/cityFileUpload/", cityFile.getFileName()+"."+cityFile.getFileExt());
+		if(file.isFile()) {
+			logger.debug("cityDeleteFile() 경로상에 파일이 존재합니다.");
+			file.delete();
+		} else {
+			logger.debug("cityDeleteFile() 경로상에 파일이 존재하지 않습니다.");
+		}
+		
+		cityDao.countrtyDeleteFile(cityFileId);
+		
+		return cityFile.getCityId();
 	}
 	
 	public Map<String, Object> citySelectListByPage(int currentPage, int rowPerPage, String searchWord){

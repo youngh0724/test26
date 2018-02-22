@@ -1,9 +1,11 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.movie.dto;
 
-public class Movie {
+import java.util.List;
+
+public class MovieAndMovieFile {
 	private int movieId;
 	private String movieName;
-	
+	private List<MovieFile> list;
 	public int getMovieId() {
 		return movieId;
 	}
@@ -16,9 +18,11 @@ public class Movie {
 	public void setMovieName(String movieName) {
 		this.movieName = movieName;
 	}
-	@Override
-	public String toString() {
-		return "Movie [movieId=" + movieId + ", movieName=" + movieName + "]";
+	public List<MovieFile> getList() {
+		return list;
 	}
-	
+	public void setList(List<MovieFile> list) {
+		this.list = list;
+	}
+
 }
