@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.book.dto;
 
 public class BookFile {
 	private int bookFileId;

@@ -20,7 +20,7 @@
 	<form action="${pageContext.request.contextPath}/book/bookInsert" method="post" enctype="multipart/form-data">
 		<table class="table table-striped" data-effect="fade">
 			<tr>
-				<td>책 이름</td>
+				<td>책명</td>
 				<td><input id="bookName" name="bookName" type="text"/></td>
 			</tr>
 			<tr>
@@ -34,7 +34,7 @@
 	<script>
 		$('#insert').click(function(){
 			if($('#bookName').val() == ''){
-				alert('책 이름을 입력하세요');
+				alert('책이름을 입력하세요');
 				$('#bookName').focus();
 			}else{
 				$('form').submit();

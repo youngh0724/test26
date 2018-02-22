@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.book;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ksmart.project.test26.book.dto.Book;
+import ksmart.project.test26.book.dto.BookAndBookFile;
+import ksmart.project.test26.book.dto.BookFile;
+
 @Repository
 public class BookDao {
 	@Autowired
@@ -18,6 +22,18 @@ public class BookDao {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
+	
+	public BookFile bookSelectOneBookFile(int bookFileId) {
+		logger.debug("bookSelectOneBookFile() bookFileId = {}", bookFileId);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"bookSelectOneBookFile", bookFileId);
+	}
+	
+	public int countrtyDeleteFile(int bookFileId) {
+		logger.debug("countrtyDeleteFile() bookFileId = {}", bookFileId);
+		
+		return sqlSessionTemplate.delete(mapperRoot+"bookDeleteBookFile", bookFileId);
+	}
 	
 	public List<BookFile> bookSelectListBookFile(int bookId){
 		

@@ -1,8 +1,11 @@
-package ksmart.project.test26;
+package ksmart.project.test26.book;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ksmart.project.test26.service.Book;
-import ksmart.project.test26.service.BookAndBookFile;
-import ksmart.project.test26.service.BookCommand;
-import ksmart.project.test26.service.BookFile;
-import ksmart.project.test26.service.BookService;
+import ksmart.project.test26.book.dto.Book;
+import ksmart.project.test26.book.dto.BookAndBookFile;
+import ksmart.project.test26.book.dto.BookCommand;
+import ksmart.project.test26.book.dto.BookFile;
 
 @Controller
 public class BookController {
@@ -27,16 +31,29 @@ public class BookController {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
-	
+
 	@RequestMapping(value="/book/bookFileDown", method = RequestMethod.GET)
-	public String bookFileDownload(HttpSession session,
+	public ModelAndView bookFileDownload(HttpSession session,
 			@RequestParam(value="bookFileId", required=true) int bookFileId) {
-		
+		logger.debug("bookFileDownload() bookFileId = {}", bookFileId);
 		String path = session.getServletContext().getRealPath("/resources");
-		bookService.bookFileDownload(bookFileId, path);
-		return "";
+		
+		File downloadFile = bookService.bookFileDownload(bookFileId, path);
+		
+		logger.debug("bookFileDownload() downloadFile = {}", downloadFile);
+				
+		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
 	
+	@RequestMapping(value="/book/bookDeleteFile", method = RequestMethod.GET)
+	public String bookDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
+			@RequestParam(value="bookFileId", required=true) int bookFileId) {
+		logger.debug("bookDeleteFile() bookFileId = {}", bookFileId);
+		String path = session.getServletContext().getRealPath("/resources");
+		int bookId = bookService.bookDeleteFile(bookFileId, path);	
+		redirectAttributes.addAttribute("bookId", bookId);
+		return "redirect:/book/bookDetail";
+	}	
 	
 	//bookList.jsp view파일을 요청
 	@RequestMapping(value="/book/bookList", method = RequestMethod.GET)
@@ -77,10 +94,17 @@ public class BookController {
 			return "sessionError";
 		}
 		
-		BookAndBookFile bookAndBookFile = bookService.bookAndBookFileMap(bookId);
+		String returnStr = "redirect:/book/bookList";
 		
-		model.addAttribute("bookAndBookFile", bookAndBookFile);
-		return "book/bookDetail";
+		List<BookFile> list = bookService.bookSelectListBookFile(bookId);
+		
+		if(list.size() != 0) {
+			BookAndBookFile bookAndBookFile = bookService.bookAndBookFileMap(bookId);
+			logger.debug("bookSelectListDetail() bookAndBookFile = {}", bookAndBookFile);
+			model.addAttribute("bookAndBookFile", bookAndBookFile);
+			returnStr = "book/bookDetail";
+		}
+		return returnStr;
 	}
 	
 	//bookInserForm 입력폼  view파일을 요청

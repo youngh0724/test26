@@ -5,6 +5,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="ksmart.project.test26.service.BookMapper">
+	
+		<delete id="bookDeleteBookFile">
+			DELETE FROM book_file
+			WHERE book_file_id = #{bookFileId}
+		</delete>		
+ 
+ 		<select id="bookSelectOneBookFile" 
+ 				resultType="ksmart.project.test26.book.dto.BookFile">
+ 			SELECT 
+ 				book_file_id AS bookFileId
+ 				,book_id AS bookId
+ 				,file_name AS fileName
+ 				,file_ext AS fileExt
+ 				,file_size AS fileSize
+ 			FROM book_file
+ 			WHERE book_file_id = #{bookFileId}
+ 		
+ 		</select> 
  
  		<select id="bookAndBookFileMap" parameterType="int"
 				resultMap="BookAndBookFileMap">
@@ -20,11 +38,11 @@
 			WHERE c.book_id = #{bookId}
 		</select>
 
-	<resultMap type="ksmart.project.test26.service.BookAndBookFile"
+	<resultMap type="ksmart.project.test26.book.dto.BookAndBookFile"
 				id="BookAndBookFileMap">
 		<id column="book_id" property="bookId" />
 		<result column="book_name" property="bookName" />
-			<collection property="list"			ofType="ksmart.project.test26.service.BookFile">
+			<collection property="list"			ofType="ksmart.project.test26.book.dto.BookFile">
 				<id column="book_file_id" property="bookFileId"/>
 				<result column="file_name" property="fileName"/>
 				<result column="file_ext" property="fileExt"/>
@@ -43,7 +61,7 @@
   		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="bookSelectPage"
   				parameterType="java.util.Map"
-  				resultType="ksmart.project.test26.service.Book">
+  				resultType="ksmart.project.test26.book.dto.Book">
   			SELECT 
   				book_id AS bookId,
   				book_name AS bookName
@@ -57,7 +75,7 @@
   
   		<!-- bookList view에서 사용하는 select쿼리문 -->  	
  		<select id="bookSelcetList"
-				resultType="ksmart.project.test26.service.Book">
+				resultType="ksmart.project.test26.book.dto.Book">
 			SELECT 
 				book_id as bookId
 				,book_name as bookName
@@ -67,7 +85,7 @@
 		<!-- updateBookForm으로 요청때 하나의 book객체만을 select할때 사용하는 쿼리문 -->
 		<select id="bookSelectOne"
 				parameterType="int"
-				resultType="ksmart.project.test26.service.Book">
+				resultType="ksmart.project.test26.book.dto.Book">
 			SELECT 
 				book_id as bookId
 				,book_name as bookName
@@ -77,7 +95,7 @@
 		
 		<!-- bookInsertForm에서 입력받은 값을 action처리할때 사용할 쿼리문 -->
 		<insert id="bookInsert" 
-				parameterType="ksmart.project.test26.service.Book">
+				parameterType="ksmart.project.test26.book.dto.Book">
 			INSERT INTO book(book_name)
 				VALUES (#{bookName})	
 			<selectKey keyProperty="bookId" resultType="int" order="AFTER">
@@ -86,14 +104,14 @@
 		</insert>
 		
 		<insert id="bookInsertFile" 
-  				parameterType="ksmart.project.test26.service.BookFile">
+  				parameterType="ksmart.project.test26.book.dto.BookFile">
 	  		INSERT INTO book_file
 	  			(book_id, file_name, file_ext, file_size)
 	  		VALUES (#{bookId}, #{fileName}, #{fileExt}, #{fileSize})
   		</insert>
 		
 		<select id="bookSelectListBookFile" 
-				resultType="ksmart.project.test26.service.BookFile">
+				resultType="ksmart.project.test26.book.dto.BookFile">
 			SELECT 
 				book_file_id AS bookFileId
 				,book_id AS bookId
@@ -106,7 +124,7 @@
 		
 		<!-- bookUpdateForm에서 입력받은값을 action처리할때 사용할 쿼리문 -->
 		<update id="bookUpdate" 
-				parameterType="ksmart.project.test26.service.Book">
+				parameterType="ksmart.project.test26.book.dto.Book">
 	        UPDATE book 
 	            SET book_name = #{bookName} 
 	        WHERE book_id = #{bookId}     
@@ -114,14 +132,14 @@
 	    
 	    <!-- bookList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="bookDelete" 
-	    		parameterType="ksmart.project.test26.service.Book">
+	    		parameterType="ksmart.project.test26.book.dto.Book">
 	        DELETE FROM book 
 	        WHERE book_id = #{bookId} 
 	    </delete>
 	    
 	    <!-- bookList에서 삭제 버튼을 눌렀을시 action처리할때 쓰이는 쿼리문 -->
 	    <delete id="bookDeleteFile" 
-	    		parameterType="ksmart.project.test26.service.BookFile">
+	    		parameterType="ksmart.project.test26.book.dto.BookFile">
 	        DELETE FROM book_file 
 	        WHERE book_file_id = #{bookFileId} 
 	    </delete>

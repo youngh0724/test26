@@ -14,7 +14,7 @@
 
 		<h2>Book List</h2>
 		<div class="row" style="margin-bottom: 30;">
-			<div class="col-sm-12 col-lg-12">
+			<div class="col-sm-6 col-lg-6">
 
 				<table style="width: 100%">
 					<tr>
@@ -48,7 +48,7 @@
 							<th>fileName</th>
 							<th>fileExt</th>
 							<th>fileSize</th>									
-							<th>수정</th>
+							<th>다운로드</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
@@ -61,8 +61,8 @@
 								<td><a href="${pageContext.request.contextPath}/book/bookFileDown?bookFileId=${file.bookFileId }">${file.fileName }</a></td>
 								<td>${file.fileExt }</td>
 								<td>${file.fileSize }</td>													
-								<td><a href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${file.bookId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/book/bookDelete?bookId=${file.bookId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/book/bookFileDown?bookFileId=${file.bookFileId}">다운로드</a></td>
+								<td><a href="${pageContext.request.contextPath}/book/bookDeleteFile?bookFileId=${file.bookFileId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

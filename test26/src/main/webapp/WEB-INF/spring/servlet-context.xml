@@ -31,7 +31,7 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
 
 	<!-- 다운로드 처리 빈즈 시작 -->	
-	<bean id="fileDownloadView" class="ksmart.project.test26.country.FileDownloadView"/>
+	<bean id="fileDownloadView" class="ksmart.project.test26.service.FileDownloadView"/>
 	
 	<bean id="fileViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
    		<property name="order" value="0"/>
@@ -68,7 +68,7 @@
 		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:ksmart/project/test26/service/BookMapper.xml
+				<value>classpath:ksmart/project/test26/book/BookMapper.xml
 				</value>
 				<value>classpath:ksmart/project/test26/service/IdolMapper.xml
 				</value>
