@@ -1,4 +1,4 @@
-package ksmart.project.test26.idoldto;
+package ksmart.project.test26.idol.dto;
 
 import java.util.List;
 

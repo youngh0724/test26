@@ -57,7 +57,7 @@
 								<td>${idolFileList.idolFileId }</td>
 								<td>${idolAndIdolFile.idolId }</td>
 								<td>${idolAndIdolFile.idolName }</td>
-								<td>${idolFileList.idolFileName}</td>
+								<td><a href="${pageContext.request.contextPath}/idol/idolFileDown?idolFileId=${idolFileList.idolFileId}">${idolFileList.idolFileName}</a></td>
 								<td>${idolFileList.idolFileExt }</td>
 								<td>${idolFileList.idolFileSize }</td>								
 								<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${idol.idolId}">수정</a></td>

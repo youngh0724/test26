@@ -52,7 +52,7 @@
 						<c:forEach var="idol" items="${list}">
 							<tr>
 								<td>${idol.idolId }</td>
-								<td><a href="${pageContext.request.contextPath}/idol/idolFileList?idolId=${idol.idolId}">${idol.idolName}</a></td>
+								<td><a href="${pageContext.request.contextPath}/idol/idolDetail?idolId=${idol.idolId}">${idol.idolName}</a></td>
 								<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${idol.idolId}">수정</a></td>
 								<td><a href="${pageContext.request.contextPath}/idol/idolDelete?idolId=${idol.idolId}">삭제</a></td>
 							</tr>

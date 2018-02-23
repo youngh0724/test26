@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import ksmart.project.test26.idoldto.Idol;
-import ksmart.project.test26.idoldto.IdolAndIdolFile;
-import ksmart.project.test26.idoldto.IdolCommand;
-import ksmart.project.test26.idoldto.IdolFile;
+import ksmart.project.test26.country.dto.CountryFile;
+import ksmart.project.test26.idol.dto.Idol;
+import ksmart.project.test26.idol.dto.IdolAndIdolFile;
+import ksmart.project.test26.idol.dto.IdolCommand;
+import ksmart.project.test26.idol.dto.IdolFile;
 
 
 @Service
@@ -28,7 +29,25 @@ public class IdolService {
 	private IdolDao idolDao;
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
+	//
+	public File idolFileDownload(int idolFileId, String path) {
+		logger.debug("idolFileDownload() idolFileId = {}", idolFileId);
+		logger.debug("idolFileDownload() path = {}", path);
+		
+		IdolFile idolFile = idolDao.idolSelectOneIdolFile(idolFileId);
+		
+		File file = new File(path+"/idolFileUpload/", idolFile.getIdolFileName()+"."+idolFile.getIdolFileExt());
+		if(file.isFile()) {
+			logger.debug("idolFileDownload() 다운로드 실행");
+			
+		} else {
+			logger.debug("idolFileDownload() 파일이 없습니다.");
+		}
+		return file;
+	}
 	
+	
+	//
 	public IdolAndIdolFile idolAndIdolFileMap(int idolId){
 		logger.debug("idolAndIdolFileMap() idolId = {}", idolId);
 		IdolAndIdolFile idolAndIdolFile = idolDao.idolAndIdolFileMap(idolId);

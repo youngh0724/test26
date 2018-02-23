@@ -1,5 +1,6 @@
 package ksmart.project.test26.idol;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import ksmart.project.test26.idoldto.Idol;
-import ksmart.project.test26.idoldto.IdolAndIdolFile;
-import ksmart.project.test26.idoldto.IdolCommand;
+import ksmart.project.test26.idol.dto.Idol;
+import ksmart.project.test26.idol.dto.IdolAndIdolFile;
+import ksmart.project.test26.idol.dto.IdolCommand;
 
 @Controller
 public class IdolController{
@@ -28,7 +30,21 @@ public class IdolController{
  	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
    
  	//
- 	@RequestMapping(value="/idol/idolFileList", method = RequestMethod.GET)
+ 	@RequestMapping(value="/idol/idolFileDown", method = RequestMethod.GET)
+	public ModelAndView idolFileDownload(HttpSession session,
+			@RequestParam(value="idolFileId", required=true) int idolFileId) {
+		logger.debug("countryFileDownload() idolFileId = {}", idolFileId);
+		String path = session.getServletContext().getRealPath("/resources");
+		
+		File downloadFile = idolService.idolFileDownload(idolFileId, path);
+		
+		logger.debug("idolFileDownload() downloadFile = {}", downloadFile);
+				
+		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
+	}
+ 	
+ 	//
+ 	@RequestMapping(value="/idol/idolDetail", method = RequestMethod.GET)
 	public String idolSelectFileList(Model model, HttpSession session, 
 										@RequestParam(value="idolId", required=true) int idolId) {
 		logger.debug("idolSelectFileList() idolId = {}", idolId);
@@ -40,7 +56,7 @@ public class IdolController{
 		IdolAndIdolFile idolAndIdolFile = idolService.idolAndIdolFileMap(idolId);
 		
 		model.addAttribute("idolAndIdolFile", idolAndIdolFile);
-		return "idol/idolFileList";
+		return "idol/idolDetail";
 	}
 	
  	//아이돌 목록화면 요청

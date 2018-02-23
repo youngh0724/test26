@@ -7,10 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ksmart.project.test26.idoldto.Idol;
-import ksmart.project.test26.idoldto.IdolAndIdolFile;
-import ksmart.project.test26.idoldto.IdolCommand;
-import ksmart.project.test26.idoldto.IdolFile;
+import ksmart.project.test26.country.dto.CountryFile;
+import ksmart.project.test26.idol.dto.Idol;
+import ksmart.project.test26.idol.dto.IdolAndIdolFile;
+import ksmart.project.test26.idol.dto.IdolCommand;
+import ksmart.project.test26.idol.dto.IdolFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,13 @@ public class IdolDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String mapperRoot = "ksmart.project.test26.idol.IdolMapper.";
 	
+	
+	//다운로드 
+	public IdolFile idolSelectOneIdolFile(int idolFileId) {
+		logger.debug("idolSelectOneIdolFile() idolFileId = {}", idolFileId);
+		
+		return sqlSessionTemplate.selectOne(mapperRoot+"idolSelectOneIdolFile", idolFileId);
+	}
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 		private static final Logger logger = LoggerFactory.getLogger(IdolDao.class);
 		
