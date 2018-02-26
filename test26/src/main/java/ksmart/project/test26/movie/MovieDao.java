@@ -29,7 +29,7 @@ public class MovieDao {
 		return sqlSessionTemplate.selectOne(mapperRoot+"movieSelectOneMovieFile", movieFileId);
 	}
 	
-	public int countrtyDeleteFile(int movieFileId) {
+	public int movieDeleteFile(int movieFileId) {
 		logger.debug("countrtyDeleteFile() movieFileId = {}", movieFileId);
 		
 		return sqlSessionTemplate.delete(mapperRoot+"movieDeleteMovieFile", movieFileId);

@@ -75,7 +75,7 @@ public class MovieService {
 			logger.debug("movieDeleteFile() 경로상에 파일이 존재하지 않습니다.");
 		}
 		
-		movieDao.countrtyDeleteFile(movieFileId);
+		movieDao.movieDeleteFile(movieFileId);
 		
 		return movieFile.getMovieId();
 	}
