@@ -6,11 +6,13 @@
 
 	<mapper namespace="ksmart.project.test26.service.CityMapper">
 	
+		<!--  cityDeleteCityFile 업로드된 파일 삭제처리 쿼리문 -->
 		<delete id="cityDeleteCityFile">
 			DELETE FROM city_file
 			WHERE city_file_id = #{cityFileId}
 		</delete>		
  
+ 		<!-- citySelectOneCityFile 업로드된 파일 조회 쿼리문 -->
  		<select id="citySelectOneCityFile" 
  				resultType="ksmart.project.test26.city.dto.CityFile">
  			SELECT 
@@ -24,6 +26,7 @@
  		
  		</select> 
  
+ 		<!-- Mapping 작업을 위한 쿼리문 -->
  		<select id="cityAndCityFileMap" parameterType="int"
 				resultMap="CityAndCityFileMap">
 			SELECT
@@ -50,7 +53,7 @@
 			</collection>
 		</resultMap>	
   	
-  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+  		<!-- cityList 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="citySelectCount"
   				resultType="int">
   			SELECT 
@@ -58,7 +61,7 @@
   			FROM city
   		</select>
   		
-  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
+  		<!-- citySelectPage 페이징처리에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="citySelectPage"
   				parameterType="java.util.Map"
   				resultType="ksmart.project.test26.city.dto.City">
@@ -103,6 +106,7 @@
 			</selectKey>		
 		</insert>
 		
+		<!-- cityInsertFile -->
 		<insert id="cityInsertFile" 
   				parameterType="ksmart.project.test26.city.dto.CityFile">
 	  		INSERT INTO city_file
@@ -110,6 +114,7 @@
 	  		VALUES (#{cityId}, #{fileName}, #{fileExt}, #{fileSize})
   		</insert>
 		
+		<!-- citySelectListCityFile  -->
 		<select id="citySelectListCityFile" 
 				resultType="ksmart.project.test26.city.dto.CityFile">
 			SELECT 

@@ -6,11 +6,13 @@
 
 	<mapper namespace="ksmart.project.test26.service.BookMapper">
 	
+		<!--  bookDeleteBookFile 업로드된 파일 삭제처리 쿼리문 -->
 		<delete id="bookDeleteBookFile">
 			DELETE FROM book_file
 			WHERE book_file_id = #{bookFileId}
 		</delete>		
  
+ 		<!-- bookSelectOneBookFile 업로드된 파일 조회 쿼리문 -->
  		<select id="bookSelectOneBookFile" 
  				resultType="ksmart.project.test26.book.dto.BookFile">
  			SELECT 
@@ -24,6 +26,7 @@
  		
  		</select> 
  
+ 		<!-- Mapping 작업을 위한 쿼리문 -->
  		<select id="bookAndBookFileMap" parameterType="int"
 				resultMap="BookAndBookFileMap">
 			SELECT
@@ -50,7 +53,7 @@
 			</collection>
 		</resultMap>	
   	
-  		<!-- 전체 테이터 행의 수를 구하는 쿼리문 -->
+  		<!-- bookList 전체 테이터 행의 수를 구하는 쿼리문 -->
   		<select id="bookSelectCount"
   				resultType="int">
   			SELECT 
@@ -58,7 +61,7 @@
   			FROM book
   		</select>
   		
-  		<!-- 페이징에 필요한 리스트를 생성하는 쿼리문 -->
+  		<!-- bookSelectPage 페이징처리에 필요한 리스트를 생성하는 쿼리문 -->
   		<select id="bookSelectPage"
   				parameterType="java.util.Map"
   				resultType="ksmart.project.test26.book.dto.Book">
@@ -103,6 +106,7 @@
 			</selectKey>		
 		</insert>
 		
+		<!-- bookInsertFile -->
 		<insert id="bookInsertFile" 
   				parameterType="ksmart.project.test26.book.dto.BookFile">
 	  		INSERT INTO book_file
@@ -110,6 +114,7 @@
 	  		VALUES (#{bookId}, #{fileName}, #{fileExt}, #{fileSize})
   		</insert>
 		
+		<!-- bookSelectListBookFile  -->
 		<select id="bookSelectListBookFile" 
 				resultType="ksmart.project.test26.book.dto.BookFile">
 			SELECT 

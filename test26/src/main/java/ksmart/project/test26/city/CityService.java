@@ -26,11 +26,11 @@ public class CityService {
 	@Autowired
 	private CityDao cityDao;
 	
-	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	//(전체해당)입력값과 리턴값을 확인하기위해 logger.debug 사용
 	private static final Logger logger = LoggerFactory.getLogger(CityService.class);
 	
+	// cityList 조회
 	public List<CityFile> citySelectListCityFile(int cityId){
-		
 		logger.debug("citySelectListCityFile() cityId = {}", cityId);
 		List<CityFile> list = cityDao.citySelectListCityFile(cityId);
 		logger.debug("citySelectListCityFile() list = {}", list);
@@ -44,7 +44,8 @@ public class CityService {
 		logger.debug("cityAndCityFileMap() cityAndCityFile.getList() = {}", cityAndCityFile.getList());		
 		return cityAndCityFile;		
 	}
-		
+	
+	// 파일 다운로드 처리
 	public File cityFileDownload(int cityFileId, String path) {
 		logger.debug("cityFileDownload() cityFileId = {}", cityFileId);
 		logger.debug("cityFileDownload() path = {}", path);
@@ -61,6 +62,7 @@ public class CityService {
 		return file;
 	}
 	
+	// 파일 삭제 처리
 	public int cityDeleteFile(int cityFileId, String path) {
 		logger.debug("cityDeleteFile() cityFileId = {}", cityFileId);
 		logger.debug("cityDeleteFile() path = {}", path);
@@ -75,7 +77,7 @@ public class CityService {
 			logger.debug("cityDeleteFile() 경로상에 파일이 존재하지 않습니다.");
 		}
 		
-		cityDao.countrtyDeleteFile(cityFileId);
+		cityDao.cityDeleteFile(cityFileId);
 		
 		return cityFile.getCityId();
 	}

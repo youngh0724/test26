@@ -26,11 +26,11 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 	
-	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	//(전체해당)입력값과 리턴값을 확인하기위해 logger.debug 사용
 	private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 	
+	// bookList 조회
 	public List<BookFile> bookSelectListBookFile(int bookId){
-		
 		logger.debug("bookSelectListBookFile() bookId = {}", bookId);
 		List<BookFile> list = bookDao.bookSelectListBookFile(bookId);
 		logger.debug("bookSelectListBookFile() list = {}", list);
@@ -44,7 +44,8 @@ public class BookService {
 		logger.debug("bookAndBookFileMap() bookAndBookFile.getList() = {}", bookAndBookFile.getList());		
 		return bookAndBookFile;		
 	}
-		
+	
+	// 파일 다운로드 처리
 	public File bookFileDownload(int bookFileId, String path) {
 		logger.debug("bookFileDownload() bookFileId = {}", bookFileId);
 		logger.debug("bookFileDownload() path = {}", path);
@@ -61,6 +62,7 @@ public class BookService {
 		return file;
 	}
 	
+	// 파일 삭제 처리
 	public int bookDeleteFile(int bookFileId, String path) {
 		logger.debug("bookDeleteFile() bookFileId = {}", bookFileId);
 		logger.debug("bookDeleteFile() path = {}", path);
@@ -75,7 +77,7 @@ public class BookService {
 			logger.debug("bookDeleteFile() 경로상에 파일이 존재하지 않습니다.");
 		}
 		
-		bookDao.countrtyDeleteFile(bookFileId);
+		bookDao.bookDeleteFile(bookFileId);
 		
 		return bookFile.getBookId();
 	}

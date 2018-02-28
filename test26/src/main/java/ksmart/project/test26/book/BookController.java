@@ -29,7 +29,7 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	//(전체해당)입력값과 리턴값을 확인하기위해 logger.debug 사용
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
 	@RequestMapping(value="/book/bookFileDown", method = RequestMethod.GET)
@@ -85,6 +85,7 @@ public class BookController {
 		return "book/bookList";
 	}
 	
+	// bookDetail.jsp view파일 요청
 	@RequestMapping(value="/book/bookDetail", method = RequestMethod.GET)
 	public String bookSelectListDetail(Model model, HttpSession session, 
 										@RequestParam(value="bookId", required=true) int bookId) {
