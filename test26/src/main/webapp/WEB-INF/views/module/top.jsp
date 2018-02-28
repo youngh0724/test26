@@ -55,18 +55,6 @@
 								href="${pageContext.request.contextPath}/movie/movieList">영화리스트</a></li>
 						</ul></li>
 					<!-- top 메뉴 리스트 끝 -->
-					
-					<!-- file추가 메뉴 시작 -->
-					<!-- top 메뉴 리스트 시작 -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown">Article<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/article/articleList">List보기</a></li>
-							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/article/articleInsert">file추가</a></li>
-						</ul>
-					</li>
-					<!-- file추가 메뉴 끝 -->
 
 
 				</ul>

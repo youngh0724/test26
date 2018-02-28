@@ -44,6 +44,7 @@
 						<tr>
 							<th>idolFileId</th>
 							<th>idolId</th>
+							<th>idolName</th>
 							<th>fileName</th>
 							<th>fileExt</th>
 							<th>fileSize</th>					
@@ -60,8 +61,8 @@
 								<td><a href="${pageContext.request.contextPath}/idol/idolFileDown?idolFileId=${idolFileList.idolFileId}">${idolFileList.idolFileName}</a></td>
 								<td>${idolFileList.idolFileExt }</td>
 								<td>${idolFileList.idolFileSize }</td>								
-								<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${idol.idolId}">수정</a></td>
-								<td><a href="${pageContext.request.contextPath}/idol/idolDelete?idolyId=${idol.idolId}">삭제</a></td>
+								<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolFileId=${idolFileList.idolFileId}">수정</a></td>
+							<td><a href="${pageContext.request.contextPath}/idol/idolDeleteFile?idolFileId=${idolFileList.idolFileId}">삭제</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
