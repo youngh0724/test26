@@ -31,7 +31,8 @@ public class MovieController {
 	
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
-
+	
+	//영화에 첨부된 파일을 다운로드하기 위한 요청
 	@RequestMapping(value="/movie/movieFileDown", method = RequestMethod.GET)
 	public ModelAndView movieFileDownload(HttpSession session,
 			@RequestParam(value="movieFileId", required=true) int movieFileId) {
@@ -44,7 +45,7 @@ public class MovieController {
 				
 		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
-	
+	//첨부 파일 목록에서 파일 하나를 삭제 하기 위한 요청
 	@RequestMapping(value="/movie/movieDeleteFile", method = RequestMethod.GET)
 	public String movieDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
 			@RequestParam(value="movieFileId", required=true) int movieFileId) {
@@ -84,7 +85,7 @@ public class MovieController {
 		model.addAttribute("currentPage", currentPage);
 		return "movie/movieList";
 	}
-	
+	//영화에 첨부된 파일 목록 상세 보기 요청
 	@RequestMapping(value="/movie/movieDetail", method = RequestMethod.GET)
 	public String movieSelectListDetail(Model model, HttpSession session, 
 										@RequestParam(value="movieId", required=true) int movieId) {

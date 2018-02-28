@@ -29,6 +29,7 @@ public class MovieService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
+	//movieList.jsp에서 영화 제목 movieName 을 클릭했을때 받는 요청을 처리
 	public List<MovieFile> movieSelectListMovieFile(int movieId){
 		
 		logger.debug("movieSelectListMovieFile() movieId = {}", movieId);
@@ -36,7 +37,7 @@ public class MovieService {
 		logger.debug("movieSelectListMovieFile() list = {}", list);
 		return list;
 	}
-	
+	//movieList.jsp에서 영화 제목을 눌렀을때 movie_file 테이블의 정보를 조회하는 요청 처리 
 	public MovieAndMovieFile movieAndMovieFileMap(int movieId){
 		logger.debug("movieAndMovieFileMap() movieId = {}", movieId);
 		MovieAndMovieFile movieAndMovieFile = movieDao.movieAndMovieFileMap(movieId);
@@ -44,7 +45,7 @@ public class MovieService {
 		logger.debug("movieAndMovieFileMap() movieAndMovieFile.getList() = {}", movieAndMovieFile.getList());		
 		return movieAndMovieFile;		
 	}
-		
+	//영화 목록에 첨부된 파일을 다운로드 하기 위한 메서드
 	public File movieFileDownload(int movieFileId, String path) {
 		logger.debug("movieFileDownload() movieFileId = {}", movieFileId);
 		logger.debug("movieFileDownload() path = {}", path);
@@ -60,7 +61,7 @@ public class MovieService {
 		}
 		return file;
 	}
-	
+	//영화 목록에 첨부된 파일을 삭제하기 위한 메서드
 	public int movieDeleteFile(int movieFileId, String path) {
 		logger.debug("movieDeleteFile() movieFileId = {}", movieFileId);
 		logger.debug("movieDeleteFile() path = {}", path);
@@ -80,6 +81,7 @@ public class MovieService {
 		return movieFile.getMovieId();
 	}
 	
+	//영화 목록을 갯수별로 페이징 시키기 위한 메서드
 	public Map<String, Object> movieSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 		
 		logger.debug("movieSelectListByPage() currentPage = {}", currentPage);
