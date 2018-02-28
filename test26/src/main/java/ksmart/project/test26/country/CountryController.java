@@ -3,11 +3,7 @@ package ksmart.project.test26.country;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,30 +28,43 @@ public class CountryController {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
 
+	//countryDetail.jsp에서 다운로드 클릭시 들어오는 요청 처리
 	@RequestMapping(value="/country/countryFileDown", method = RequestMethod.GET)
 	public ModelAndView countryFileDownload(HttpSession session,
 			@RequestParam(value="countryFileId", required=true) int countryFileId) {
+		//매개변수 값을 확인
 		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
+		
+		//파일 경로 지정
 		String path = session.getServletContext().getRealPath("/resources");
 		
+		//매개변수 아이디에 해당하는 정보를 조회하여 파일객체 생성 및 할당
 		File downloadFile = countryService.countryFileDownload(countryFileId, path);
 		
 		logger.debug("countryFileDownload() downloadFile = {}", downloadFile);
-				
+		
+		//다운로드 기능 클래스로 호출 및 객체 전달
 		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
 	
+	//countryDetail.jsp에서 삭제 클릭시 들어오는 요청 처리
 	@RequestMapping(value="/country/countryDeleteFile", method = RequestMethod.GET)
 	public String countryDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
 			@RequestParam(value="countryFileId", required=true) int countryFileId) {
+		//매개변수 값을 확인
 		logger.debug("countryDeleteFile() countryFileId = {}", countryFileId);
+		
+		//파일 경로 지정
 		String path = session.getServletContext().getRealPath("/resources");
-		int countryId = countryService.countryDeleteFile(countryFileId, path);	
+		
+		//삭제한 파일의 countryId값을 넘겨받아 할당한다.
+		int countryId = countryService.countryDeleteFile(countryFileId, path);
+		//리다이렉트 할시 countryId값을 가지고 갈수 있도록 세팅한다.
 		redirectAttributes.addAttribute("countryId", countryId);
 		return "redirect:/country/countryDetail";
 	}	
 	
-	//countryList.jsp view파일을 요청
+	//countryList.jsp에서 사용될 list정보를 받아오는 요청 처리
 	@RequestMapping(value="/country/countryList", method = RequestMethod.GET)
 	public String countrySelcetList(Model model, HttpSession session, 
 			@RequestParam(value="currentPage", defaultValue="1") int currentPage,
@@ -65,19 +74,23 @@ public class CountryController {
 		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
-				
+		
+		//매개변수 값을 확인
 		logger.debug("countrySelcetList() currentPage = {}", currentPage);
 		logger.debug("countrySelcetList() rowPerPage = {}", rowPerPage);
 		logger.debug("countrySelectPage() searchWord = {}", searchWord);
+		
+		//매개변수값을 통해 countryList.jsp페이지에 보요줄 list와 필요한 정보들을 map타입으로 리턴받아 할당한다.
 		Map map = countryService.countrySelectListByPage(currentPage, rowPerPage, searchWord);
 		//list에 들어있는 값을 확인해본다.
 		logger.debug("countrySelcetList() map = {}", map);
 		
+		//map안의 값들을 각각의 타입으로 꺼내어 할당한다.
 		List<Country> list = (List<Country>)map.get("list");
 		int totalCount = (Integer) map.get("totalCount");		
 		
 		int lastPage = (totalCount/rowPerPage)+1;
-		//db에서 받아온 결과값을 model에 세팅한다.
+		//model에 값들을 세팅한다.
 		model.addAttribute("list", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("rowPerPage", rowPerPage);
@@ -85,19 +98,24 @@ public class CountryController {
 		return "country/countryList";
 	}
 	
+	//countryList.jsp에서 countryName을 클릭시 들어오는 요청 처리
 	@RequestMapping(value="/country/countryDetail", method = RequestMethod.GET)
 	public String countrySelectListDetail(Model model, HttpSession session, 
 										@RequestParam(value="countryId", required=true) int countryId) {
+		//매개변수 값을 확인
 		logger.debug("countrySelectListDetail() countryId = {}", countryId);
 		
 		if(session.getAttribute("loginMember") == null) {
 			return "sessionError";
 		}
 		
+		//리턴시킬 문자열을 변수에 저장
 		String returnStr = "redirect:/country/countryList";
 		
+		//country_file테이블에 countryId값을 가진 데이터를 list타입으로 넘겨받는다.		
 		List<CountryFile> list = countryService.countrySelectListCountryFile(countryId);
 		
+		//list사이즈가 0이 아니면(데이터가 존재하면) list를 model에 세팅하고 리턴시킬 문자열을 담은 변수값을 수정한다.
 		if(list.size() != 0) {
 			CountryAndCountryFile countryAndCountryFile = countryService.countryAndCountryFileMap(countryId);
 			logger.debug("countrySelectListDetail() countryAndCountryFile = {}", countryAndCountryFile);
@@ -134,7 +152,7 @@ public class CountryController {
         return "redirect:/country/countryList";
     }
 	
-	//업데이트 폼페이지 요청
+	//countryUpdate.jsp페이지를 호출하는 요청 처리
 	@RequestMapping(value="/country/countryUpdate", method = RequestMethod.GET)
 	public String countrySelectOne( Model model, HttpSession session, @RequestParam(value="countryId", required=true) int countryId) {
 		logger.debug("countrySelectOne() countryId = {}", countryId);
@@ -151,7 +169,7 @@ public class CountryController {
 		return "country/countryUpdate";
 	}
 	
-	//업데이트 action요청
+	//countryUpdate.jsp페이지에서 업데이트 action요청
 	@RequestMapping(value="/country/countryUpdate", method = RequestMethod.POST)
     public String countryUpdate(HttpSession session, Country country) {		
 		logger.debug("countryUpdate() countryName = {}", country.getCountryName());

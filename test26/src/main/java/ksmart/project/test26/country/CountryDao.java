@@ -23,29 +23,34 @@ public class CountryDao {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryDao.class);
 	
+	//countryDetail.jsp에서 다운로드 클릭시 들어오는 요청 처리
 	public CountryFile countrySelectOneCountryFile(int countryFileId) {
 		logger.debug("countrySelectOneCountryFile() countryFileId = {}", countryFileId);
 		
 		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectOneCountryFile", countryFileId);
 	}
 	
+	//db에서 파일의 정보를 삭제한다.
 	public int countrtyDeleteFile(int countryFileId) {
 		logger.debug("countrtyDeleteFile() countryFileId = {}", countryFileId);
 		
 		return sqlSessionTemplate.delete(mapperRoot+"countryDeleteCountryFile", countryFileId);
 	}
 	
+	//countryList.jsp에서 countryName을 클릭시 들어오는 요청 처리
 	public List<CountryFile> countrySelectListCountryFile(int countryId){
 		
 		logger.debug("countrySelectListDetail() countryId = {}", countryId);
 		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectListCountryFile", countryId);
 	}
 	
+	//countryList.jsp에서 countryName을 클릭시 들어오는 요청 처리 중 country_file테이블의 정보를 조회하는 요청 처리
 	public CountryAndCountryFile countryAndCountryFileMap(int countryId){
 		logger.debug("countryAndCountryFileMap() countryId = {}", countryId);
 		return sqlSessionTemplate.selectOne(mapperRoot+"countryAndCountryFileMap", countryId);
 	}
 		
+	//countryList.jsp에서 사용될 list정보를 받아오는 요청 처리
 	public List<Country> countrySelectPage(Map map) {
 		logger.debug("countrySelectPage() map.startRow = {}", map.get("startRow"));
 		logger.debug("countrySelectPage() map.rowPerPage = {}", map.get("rowPerPage"));
@@ -53,11 +58,13 @@ public class CountryDao {
 		return sqlSessionTemplate.selectList(mapperRoot+"countrySelectPage", map);
 	}
 	
+	//country테이블에 정보가 총 몇개인지를 조회하는 요청 처리
 	public int countrySelectTotalCount() {
 		logger.debug("totalCount() 실행확인"); 
 		return sqlSessionTemplate.selectOne(mapperRoot+"countrySelectCount");	
 	}
 	
+	//컨트롤러에서 전체 리스트를 조회할때 사용되어지는 메서드 
 	public List<Country> countrySelectList(){
 		logger.debug("countrySelectList() 실행확인");
 		//mapper에 id가 selectCountryList인 쿼리문을 실행시키고 결과값을 리턴한다.		

@@ -29,6 +29,7 @@ public class CountryService {
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(CountryService.class);
 	
+	//countryList.jsp에서 countryName을 클릭시 들어오는 요청 처리
 	public List<CountryFile> countrySelectListCountryFile(int countryId){
 		
 		logger.debug("countrySelectListCountryFile() countryId = {}", countryId);
@@ -37,6 +38,7 @@ public class CountryService {
 		return list;
 	}
 	
+	//countryList.jsp에서 countryName을 클릭시 들어오는 요청 처리 중 country_file테이블의 정보를 조회하는 요청 처리
 	public CountryAndCountryFile countryAndCountryFileMap(int countryId){
 		logger.debug("countryAndCountryFileMap() countryId = {}", countryId);
 		CountryAndCountryFile countryAndCountryFile = countryDao.countryAndCountryFileMap(countryId);
@@ -44,7 +46,8 @@ public class CountryService {
 		logger.debug("countryAndCountryFileMap() countryAndCountryFile.getList() = {}", countryAndCountryFile.getList());		
 		return countryAndCountryFile;		
 	}
-		
+	
+	//countryDetail.jsp에서 다운로드 클릭시 들어오는 요청 처리
 	public File countryFileDownload(int countryFileId, String path) {
 		logger.debug("countryFileDownload() countryFileId = {}", countryFileId);
 		logger.debug("countryFileDownload() path = {}", path);
@@ -61,25 +64,36 @@ public class CountryService {
 		return file;
 	}
 	
+	//countryDetail.jsp에서 삭제 클릭시 들어오는 요청 처리
 	public int countryDeleteFile(int countryFileId, String path) {
+		
+		//매개변수 값을 확인
 		logger.debug("countryDeleteFile() countryFileId = {}", countryFileId);
 		logger.debug("countryDeleteFile() path = {}", path);
 		
+		//countryFile타입 객체에 매개변수 값에 해당하는 정보를 할당
 		CountryFile countryFile = countryDao.countrySelectOneCountryFile(countryFileId);
 		
+		//countryFile객체의 정보를 이용하여 파일 객체를 생성 할당한다.
 		File file = new File(path+"/countryFileUpload/", countryFile.getFileName()+"."+countryFile.getFileExt());
+		
+		//실제 경로상에 파일이 존재하는지 확인한다.
 		if(file.isFile()) {
 			logger.debug("countryDeleteFile() 경로상에 파일이 존재합니다.");
+			//경로상의 실제 파일을 삭제한다.
 			file.delete();
 		} else {
 			logger.debug("countryDeleteFile() 경로상에 파일이 존재하지 않습니다.");
 		}
 		
+		//db에서 파일의 정보를 삭제한다.
 		countryDao.countrtyDeleteFile(countryFileId);
 		
+		//countryFile객체의 아이디값을 리턴시켜준다.
 		return countryFile.getCountryId();
 	}
 	
+	//countryList.jsp에서 사용될 list정보를 받아오는 요청 처리
 	public Map<String, Object> countrySelectListByPage(int currentPage, int rowPerPage, String searchWord){
 		
 		logger.debug("countrySelectListByPage() currentPage = {}", currentPage);
@@ -113,7 +127,7 @@ public class CountryService {
 		return list;
 	}
 	
-	//컨트롤러에서 정볼르 입력할때 사용되어지는 메서드
+	//countryInserForm 입력폼에서 입력받은 값을 db에 입력하는 메서드
 	public void countryInsert(CountryCommand countryCommand, String path) {
 		//컨트롤러에서 넘겨받은 값을 확인해본다.
 		logger.debug("countryInsert() countryName = {}", countryCommand.getCountryName());
@@ -152,14 +166,20 @@ public class CountryService {
 			countryFile.setFileSize(fileSize);
 			countryFile.setCountryId(generatedId);
 						
+			//지정한 경로의 디렉토리 객체 생성
 			File directory = new File(path+"/countryFileUpload/");
+			//디렉토리가 실제 경로에 존재하는지 검사
 			if(!directory.exists()) {
+				//존재하지 않는다면 생성한다.
 				directory.mkdirs();
 			} else {
+				
+				//지정한 경로에 파일명의 File타입 객체 생성
 				File temp = new File(path+"/countryFileUpload/", fileName+"."+fileExt);
 				try {
+					//업로드 파일을 객체에 내용 복사(이동)
 					files.transferTo(temp);
-					
+					//db에 파일 정보 입력
 					countryDao.countryInsertFile(countryFile);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
