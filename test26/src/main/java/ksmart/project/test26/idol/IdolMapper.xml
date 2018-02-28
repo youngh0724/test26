@@ -5,7 +5,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="ksmart.project.test26.idol.IdolMapper">
-  
+  		<!--파일 delete -->
+  		<delete id="idolDeleteIdolFile">
+			DELETE FROM idol_file
+			WHERE idol_file_id = #{idolFileId}
+		</delete>		
+ 
+  		<!--파일 SelectOne -->
+ 		<select id="idolSelectOneidolFile" 
+ 				resultType="ksmart.project.test26.idol.dto.IdolFile">
+ 			SELECT 
+ 				idol_file_id AS idolFileId
+ 				,idol_id AS idolId
+ 				,file_name AS idolfileName
+ 				,file_ext AS idolfileExt
+ 				,file_size AS idolfileSize
+ 			FROM idol_file
+ 			WHERE idol_file_id = #{idolFileId}
+ 		</select> 
+  		
+  		
  		<!--  파일다운로드 -->
  			<select id="idolSelectOneIdolFile" 
  				resultType="ksmart.project.test26.idol.dto.IdolFile">

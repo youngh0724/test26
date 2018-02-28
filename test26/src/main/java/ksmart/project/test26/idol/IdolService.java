@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import ksmart.project.test26.country.dto.CountryFile;
 import ksmart.project.test26.idol.dto.Idol;
 import ksmart.project.test26.idol.dto.IdolAndIdolFile;
 import ksmart.project.test26.idol.dto.IdolCommand;
@@ -29,13 +28,34 @@ public class IdolService {
 	private IdolDao idolDao;
 	//입력값과 리턴값을 확인하기위해 로거기능 사용
 	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
-	//
+
+	//아이돌 파일 삭제
+	public int idolDeleteFile(int idolFileId, String path) {
+		logger.debug("idolDeleteFile() countryFileId = {}", idolFileId);
+		logger.debug("idolDeleteFile() path = {}", path);
+		
+		IdolFile idolFile = idolDao.idolSelectOneIdolFile(idolFileId);
+		
+		File file = new File(path+"/idolFileUpload/", idolFile.getIdolFileName()+"."+idolFile.getIdolFileExt());
+		if(file.isFile()) {
+			logger.debug("idolDeleteFile() 경로상에 파일이 존재합니다.");
+			file.delete();
+		} else {
+			logger.debug("idolDeleteFile() 경로상에 파일이 존재하지 않습니다.");
+		}
+		
+		idolDao.idolDeleteFile(idolFileId);
+		
+		return idolFile.getIdolId();
+	}
+	
+	//업로드 되어있는 파일 다운로드
 	public File idolFileDownload(int idolFileId, String path) {
 		logger.debug("idolFileDownload() idolFileId = {}", idolFileId);
 		logger.debug("idolFileDownload() path = {}", path);
 		
 		IdolFile idolFile = idolDao.idolSelectOneIdolFile(idolFileId);
-		
+		//파일이 다운로드 될 경로와 파일의 이름 확장자 정보를 file에 담아준다.
 		File file = new File(path+"/idolFileUpload/", idolFile.getIdolFileName()+"."+idolFile.getIdolFileExt());
 		if(file.isFile()) {
 			logger.debug("idolFileDownload() 다운로드 실행");
@@ -47,37 +67,38 @@ public class IdolService {
 	}
 	
 	
-	//
+	//아이돌의 정보와 파일 정보 보여주기
 	public IdolAndIdolFile idolAndIdolFileMap(int idolId){
 		logger.debug("idolAndIdolFileMap() idolId = {}", idolId);
+		//idol과 file의 다른타입의 정보를 하나의 변수에 담아준다.
 		IdolAndIdolFile idolAndIdolFile = idolDao.idolAndIdolFileMap(idolId);
 		logger.debug("idolAndIdolFileMap() countryId = {}", idolAndIdolFile.getIdolId());
 		logger.debug("idolAndIdolFileMap() idolAndIdolFile.getList() = {}", idolAndIdolFile.getList());		
 		return idolAndIdolFile;		
 	}
-	
-		public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String searchWord){
+	//
+	public Map<String, Object> idolSelectListByPage(int currentPage, int rowPerPage, String searchWord){
 			
-			logger.debug("idolSelectPage() map.startRow = {}", currentPage);
-			logger.debug("idolSelectPage() map.rowPerPage = {}", rowPerPage);
-			logger.debug("idolSelectPage() map.searchWord = {}", searchWord);
-			
-			int startRow = (currentPage-1)*rowPerPage;
-			Map map = new HashMap();
-			map.put("startRow", startRow);
-			map.put("rowPerPage", rowPerPage);
-			map.put("searchWord", searchWord);
-			
-			List<Idol> list = idolDao.idolSelectPage(map);
-			logger.debug("idolSelectListByPage() list = {}", list);
-			int totalCount = idolDao.idolSelectTotalCount();
-			logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
-			
-			Map returnMap = new HashMap();
-			returnMap.put("list", list);
-			returnMap.put("totalCount", totalCount);
-			
-			return returnMap;
+		logger.debug("idolSelectPage() map.startRow = {}", currentPage);
+		logger.debug("idolSelectPage() map.rowPerPage = {}", rowPerPage);
+		logger.debug("idolSelectPage() map.searchWord = {}", searchWord);
+		
+		int startRow = (currentPage-1)*rowPerPage;
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		map.put("searchWord", searchWord);
+		
+		List<Idol> list = idolDao.idolSelectPage(map);
+		logger.debug("idolSelectListByPage() list = {}", list);
+		int totalCount = idolDao.idolSelectTotalCount();
+		logger.debug("idolSelectListByPage() totalCount = {}", totalCount);
+		
+		Map returnMap = new HashMap();
+		returnMap.put("list", list);
+		returnMap.put("totalCount", totalCount);
+		
+		return returnMap;
 		}	
 		
 	
@@ -135,21 +156,22 @@ public class IdolService {
 				}
 			}
 		}
-	
+	//아이돌 하나의 정보 가져오기
 	public Idol idolSelectOne(int idolId) {
 		logger.debug("idolSelectOne() idolId = {}", idolId);
+		//idolId를 통해 해당 Id의 레코드 정보를 가져온다.
 		Idol idol = idolDao.idolSelectOneForUpdate(idolId);
 		logger.debug("idolSelectOne() idol = {}", idol);
 		return idol;
 	}
-	
+	//아이돌 정보를 처리 
 	public int idolUpdate(Idol idol) {
 		logger.debug("idolUpdate() idol = {}", idol);
 		int row = idolDao.idolUpdate(idol); 
 		logger.debug("idolUpdate() row = {}", row);
 		return row;
 	}
-	
+	//아이돌 삭제
 	public int idolDelete(int idolId) {
 		logger.debug("idolDelete() idolId = {}", idolId);
 		int row = idolDao.idolDelete(idolId);
