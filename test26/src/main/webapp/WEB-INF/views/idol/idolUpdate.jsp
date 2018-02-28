@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,15 +17,25 @@
 			<div class="col-sm-6 col-lg-6">
 				<form action="${pageContext.request.contextPath}/idol/idolUpdate"
 					method="post">
-					<input type="hidden" name="idolId" value="${Idol.idolId}">
+					<input type="hidden" name="idolId" value="${idol.idolId}">
 					<table class="table table-striped" data-effect="fade">
 						<tr>
 							<td>이름</td>
 							<td><input type="text" name="idolName" id="idolName"
-								value="${Idol.idolName}"></td>
+								value="${idol.idolName}"></td>
+						</tr>
+						<tr>
+							<td>첨부파일</td>
+                            <td>
+                            <c:forEach var="idolFileList" items="${idolAndIdolFile.list}">
+                                ${idolFileList.idolFileName}
+                                <input type="file" id="file" name="file">
+                            </c:forEach>
+                            </td>
 						</tr>
 					</table>
 					<input id="update" Type="button" value="수정">
+					<input id="delete" type="button" value="삭제">
 				</form>
 				<script>
 					$('#update').click(function() {

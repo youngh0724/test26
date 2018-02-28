@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ksmart.project.test26.idol.dto.Idol;
 import ksmart.project.test26.idol.dto.IdolAndIdolFile;
@@ -26,10 +27,22 @@ public class IdolController{
    @Autowired
    private IdolService idolService;
    
- //입력값과 리턴값을 확인하기위해 로거기능 사용
+   	//입력값과 리턴값을 확인하기위해 로거기능 사용
  	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
-   
- 	//
+ 	
+ 	//업로드 된 파일 삭제
+ 	@RequestMapping(value="/idol/idolDeleteFile", method = RequestMethod.GET)
+	public String countryDeleteFile(HttpSession session, RedirectAttributes redirectAttributes,
+			@RequestParam(value="idolFileId", required=true) int idolFileId) {
+		logger.debug("idolDeleteFile() idolFileId = {}", idolFileId);
+		String path = session.getServletContext().getRealPath("/resources");
+		int idolId = idolService.idolDeleteFile(idolFileId, path);	
+		redirectAttributes.addAttribute("idolId", idolId);
+		return "redirect:/idol/idolDetail";
+	}	
+ 
+ 	
+ 	//업로드 된 파일 다운로드
  	@RequestMapping(value="/idol/idolFileDown", method = RequestMethod.GET)
 	public ModelAndView idolFileDownload(HttpSession session,
 			@RequestParam(value="idolFileId", required=true) int idolFileId) {
@@ -43,10 +56,10 @@ public class IdolController{
 		return new ModelAndView("fileDownloadView", "downloadFile",downloadFile);
 	}
  	
- 	//
+ 	//업로드 된 파일 리스트
  	@RequestMapping(value="/idol/idolDetail", method = RequestMethod.GET)
 	public String idolSelectFileList(Model model, HttpSession session, 
-										@RequestParam(value="idolId", required=true) int idolId) {
+				@RequestParam(value="idolId", required=true) int idolId) {
 		logger.debug("idolSelectFileList() idolId = {}", idolId);
 		
 		if(session.getAttribute("loginMember") == null) {
@@ -114,8 +127,12 @@ public class IdolController{
  	public String idolSelectOne( Model model, @RequestParam(value="idolId", required=true) int idolId) {
  		logger.debug("idolSelectOne() idolId = {}", idolId);
  		Idol idol = idolService.idolSelectOne(idolId);
+ 		IdolAndIdolFile idolAndIdolFile = idolService.idolAndIdolFileMap(idolId);
+
  		logger.debug("idolSelectOne() idolName = {}", idol.getIdolName());
  		model.addAttribute("idol", idol);
+ 		model.addAttribute("idolAndIdolFile", idolAndIdolFile);
+ 		
  		
  		return "idol/idolUpdate";
  	}
