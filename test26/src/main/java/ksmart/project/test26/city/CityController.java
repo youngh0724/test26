@@ -29,7 +29,7 @@ public class CityController {
 	@Autowired
 	private CityService cityService;
 	
-	//입력값과 리턴값을 확인하기위해 로거기능 사용
+	//(전체해당)입력값과 리턴값을 확인하기위해 logger.debug 사용
 	private static final Logger logger = LoggerFactory.getLogger(CityController.class);
 
 	@RequestMapping(value="/city/cityFileDown", method = RequestMethod.GET)
@@ -85,6 +85,7 @@ public class CityController {
 		return "city/cityList";
 	}
 	
+	// cityDetail.jsp view파일 요청
 	@RequestMapping(value="/city/cityDetail", method = RequestMethod.GET)
 	public String citySelectListDetail(Model model, HttpSession session, 
 										@RequestParam(value="cityId", required=true) int cityId) {
